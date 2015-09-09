@@ -17,6 +17,10 @@
         <activity
             android:name=".activities.ActShowSingle"
             android:label="@string/title_activity_ashow_single" >
+        </activity>
+        <activity
+            android:name=".activities.ActShowMulti"
+            android:label="@string/title_activity_act_show_multi" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

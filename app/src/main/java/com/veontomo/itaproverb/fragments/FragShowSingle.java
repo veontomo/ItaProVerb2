@@ -11,14 +11,14 @@ import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Proverb;
 
 /**
- * A placeholder fragment containing a simple view.
+ * A fragment that displays a single proverb.
  */
 public class FragShowSingle extends Fragment {
 
     /**
      * proverb that this fragment should load
      */
-    private Proverb mItem;
+    private Proverb mProverb;
 
     /**
      * Text view of the fragment layout that displays proverb id
@@ -52,18 +52,18 @@ public class FragShowSingle extends Fragment {
     /**
      * Loads data from given proverb into corresponding layout elements
      *
-     * @param p proverb to be displayed
+     * @param proverb proverb to be displayed
      */
-    public void load(Proverb p) {
-        this.mItem = p;
+    public void load(Proverb proverb) {
+        this.mProverb = proverb;
     }
 
     /**
-     * Make the fragment layout visualize {@link #mItem}.
+     * Make the fragment layout visualize {@link #mProverb}.
      */
     public void updateView() {
-        this.mIdView.setText(String.valueOf(mItem.id));
-        this.mTextView.setText(mItem.text);
+        this.mIdView.setText(String.valueOf(mProverb.id));
+        this.mTextView.setText(mProverb.text);
 
     }
 }

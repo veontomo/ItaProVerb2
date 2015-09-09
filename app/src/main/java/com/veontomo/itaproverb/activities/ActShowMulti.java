@@ -6,40 +6,38 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.AppInit;
-import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
+import com.veontomo.itaproverb.fragments.FragShowMulti;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
-public class ActShowSingle extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    /**
-     * Id of the proverb for which this activity has been called
-     */
-    int mId;
+public class ActShowMulti extends AppCompatActivity {
 
-    private FragShowSingle mFragShowSingle;
+    private FragShowMulti mFragShowMulti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_show_single);
-        AppInit.loadProverbs(Config.PROVERB_SRC);
+        setContentView(R.layout.act_show_multi);
     }
-
 
     public void onStart(){
         super.onStart();
-        this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_show_single_frag);
+        this.mFragShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_show_multi_fragment);
+        List<Proverb> proverbs = new ArrayList<>();
+        proverbs.add(new Proverb(1, "chi cerca trova"));
+        proverbs.add(new Proverb(2, "una mela al giorno"));
+        this.mFragShowMulti.load(proverbs);
+        this.mFragShowMulti.updateView();
 
-        this.mFragShowSingle.load(new Proverb(34, "chi cerca trova"));
-        this.mFragShowSingle.updateView();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_ashow_single, menu);
+        getMenuInflater().inflate(R.menu.menu_act_show_multi, menu);
         return true;
     }
 
