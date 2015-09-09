@@ -6,15 +6,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Proverb;
+import com.veontomo.itaproverb.fragments.FragShowSingle;
 
-public class AShowSingle extends AppCompatActivity {
+public class ActShowSingle extends AppCompatActivity {
+
+    private FragShowSingle mFragShowSingle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_single);
+        setContentView(R.layout.act_show_single);
     }
 
+
+    public void onStart(){
+        super.onStart();
+        this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_show_single_frag_show_single);
+
+        this.mFragShowSingle.load(new Proverb(34, "chi cerca trova"));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
