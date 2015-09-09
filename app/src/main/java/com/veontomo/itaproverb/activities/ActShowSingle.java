@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
@@ -17,6 +18,7 @@ public class ActShowSingle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_show_single);
+        AppInit.loadProverbs("proverbs.txt");
     }
 
 
@@ -24,7 +26,7 @@ public class ActShowSingle extends AppCompatActivity {
         super.onStart();
         this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_show_single_frag_show_single);
 
-        this.mFragShowSingle.load(new Proverb(34, "chi cerca trova"));
+        this.mFragShowSingle.display(new Proverb(34, "chi cerca trova"));
     }
 
     @Override

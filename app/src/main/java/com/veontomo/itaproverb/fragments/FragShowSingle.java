@@ -25,7 +25,11 @@ public class FragShowSingle extends Fragment {
     }
 
 
-    public void load(Proverb p) {
+    /**
+     * Displays data from given proverb into corresponding layout elements
+     * @param p proverb to be displayed
+     */
+    public void display(Proverb p) {
         ((TextView) getActivity().findViewById(R.id.frag_show_single_id)).setText(String.valueOf(p.id));
         ((TextView) getActivity().findViewById(R.id.frag_show_single_text)).setText(p.text);
 
