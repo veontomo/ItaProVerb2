@@ -1,15 +1,13 @@
 <resources>
     <string name="app_name">ItaProVerb</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ashow_single">AShowSingle</string>
     <string name="title_activity_act_show_multi">Proverbs</string>
     <string name="title_activity_manager">Manager</string>
     <string name="descr_favorite">add to favorites</string>
     <string name="descr_edit">edit proverb</string>
     <string name="descr_share">share</string>
-    <string name="descr_cancel">cancel</string>
+    <string name="descr_delete">delete</string>
+    <string name="title_activity_act_search">Search</string>
 </resources>

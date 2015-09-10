@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
-import com.veontomo.itaproverb.fragments.FragShowSingle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class ActShowMulti extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_act_show_multi, menu);
+        getMenuInflater().inflate(R.menu.menu_show_multi, menu);
         return true;
     }
 
