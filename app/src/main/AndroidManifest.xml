@@ -25,15 +25,15 @@
         <activity
             android:name=".activities.ActManagerPanel"
             android:label="@string/title_activity_manager" >
+        </activity>
+        <activity
+            android:name=".activities.ActSearch"
+            android:label="@string/title_activity_act_search" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.ActSearch"
-            android:label="@string/title_activity_act_search" >
         </activity>
     </application>
 
