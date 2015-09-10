@@ -35,6 +35,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.ActProverbDay"
+            android:label="@string/title_activity_act_proverb_day" >
+        </activity>
     </application>
 
 </manifest>
