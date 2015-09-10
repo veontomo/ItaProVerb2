@@ -1,13 +1,17 @@
 package com.veontomo.itaproverb.activities;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.fragments.FragManagerPanel;
 
-public class ActManager extends AppCompatActivity {
+public class ActManager extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +40,30 @@ public class ActManager extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStatusChange() {
+        /// TODO
+        Log.i(Config.APP_NAME, "action onStatusChange has yet to be implemented");
+    }
+
+    @Override
+    public void onEdit() {
+        /// TODO
+        Log.i(Config.APP_NAME, "action onEdit has yet to be implemented");
+    }
+
+    @Override
+    public void onShare() {
+        /// TODO
+        Log.i(Config.APP_NAME, "action onShare has yet to be implemented");
+    }
+
+    @Override
+    public void onDelete() {
+        /// TODO
+        Log.i(Config.APP_NAME, "action onDelete has yet to be implemented");
+
     }
 }
