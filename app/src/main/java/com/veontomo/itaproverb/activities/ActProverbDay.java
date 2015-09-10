@@ -8,14 +8,33 @@ import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Proverb;
+import com.veontomo.itaproverb.api.ProverbDay;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
+import com.veontomo.itaproverb.fragments.FragShowSingle;
 
 public class ActProverbDay extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
+
+    /**
+     * Fragments that manages single proverb visualisation.
+     */
+    private FragShowSingle mProverbFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proverb_day);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        ProverbDay provider = new ProverbDay();
+        Proverb proverb = provider.todayProverb();
+        mProverbFragment = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_day_frag_proverb);
+        mProverbFragment.load(proverb);
+        mProverbFragment.updateView();
+
     }
 
     @Override
