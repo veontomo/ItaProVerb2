@@ -11,7 +11,7 @@ import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 
-public class ActManager extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
+public class ActManagerPanel extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

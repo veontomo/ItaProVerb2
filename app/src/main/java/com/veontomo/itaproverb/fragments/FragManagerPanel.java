@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
 
@@ -31,7 +30,7 @@ public class FragManagerPanel extends Fragment {
     /**
      * An image view that holds "cancel" button
      */
-    private ImageView mCancel;
+    private ImageView mDelete;
 
     /**
      * An image view that holds "cancel" button
@@ -57,13 +56,83 @@ public class FragManagerPanel extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
         this.mShare = (ImageView) getActivity().findViewById(R.id.frag_manager_share);
         this.mEdit = (ImageView) getActivity().findViewById(R.id.frag_manager_edit);
-        this.mCancel = (ImageView) getActivity().findViewById(R.id.frag_manager_cancel);
+        this.mDelete = (ImageView) getActivity().findViewById(R.id.frag_manager_delete);
         this.mStatus = (ImageView) getActivity().findViewById(R.id.frag_manager_star);
 
         this.hostActivity = (ManagerPanelActions) getActivity();
+
+        attachListeners();
+    }
+
+
+    @Override
+    public void onStop() {
+        detachListeners();
+        this.hostActivity = null;
+        this.mStatus = null;
+        this.mDelete = null;
+        this.mEdit = null;
+        this.mShare = null;
+        super.onStop();
+    }
+
+
+    /**
+     * Detaches listeners from the buttons in the opposite order as it was done in {@link #attachListeners()}.
+     *
+     */
+    private void detachListeners() {
+        this.mDelete.setOnClickListener(null);
+        this.mEdit.setOnClickListener(null);
+        this.mStatus.setOnClickListener(null);
+        this.mShare.setOnClickListener(null);
+
+    }
+
+
+    /**
+     * Attaches listeners to the buttons.
+     *
+     * One could create a method for these similar-looking actions, but this approach would
+     * require too much additional code (i.e., try-catch block and Reflection library), so
+     * I have decided to set up the all the listeners manually.
+     *
+     */
+    private void attachListeners() {
+        this.mShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hostActivity.onShare();
+            }
+        });
+        this.mStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hostActivity.onStatusChange();
+            }
+        });
+        this.mEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hostActivity.onEdit();
+            }
+        });
+        this.mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hostActivity.onDelete();
+            }
+        });
+
+
     }
 
 
