@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/owl"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.Manager"
+            android:name=".activities.ActManager"
             android:label="@string/title_activity_manager" >
         </activity>
     </application>

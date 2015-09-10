@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
 
-public class Manager extends AppCompatActivity {
+public class ActManager extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
