@@ -18,12 +18,18 @@ import com.veontomo.itaproverb.fragments.FragShowMulti;
 
 import java.util.List;
 
-public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddActions, FragSearch.FragSearchActions {
+public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddActions,
+        FragSearch.FragSearchActions, FragShowMulti.ShowMultiActions {
 
     /**
      * a fragment that takes care of visualization of multiple proverbs
      */
     private FragShowMulti mShowMulti;
+
+    /**
+     * Proverbs that are passed to the fragment {@link #mShowMulti}.
+     */
+    private List<Proverb> mProverbs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +46,8 @@ public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddA
         super.onStart();
         this.mShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_show_multi);
         ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-        List<Proverb> proverbs = provider.getAllProverbs();
-        this.mShowMulti.load(proverbs);
+        this.mProverbs = provider.getAllProverbs();
+        this.mShowMulti.load(mProverbs);
         this.mShowMulti.updateView();
     }
 
@@ -93,5 +99,13 @@ public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddA
     public void onSearch(String searchTerm) {
         /// TODO
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        /// TODO
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Log.i(Config.APP_NAME, "click on "+ position);
+        Log.i(Config.APP_NAME, this.mProverbs.get(position).text);
     }
 }

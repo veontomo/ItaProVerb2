@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.veontomo.itaproverb.R;
@@ -34,6 +35,12 @@ public class FragShowMulti extends Fragment {
      */
     private ListView mListView;
 
+    /**
+     * Activity that hosts this fragment.
+     * <p>The activity is cast to {@link FragShowMulti.ShowMultiActions} interface.</p>
+     */
+    private ShowMultiActions hostActivity;
+
     public FragShowMulti() {
     }
 
@@ -46,18 +53,40 @@ public class FragShowMulti extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        this.hostActivity = (ShowMultiActions) getActivity();
+
         this.mAdapter = new ProverbAdapter(getContext(), null);
         this.mListView = (ListView) getActivity().findViewById(R.id.frag_show_multi_list);
         this.mListView.setAdapter(this.mAdapter);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                hostActivity.onItemClick(position);
+            }
+        });
+
     }
 
     public void load(List<Proverb> proverbs) {
         this.mProverbs = proverbs;
         this.mAdapter.load(this.mProverbs);
-        Log.i(Config.APP_NAME, "loading proverbs " + proverbs.size());
     }
 
     public void updateView(){
         this.mAdapter.notifyDataSetChanged();
+    }
+
+
+    public interface ShowMultiActions {
+        /**
+         * It is called when an item that this fragment visualizes gets clicked.
+         * @param position
+         */
+        void onItemClick(int position);
     }
 }

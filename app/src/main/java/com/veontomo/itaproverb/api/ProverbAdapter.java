@@ -41,7 +41,6 @@ public class ProverbAdapter extends BaseAdapter {
     public ProverbAdapter(Context context, List<Proverb> proverbs) {
         this.mContext = context;
         this.mItems = proverbs;
-        Log.i(Config.APP_NAME, "proverb adapter");
     }
 
     @Override
@@ -56,7 +55,6 @@ public class ProverbAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.i(Config.APP_NAME, "proverb adapter: get view");
         View row = convertView;
 
         if (row == null){
