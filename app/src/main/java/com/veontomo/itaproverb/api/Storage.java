@@ -168,63 +168,7 @@ public class Storage extends SQLiteOpenHelper {
                 ProverbEntry.TABLE_NAME + " (" +
                 ProverbEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ProverbEntry.COLUMN_TEXT + " TEXT NOT NULL UNIQUE ON CONFLICT IGNORE)";
-        public static final String SELECT_ALL = "SELECT * FROM " + ProverbEntry.TABLE_NAME + ";";
         public static final String NUMBER_OF_RECORDS = "SELECT COUNT(*) FROM " + ProverbEntry.TABLE_NAME + ";";
-        public static final String SELECT_FAVORITES = "SELECT * FROM " + ProverbEntry.TABLE_NAME + " WHERE " +
-                ProverbEntry._ID + " IN (SELECT " + FavoriteEntry.COLUMN_PROVERB_ID + " FROM " +
-                FavoriteEntry.TABLE_NAME + ");";
-
-        public static final String SELECT_SIMILAR = "SELECT * FROM " + ProverbEntry.TABLE_NAME +
-                " WHERE " + ProverbEntry.COLUMN_TEXT + " LIKE ?";
-        public static final String SELECT_RANDOM = "SELECT * FROM " + ProverbEntry.TABLE_NAME +
-                " ORDER BY RANDOM() LIMIT 1; ";
-        public static final String SELECT_RANDOM_NON_REPEATING = "SELECT * FROM " + ProverbEntry.TABLE_NAME +
-                " WHERE " + ProverbEntry._ID + " NOT IN (SELECT " +
-                TodayProverbsEntry.COLUMN_PROVERB_ID + " FROM " +
-                TodayProverbsEntry.TABLE_NAME + " ORDER BY " +
-                TodayProverbsEntry.COLUMN_DATE + " DESC LIMIT ?) ORDER BY RANDOM () LIMIT 1";
-
-        public static final String RECENT_PROVERBS = "SELECT " +
-                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry._ID + " AS " + TodayProverbsEntry._ID_ALTERNATIVE + ", " +
-                ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID + " AS " + ProverbEntry._ID + ", " +
-                ProverbEntry.TABLE_NAME + "." + ProverbEntry.COLUMN_TEXT + " AS " + ProverbEntry.COLUMN_TEXT + ", " +
-                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_DATE + " AS " + TodayProverbsEntry.COLUMN_DATE +
-                " FROM " +
-                ProverbEntry.TABLE_NAME +
-                ", " +
-                TodayProverbsEntry.TABLE_NAME +
-                " WHERE " + ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID + " = "
-                + TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_PROVERB_ID +
-                " ORDER BY " + TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_DATE + " DESC" +
-                " LIMIT ?;";
-        public static final String OLDER_PROVERBS = "SELECT " +
-                ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID + " AS " + ProverbEntry._ID + ", " +
-                ProverbEntry.TABLE_NAME + "." + ProverbEntry.COLUMN_TEXT + " AS " + ProverbEntry.COLUMN_TEXT + ", " +
-                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_DATE + " AS " + TodayProverbsEntry.COLUMN_DATE + ", " +
-                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry._ID + " AS " + TodayProverbsEntry._ID_ALTERNATIVE +
-                " FROM " +
-                ProverbEntry.TABLE_NAME +
-                ", " +
-                TodayProverbsEntry.TABLE_NAME +
-                " WHERE " + ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID + " = " +
-                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_PROVERB_ID +
-                " AND " + TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry._ID + " < ? " +
-                " ORDER BY " + TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_DATE + " DESC" +
-                " LIMIT ?;";
-        public static final String NEWER_PROVERBS = "SELECT " +
-                ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID + " AS " + ProverbEntry._ID + ", " +
-                ProverbEntry.TABLE_NAME + "." + ProverbEntry.COLUMN_TEXT + " AS " + ProverbEntry.COLUMN_TEXT + ", " +
-                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_DATE + " AS " + TodayProverbsEntry.COLUMN_DATE + ", " +
-                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry._ID + " AS " + TodayProverbsEntry._ID_ALTERNATIVE +
-                " FROM " +
-                ProverbEntry.TABLE_NAME +
-                ", " +
-                TodayProverbsEntry.TABLE_NAME +
-                " WHERE " + ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID + " = " +
-                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_PROVERB_ID +
-                " AND " + TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry._ID + " > ? " +
-                " ORDER BY " + TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_DATE + " DESC" +
-                " LIMIT ?;";
     }
 
     /**
@@ -245,14 +189,12 @@ public class Storage extends SQLiteOpenHelper {
                 FavoriteEntry.COLUMN_PROVERB_ID + " INTEGER, " +
                 "FOREIGN KEY(" + FavoriteEntry.COLUMN_PROVERB_ID + ") REFERENCES " + ProverbEntry.TABLE_NAME + "(" + ProverbEntry._ID + ")" +
                 ")";
-        public static final String SELECT_ALL = "SELECT * FROM " + FavoriteEntry.TABLE_NAME + ";";
     }
 
     public static abstract class TodayProverbsEntry implements BaseColumns {
         public static final String TABLE_NAME = "TodayProverbs";
         public static final String COLUMN_DATE = "date";
         public static final String COLUMN_PROVERB_ID = "proverb_id";
-        public static final String _ID_ALTERNATIVE = "_id_alt";
     }
 
     public static abstract class TodayProverbsQueries {
