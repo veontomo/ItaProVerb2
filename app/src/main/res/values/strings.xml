@@ -17,4 +17,6 @@
     <string name="title_activity_act_proverb_oracle">ProverbOracle</string>
     <string name="title_activity_act__favorites">Favorite Proverbs</string>
     <string name="title_activity_act_add_proverb">Add Proverb</string>
+    <string name="proverb_loading_success">Success</string>
+    <string name="proverb_loading_failure">Failure</string>
 </resources>

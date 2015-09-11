@@ -24,7 +24,6 @@ public class ActShowSingle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_show_single);
-        AppInit.loadProverbs(Config.PROVERB_SRC);
     }
 
 

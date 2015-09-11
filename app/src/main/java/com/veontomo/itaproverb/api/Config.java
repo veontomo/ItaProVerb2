@@ -16,11 +16,16 @@ public abstract class Config {
      * a tag to mark the app
      */
     public static final String APP_NAME = "ItaProVerb";
+
     /**
-     * name of the file that contains the proverbs to be loaded as the app gets executed
-     * for the first time.
+     * name of the file that contains the proverbs in plain text format.
      */
     public static final String PROVERB_SRC = "proverbs.txt";
+
+    /**
+     * Encoding of file {@link #PROVERB_SRC} that contains proverbs.
+     */
+    public static final String ENCODING = "UTF-8";
 
     /**
      * Strict mode initialisation.
@@ -41,4 +46,5 @@ public abstract class Config {
                 .penaltyDeath()
                 .build());
     }
+
 }

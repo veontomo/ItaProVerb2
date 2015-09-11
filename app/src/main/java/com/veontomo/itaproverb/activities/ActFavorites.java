@@ -1,19 +1,25 @@
 package com.veontomo.itaproverb.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
+import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragAddProverb;
 import com.veontomo.itaproverb.fragments.FragSearch;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class ActFavorites extends AppCompatActivity implements FragAddProverb.FragAddActions, FragSearch.FragSearchActions {
@@ -30,6 +36,7 @@ public class ActFavorites extends AppCompatActivity implements FragAddProverb.Fr
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_favorites);
+        AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
     }
 
     @Override
