@@ -35,21 +35,6 @@ public class FragShowSingle extends Fragment {
      */
     private TextView mTextView;
 
-    /**
-     * Activity that hosts this fragment.
-     * <p>The activity is cast to {@link FragShowSingle.ShowSingleActions}.</p>
-     */
-    private ShowSingleActions hostActivity;
-    /**
-     * A gesture detector
-     */
-    private GestureDetectorCompat mDetector;
-    /**
-     * Gesture listener that
-     */
-    private CustomGestureListener mGestureListener;
-
-
     public FragShowSingle() {
     }
 
@@ -70,28 +55,13 @@ public class FragShowSingle extends Fragment {
         super.onStart();
         this.mIdView = (TextView) getActivity().findViewById(R.id.frag_show_single_id);
         this.mTextView = (TextView) getActivity().findViewById(R.id.frag_show_single_text);
-        this.hostActivity = (ShowSingleActions) getActivity();
-
-        this.mGestureListener = new CustomGestureListener(this.hostActivity);
-        this.mDetector = new GestureDetectorCompat(getActivity(), mGestureListener);
-
-        this.mTextView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(final View view, final MotionEvent event) {
-                mDetector.onTouchEvent(event);
-                return true;
-            }
-        });
-
     }
 
 
     @Override
     public void onStop() {
-        this.mTextView.setOnTouchListener(null);
-        this.mDetector = null;
-        this.mGestureListener = null;
-        this.hostActivity = null;
+        this.mTextView = null;
+        this.mIdView = null;
         super.onStop();
     }
 
@@ -112,53 +82,4 @@ public class FragShowSingle extends Fragment {
         this.mTextView.setText(mProverb.text);
 
     }
-
-    /**
-     * Interface that a hosting activity should implement in order to be able to receive
-     * calls to actions from this fragments.
-     */
-    public interface ShowSingleActions {
-        /**
-         * It is called when the next proverb is requested
-         */
-        void onNext();
-
-        /**
-         * It is called when the previous proverb is requested
-         */
-        void onPrevious();
-    }
-
-    /**
-     * Gesture listener that detects fling-like gestures and calls hosting activity methods
-     * when the gesture is detected.
-     */
-    class CustomGestureListener extends GestureDetector.SimpleOnGestureListener {
-        /**
-         * hosting activity
-         */
-        private final ShowSingleActions mActivity;
-
-        public CustomGestureListener(ShowSingleActions hostingActivity) {
-            this.mActivity = hostingActivity;
-        }
-
-        @Override
-        public boolean onFling(MotionEvent event1, MotionEvent event2,
-                               float velocityX, float velocityY) {
-            if (this.mActivity != null) {
-                float dx = event2.getX() - event1.getX();
-                if (dx > 0) {
-                    mActivity.onNext();
-                } else {
-                    mActivity.onPrevious();
-                }
-            } else {
-                Log.i(Config.APP_NAME, "method CustomGestureListener.onFling reports hosting activity is empty.");
-            }
-            return true;
-        }
-
-    }
-
 }

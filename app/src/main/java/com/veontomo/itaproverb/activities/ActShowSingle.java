@@ -12,7 +12,7 @@ import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
-public class ActShowSingle extends AppCompatActivity implements FragShowSingle.ShowSingleActions {
+public class ActShowSingle extends AppCompatActivity {
 
     /**
      * Id of the proverb for which this activity has been called
@@ -59,15 +59,4 @@ public class ActShowSingle extends AppCompatActivity implements FragShowSingle.S
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onNext() {
-        /// TODO
-        Log.i(Config.APP_NAME, "method onNext in ActShowSingle is not implemented yet");
-    }
-
-    @Override
-    public void onPrevious() {
-        /// TODO
-        Log.i(Config.APP_NAME, "method onPrevious in ActShowSingle is not implemented yet");
-    }
 }

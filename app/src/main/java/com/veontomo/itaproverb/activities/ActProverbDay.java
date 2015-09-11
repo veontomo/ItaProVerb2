@@ -2,10 +2,14 @@ package com.veontomo.itaproverb.activities;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
@@ -14,12 +18,23 @@ import com.veontomo.itaproverb.api.ProverbDay;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
-public class ActProverbDay extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions, FragShowSingle.ShowSingleActions {
+public class ActProverbDay extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
+
+    /**
+     * A gesture detector
+     */
+    private GestureDetectorCompat mDetector;
+    /**
+     * Gesture listener that
+     */
+    private CustomGestureListener mGestureListener;
+
 
     /**
      * Fragments that manages single proverb visualisation.
      */
     private FragShowSingle mProverbFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +59,7 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         ProverbDay provider = new ProverbDay();
         Proverb proverb = provider.todayProverb();
@@ -52,6 +67,24 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
         mProverbFragment.load(proverb);
         mProverbFragment.updateView();
 
+        this.mGestureListener = new CustomGestureListener();
+        this.mDetector = new GestureDetectorCompat(this, mGestureListener);
+
+        this.mProverbFragment.getView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View view, final MotionEvent event) {
+                mDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onStop() {
+        this.mProverbFragment.getView().setOnTouchListener(null);
+        this.mDetector = null;
+        this.mGestureListener = null;
+        super.onStop();
     }
 
     @Override
@@ -100,18 +133,40 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
     public void onDelete() {
         /// TODO
         Log.i(Config.APP_NAME, "method onDelete has yet to be implemented.");
-
     }
 
-    @Override
-    public void onNext() {
-        /// TODO
-        Log.i(Config.APP_NAME, "method onNext in ActProverb is not implemented yet");
+
+    /**
+     * Gesture listener that detects fling-like gestures and calls hosting activity methods
+     * when the gesture is detected.
+     */
+    class CustomGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2,
+                               float velocityX, float velocityY) {
+            float dx = event2.getX() - event1.getX();
+            if (dx > 0) {
+                showOlderProverb();
+            } else {
+                showNewerProverb();
+            }
+            return true;
+        }
     }
 
-    @Override
-    public void onPrevious() {
+    /**
+     * Retrieves older proverb of the day and passes it to {@link FragShowSingle} fragment.
+     */
+    private void showOlderProverb() {
         /// TODO
-        Log.i(Config.APP_NAME, "method onPrevious in ActProverb is not implemented yet");
+        Log.i(Config.APP_NAME, "method showOlderProverb has yet to be implemented.");
+    }
+
+    /**
+     * Retrieves newer proverb of the day and passes it to {@link FragShowSingle} fragment.
+     */
+    private void showNewerProverb() {
+        /// TODO
+        Log.i(Config.APP_NAME, "method showNewerProverb has yet to be implemented.");
     }
 }
