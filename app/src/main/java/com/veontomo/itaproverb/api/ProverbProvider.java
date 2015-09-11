@@ -28,7 +28,7 @@ public class ProverbProvider {
      */
     public Proverb todayProverb() {
         /// TODO
-        return new Proverb(443, "Chi cerca trova");
+        return new Proverb(443, "Chi cerca trova", true);
     }
 
 
@@ -36,14 +36,21 @@ public class ProverbProvider {
         /// TODO
         Random randomGenerator = new Random();
         int id = randomGenerator.nextInt(1000);
-        return new Proverb(id, "Random text: " + String.valueOf(randomGenerator.nextInt(88)));
+        return new Proverb(id, "Random text: " + String.valueOf(randomGenerator.nextInt(88)), id % 2 == 0);
     }
 
     /**
      * Returns favorite proverbs
      */
     public List<Proverb> favoriteProverbs() {
-        List<Proverb> output = mStorage.getFavorites();
-        return output;
+        return mStorage.getFavorites();
+    }
+
+    /**
+     * Returns list of all proverbs (taking in consideration their statuses as well)
+     * @return
+     */
+    public List<Proverb> getAllProverbs() {
+        return mStorage.getAllProverbs();
     }
 }

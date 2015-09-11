@@ -31,7 +31,7 @@ public class ActShowSingle extends AppCompatActivity {
         super.onStart();
         this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_show_single_frag);
 
-        this.mFragShowSingle.load(new Proverb(34, "chi cerca trova"));
+        this.mFragShowSingle.load(new Proverb(34, "chi cerca trova", true));
         this.mFragShowSingle.updateView();
     }
 

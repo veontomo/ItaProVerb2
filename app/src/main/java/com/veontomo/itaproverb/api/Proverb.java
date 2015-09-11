@@ -21,13 +21,19 @@ public class Proverb {
     public final int id;
 
     /**
+     * Whether the proverb is among favorites or not.
+     */
+    public final boolean isFavorite;
+
+    /**
      * Constructor.
-     * <p>To be used for creation of proverbs that have noty been yet saved in a storage.</p>
+     * <p>To be used for creation of proverbs that have not been yet saved in a storage.</p>
      * @param text proverb content
      */
-    public Proverb(String text){
+    public Proverb(String text, boolean isFavorite){
         this.id = NO_ID;
         this.text = text;
+        this.isFavorite = isFavorite;
     }
 
     /**
@@ -35,9 +41,10 @@ public class Proverb {
      * @param id  proverb id
      * @param text proverb content
      */
-    public Proverb(int id, String text){
+    public Proverb(int id, String text, boolean isFavorite){
         this.id = id;
         this.text = text;
+        this.isFavorite = isFavorite;
     }
 
 

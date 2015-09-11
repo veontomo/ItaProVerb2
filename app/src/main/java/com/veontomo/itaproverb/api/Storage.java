@@ -159,7 +159,7 @@ public class Storage extends SQLiteOpenHelper {
     public List<Proverb> getFavorites() {
         List<Proverb> proverbs = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(ProverbQueries.FAVORITE_PROVERBS, null);
+        Cursor cursor = db.rawQuery(FavoriteQueries.FAVORITE_PROVERBS, null);
         int textColId = cursor.getColumnIndex(ProverbEntry.COLUMN_TEXT);
         int idColId = cursor.getColumnIndex(ProverbEntry._ID);
         if (cursor.moveToFirst()) {
@@ -167,7 +167,60 @@ public class Storage extends SQLiteOpenHelper {
             int id;
             do {
                 id = (int) cursor.getLong(idColId);
-                proverb = new Proverb( id, cursor.getString(textColId));
+                proverb = new Proverb(id, cursor.getString(textColId), true);
+                proverbs.add(proverb);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return proverbs;
+
+    }
+
+
+
+    /**
+     * Returns list of favorite proverb ids.
+     * <p/>
+     * This list is used by a method that retrieves all proverbs and controls
+     * whether a given proverb is favorite or not. In order to avoid multiple
+     * requests to a database, the list of favorite ids is retrieved just ones
+     * and then it is controlled whether the id of given proverb belongs to
+     * this list or not.
+     *
+     * @return list of ids of favorite proverbs
+     */
+    private List<Integer> retrieveFavoriteIds(SQLiteDatabase db) {
+        List<Integer> favorites = new ArrayList<>();
+        Cursor cursor = db.rawQuery(FavoriteQueries.SELECT_PROVERB_IDS, null);
+        int proverbIdColNum = cursor.getColumnIndex(FavoriteEntry.COLUMN_PROVERB_ID);
+        if (cursor.moveToFirst()) {
+            do {
+                favorites.add((int) cursor.getLong(proverbIdColNum));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return favorites;
+    }
+
+    /**
+     * Returns list of all proverbs taking into account their status (favorite/non-favorite)
+     * @return
+     */
+    public List<Proverb> getAllProverbs() {
+        List<Proverb> proverbs = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(ProverbQueries.SELECT_ALL, null);
+        int textColId = cursor.getColumnIndex(ProverbEntry.COLUMN_TEXT);
+        int idColId = cursor.getColumnIndex(ProverbEntry._ID);
+        List<Integer> favoriteIds = retrieveFavoriteIds(db);
+
+        if (cursor.moveToFirst()) {
+            Proverb proverb;
+            int id;
+            do {
+                id = (int) cursor.getLong(idColId);
+                proverb = new Proverb(id, cursor.getString(textColId), favoriteIds.contains(id));
                 proverbs.add(proverb);
             } while (cursor.moveToNext());
         }
@@ -195,8 +248,7 @@ public class Storage extends SQLiteOpenHelper {
                 ProverbEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ProverbEntry.COLUMN_TEXT + " TEXT NOT NULL UNIQUE ON CONFLICT IGNORE)";
         public static final String NUMBER_OF_RECORDS = "SELECT COUNT(*) FROM " + ProverbEntry.TABLE_NAME + ";";
-        public static final String FAVORITE_PROVERBS = "SELECT * FROM "+ ProverbEntry.TABLE_NAME +
-                " WHERE _id IN (SELECT " + FavoriteEntry.COLUMN_PROVERB_ID + " FROM " + FavoriteEntry.TABLE_NAME + ");";
+        public static final String SELECT_ALL = "SELECT * FROM " + ProverbEntry.TABLE_NAME + ";";
     }
 
     /**
@@ -211,12 +263,25 @@ public class Storage extends SQLiteOpenHelper {
      * Various Favorites-table related queries
      */
     public static abstract class FavoriteQueries {
+        /**
+         * Query to construct the table
+         */
         public static final String CREATE_TABLE = "CREATE TABLE " +
                 FavoriteEntry.TABLE_NAME + " (" +
                 FavoriteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 FavoriteEntry.COLUMN_PROVERB_ID + " INTEGER, " +
                 "FOREIGN KEY(" + FavoriteEntry.COLUMN_PROVERB_ID + ") REFERENCES " + ProverbEntry.TABLE_NAME + "(" + ProverbEntry._ID + ")" +
                 ")";
+        /**
+         * Query to retrieve ids and content of proverbs that are favorites
+         */
+        public static final String FAVORITE_PROVERBS = "SELECT * FROM " + ProverbEntry.TABLE_NAME +
+                " WHERE " + ProverbEntry._ID + " IN (SELECT " + FavoriteEntry.COLUMN_PROVERB_ID + " FROM " + FavoriteEntry.TABLE_NAME + ");";
+        /**
+         * Query to retrieve ids of the favorite proverbs
+         */
+        public static final String SELECT_PROVERB_IDS = "SELECT " + FavoriteEntry.COLUMN_PROVERB_ID +
+                " FROM " + FavoriteEntry.TABLE_NAME + ";";
     }
 
     public static abstract class TodayProverbsEntry implements BaseColumns {
