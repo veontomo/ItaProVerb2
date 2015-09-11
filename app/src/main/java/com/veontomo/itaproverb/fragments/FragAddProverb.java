@@ -52,7 +52,6 @@ public class FragAddProverb extends Fragment {
                 }
             }
         });
-
     }
 
 

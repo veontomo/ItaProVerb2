@@ -1,6 +1,6 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          android:id="@+id/fragment"
+          android:id="@+id/act_add_proverb_frag"
           android:name="com.veontomo.itaproverb.fragments.FragAddProverb"
           tools:layout="@layout/frag_add_proverb"
           android:layout_width="match_parent"

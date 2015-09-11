@@ -20,6 +20,15 @@
         android:layout_weight="1"
         tools:layout="@layout/frag_show_multi"/>
 
+    <fragment android:id="@+id/act_favorites_frag_add"
+              android:name="com.veontomo.itaproverb.fragments.FragAddProverb"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              tools:layout="@layout/frag_add_proverb"/>
+
+
     <fragment
         android:id="@+id/act_favorites_frag_search"
         android:name="com.veontomo.itaproverb.fragments.FragSearch"

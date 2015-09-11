@@ -12,7 +12,7 @@ public class ActFavorites extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act__favorites);
+        setContentView(R.layout.act_favorites);
     }
 
     @Override
