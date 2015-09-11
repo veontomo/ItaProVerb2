@@ -39,7 +39,6 @@ public class FragManagerPanel extends Fragment {
 
     /**
      * Hosting activity that is cast to {@link com.veontomo.itaproverb.fragments.FragManagerPanel.ManagerPanelActions}
-     *
      */
     private ManagerPanelActions hostActivity;
 
