@@ -14,6 +14,6 @@ public class ProverbDay {
      */
     public Proverb todayProverb() {
         /// TODO
-        return new Proverb(1, "stub");
+        return new Proverb(443, "Chi cerca trova");
     }
 }

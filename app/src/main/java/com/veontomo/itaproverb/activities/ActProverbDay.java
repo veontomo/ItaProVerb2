@@ -1,6 +1,7 @@
 package com.veontomo.itaproverb.activities;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +23,22 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (!Config.PRODUCTION_MODE) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectDiskReads()
+                    .detectDiskWrites()
+//                    .detectNetwork()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectLeakedSqlLiteObjects()
+                    .detectLeakedClosableObjects()
+                    .penaltyLog()
+                    .penaltyDeath()
+                    .build());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proverb_day);
     }
@@ -68,7 +85,7 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
     @Override
     public void onEdit() {
         /// TODO
-        Log.i(Config.APP_NAME, "method onStatusChanged has yet to be implemented.");
+        Log.i(Config.APP_NAME, "method onEdit has yet to be implemented.");
 
     }
 

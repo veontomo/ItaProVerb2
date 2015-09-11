@@ -3,6 +3,7 @@ package com.veontomo.itaproverb.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 
 /**
@@ -42,6 +44,10 @@ public class FragShowSingle extends Fragment {
      * A gesture detector
      */
     private GestureDetectorCompat mDetector;
+    /**
+     * Gesture listener that
+     */
+    private CustomGestureListener mGestureListener;
 
 
     public FragShowSingle() {
@@ -66,9 +72,10 @@ public class FragShowSingle extends Fragment {
         this.mTextView = (TextView) getActivity().findViewById(R.id.frag_show_single_text);
         this.hostActivity = (ShowSingleActions) getActivity();
 
-        mDetector = new GestureDetectorCompat(getActivity(), new SwipeGestureListener());
+        this.mGestureListener = new CustomGestureListener(this.hostActivity);
+        this.mDetector = new GestureDetectorCompat(getActivity(), mGestureListener);
 
-        mTextView.setOnTouchListener(new View.OnTouchListener() {
+        this.mTextView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(final View view, final MotionEvent event) {
                 mDetector.onTouchEvent(event);
@@ -81,6 +88,9 @@ public class FragShowSingle extends Fragment {
 
     @Override
     public void onStop() {
+        this.mTextView.setOnTouchListener(null);
+        this.mDetector = null;
+        this.mGestureListener = null;
         this.hostActivity = null;
         super.onStop();
     }
@@ -120,17 +130,31 @@ public class FragShowSingle extends Fragment {
     }
 
     /**
-     * Gesture listener that detects fling-like gestures
+     * Gesture listener that detects fling-like gestures and calls hosting activity methods
+     * when the gesture is detected.
      */
-    class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
+    class CustomGestureListener extends GestureDetector.SimpleOnGestureListener {
+        /**
+         * hosting activity
+         */
+        private final ShowSingleActions mActivity;
+
+        public CustomGestureListener(ShowSingleActions hostingActivity) {
+            this.mActivity = hostingActivity;
+        }
+
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
-            float dx = event2.getX() - event1.getX();
-            if (dx > 0) {
-                hostActivity.onNext();
+            if (this.mActivity != null) {
+                float dx = event2.getX() - event1.getX();
+                if (dx > 0) {
+                    mActivity.onNext();
+                } else {
+                    mActivity.onPrevious();
+                }
             } else {
-                hostActivity.onPrevious();
+                Log.i(Config.APP_NAME, "method CustomGestureListener.onFling reports hosting activity is empty.");
             }
             return true;
         }
