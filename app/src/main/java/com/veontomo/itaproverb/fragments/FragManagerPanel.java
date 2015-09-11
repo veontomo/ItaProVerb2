@@ -131,10 +131,7 @@ public class FragManagerPanel extends Fragment {
                 hostActivity.onDelete();
             }
         });
-
-
     }
-
 
     /**
      * interface that hosting activity should implement in order to receive actions from this fragment

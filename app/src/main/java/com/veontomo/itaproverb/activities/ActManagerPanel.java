@@ -1,6 +1,5 @@
 package com.veontomo.itaproverb.activities;
 
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +15,7 @@ public class ActManagerPanel extends AppCompatActivity implements FragManagerPan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_manager);
+        setContentView(R.layout.act_manager_panel);
     }
 
 

@@ -29,11 +29,12 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
      */
     private CustomGestureListener mGestureListener;
 
-
     /**
      * Fragments that manages single proverb visualisation.
      */
     private FragShowSingle mProverbFragment;
+
+    private View mProverbFragmentView;
 
 
     @Override
@@ -55,33 +56,41 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_proverb_day);
+        setContentView(R.layout.act_proverb_day);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        ProverbDay provider = new ProverbDay();
-        Proverb proverb = provider.todayProverb();
         mProverbFragment = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_day_frag_proverb);
-        mProverbFragment.load(proverb);
-        mProverbFragment.updateView();
+        if (mProverbFragment != null) {
+            ProverbDay provider = new ProverbDay();
+            Proverb proverb = provider.todayProverb();
+            mProverbFragment.load(proverb);
+            mProverbFragment.updateView();
 
-        this.mGestureListener = new CustomGestureListener();
-        this.mDetector = new GestureDetectorCompat(this, mGestureListener);
+            this.mGestureListener = new CustomGestureListener();
+            this.mDetector = new GestureDetectorCompat(this, mGestureListener);
 
-        this.mProverbFragment.getView().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(final View view, final MotionEvent event) {
-                mDetector.onTouchEvent(event);
-                return true;
+            this.mProverbFragmentView = this.mProverbFragment.getView();
+            if (this.mProverbFragmentView != null) {
+                this.mProverbFragment.getView().setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(final View view, final MotionEvent event) {
+                        mDetector.onTouchEvent(event);
+                        return true;
+                    }
+                });
             }
-        });
+        }
     }
 
     @Override
     public void onStop() {
-        this.mProverbFragment.getView().setOnTouchListener(null);
+        if (this.mProverbFragmentView != null) {
+            this.mProverbFragmentView.setOnTouchListener(null);
+            this.mProverbFragmentView = null;
+        }
         this.mDetector = null;
         this.mGestureListener = null;
         super.onStop();
@@ -112,27 +121,26 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
     @Override
     public void onStatusChange() {
         /// TODO
-        Log.i(Config.APP_NAME, "method onStatusChanged has yet to be implemented.");
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+
     }
 
     @Override
     public void onEdit() {
         /// TODO
-        Log.i(Config.APP_NAME, "method onEdit has yet to be implemented.");
-
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
     }
 
     @Override
     public void onShare() {
         /// TODO
-        Log.i(Config.APP_NAME, "method onShare has yet to be implemented.");
-
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
     }
 
     @Override
     public void onDelete() {
         /// TODO
-        Log.i(Config.APP_NAME, "method onDelete has yet to be implemented.");
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
     }
 
 

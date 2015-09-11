@@ -14,4 +14,5 @@
     <string name="title_activity_act_proverb_day">Proverb of the day</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_act_proverb_oracle">ProverbOracle</string>
 </resources>

@@ -33,6 +33,10 @@
         <activity
             android:name=".activities.ActProverbDay"
             android:label="@string/title_activity_act_proverb_day" >
+        </activity>
+        <activity
+            android:name=".activities.ActProverbOracle"
+            android:label="@string/title_activity_act_proverb_oracle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
