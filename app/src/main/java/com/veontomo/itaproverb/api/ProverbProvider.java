@@ -15,6 +15,12 @@ import java.util.Random;
  */
 public class ProverbProvider {
 
+
+    private final Storage mStorage;
+
+    public ProverbProvider(Storage storage){
+        this.mStorage = storage;
+    }
     /**
      * Returns proverb of today
      *
@@ -37,12 +43,7 @@ public class ProverbProvider {
      * Returns favorite proverbs
      */
     public List<Proverb> favoriteProverbs() {
-        /// TODO: current implementation serves just to return something that looks realistic
-        List<Proverb> output = new ArrayList<>();
-        output.add(randomProverb());
-        output.add(randomProverb());
-        output.add(randomProverb());
-        output.add(randomProverb());
+        List<Proverb> output = mStorage.getFavorites();
         return output;
     }
 }

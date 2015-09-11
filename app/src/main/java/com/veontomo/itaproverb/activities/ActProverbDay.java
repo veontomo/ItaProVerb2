@@ -14,6 +14,7 @@ import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
+import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
@@ -50,7 +51,7 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
         super.onStart();
         mProverbFragment = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_day_frag_proverb);
         if (mProverbFragment != null) {
-            ProverbProvider provider = new ProverbProvider();
+            ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
             Proverb proverb = provider.todayProverb();
             mProverbFragment.load(proverb);
             mProverbFragment.updateView();

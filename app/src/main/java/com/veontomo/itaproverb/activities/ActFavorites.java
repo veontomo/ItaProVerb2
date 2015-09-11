@@ -43,7 +43,7 @@ public class ActFavorites extends AppCompatActivity implements FragAddProverb.Fr
     public void onStart() {
         super.onStart();
         this.mShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_show_multi);
-        ProverbProvider provider = new ProverbProvider();
+        ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
         List<Proverb> proverbs = provider.favoriteProverbs();
         this.mShowMulti.load(proverbs);
         this.mShowMulti.updateView();

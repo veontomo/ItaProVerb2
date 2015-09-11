@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class Storage extends SQLiteOpenHelper {
      * @return true if table exists, false otherwise.
      */
     public boolean tableProverbExists() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(ProverbQueries.NUMBER_OF_RECORDS, null);
         cursor.moveToFirst();
         int count = cursor.getInt(0);
@@ -151,6 +152,31 @@ public class Storage extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Returns list of favorite proverbs
+     * @return
+     */
+    public List<Proverb> getFavorites() {
+        List<Proverb> proverbs = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(ProverbQueries.FAVORITE_PROVERBS, null);
+        int textColId = cursor.getColumnIndex(ProverbEntry.COLUMN_TEXT);
+        int idColId = cursor.getColumnIndex(ProverbEntry._ID);
+        if (cursor.moveToFirst()) {
+            Proverb proverb;
+            int id;
+            do {
+                id = (int) cursor.getLong(idColId);
+                proverb = new Proverb( id, cursor.getString(textColId));
+                proverbs.add(proverb);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return proverbs;
+
+    }
+
 
     /**
      * Scheme of a table that stores proverbs
@@ -169,6 +195,8 @@ public class Storage extends SQLiteOpenHelper {
                 ProverbEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ProverbEntry.COLUMN_TEXT + " TEXT NOT NULL UNIQUE ON CONFLICT IGNORE)";
         public static final String NUMBER_OF_RECORDS = "SELECT COUNT(*) FROM " + ProverbEntry.TABLE_NAME + ";";
+        public static final String FAVORITE_PROVERBS = "SELECT * FROM "+ ProverbEntry.TABLE_NAME +
+                " WHERE _id IN (SELECT " + FavoriteEntry.COLUMN_PROVERB_ID + " FROM " + FavoriteEntry.TABLE_NAME + ");";
     }
 
     /**
