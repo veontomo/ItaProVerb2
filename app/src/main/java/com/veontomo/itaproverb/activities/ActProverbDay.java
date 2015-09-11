@@ -1,7 +1,6 @@
 package com.veontomo.itaproverb.activities;
 
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,21 +39,8 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (!Config.PRODUCTION_MODE) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectDiskReads()
-                    .detectDiskWrites()
-//                    .detectNetwork()
-                    .detectAll()
-                    .penaltyLog()
-                    .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build());
+            Config.strictModeInit();
         }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_proverb_day);
     }

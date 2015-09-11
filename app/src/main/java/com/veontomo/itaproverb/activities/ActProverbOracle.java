@@ -21,6 +21,9 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (!Config.PRODUCTION_MODE) {
+            Config.strictModeInit();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_proverb_oracle);
 

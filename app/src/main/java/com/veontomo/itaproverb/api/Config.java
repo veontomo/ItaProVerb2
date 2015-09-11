@@ -1,8 +1,10 @@
 package com.veontomo.itaproverb.api;
 
+import android.os.StrictMode;
+import android.util.Log;
+
 /**
  * Configuration parameters of the app.
- *
  */
 public abstract class Config {
     /**
@@ -20,4 +22,23 @@ public abstract class Config {
      */
     public static final String PROVERB_SRC = "proverbs.txt";
 
+    /**
+     * Strict mode initialisation.
+     */
+    public final static void strictModeInit() {
+        Log.i(APP_NAME, "Strict mode is initialized");
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .detectAll()
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
+    }
 }
