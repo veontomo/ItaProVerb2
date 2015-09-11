@@ -13,7 +13,7 @@ import android.view.View;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
-import com.veontomo.itaproverb.api.ProverbDay;
+import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
@@ -50,7 +50,7 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
         super.onStart();
         mProverbFragment = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_day_frag_proverb);
         if (mProverbFragment != null) {
-            ProverbDay provider = new ProverbDay();
+            ProverbProvider provider = new ProverbProvider();
             Proverb proverb = provider.todayProverb();
             mProverbFragment.load(proverb);
             mProverbFragment.updateView();

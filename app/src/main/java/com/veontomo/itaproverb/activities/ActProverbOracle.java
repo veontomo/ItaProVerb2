@@ -8,7 +8,7 @@ import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
-import com.veontomo.itaproverb.api.ProverbDay;
+import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
@@ -33,7 +33,7 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     protected void onStart() {
         super.onStart();
         this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_proverb);
-        ProverbDay provider = new ProverbDay();
+        ProverbProvider provider = new ProverbProvider();
         this.mFragShowSingle.load(provider.randomProverb());
         this.mFragShowSingle.updateView();
     }
