@@ -61,7 +61,7 @@ public class ProverbLoaderTask extends AsyncTask<Void, Integer, Boolean> {
      * @since 0.1
      */
     private List<String> readFromFile() {
-        InputStream stream;
+        InputStream stream = null;
         BufferedReader bufferedReader;
         List<String> block = new ArrayList<>();
         try {
@@ -71,6 +71,7 @@ public class ProverbLoaderTask extends AsyncTask<Void, Integer, Boolean> {
             while ((line = bufferedReader.readLine()) != null) {
                 block.add(line);
             }
+            stream.close();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {

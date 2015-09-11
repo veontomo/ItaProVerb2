@@ -1,12 +1,12 @@
 package com.veontomo.itaproverb.api;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import java.util.List;
 
@@ -122,11 +122,32 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Saves each string of the given list as a proverb content.
+     *
      * @param data list of proverb contents
+     * @return true if all strings have been saved successfully, false otherwise
      */
     public boolean saveAsProverbs(List<String> data) {
-        Log.i(Config.APP_NAME, "data contains " + data.size() + " elements");
-        return true;
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        ContentValues values;
+        Boolean outcome = true;
+        long id;
+        int size = data.size();
+        for (int i = 0; i < size; i++) {
+            values = new ContentValues();
+            values.put(ProverbEntry.COLUMN_TEXT, data.get(i));
+            id = db.insert(ProverbEntry.TABLE_NAME, null, values);
+            if (id == -1) {
+                outcome = false;
+            }
+        }
+        try {
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        db.close();
+        return outcome;
 
     }
 
