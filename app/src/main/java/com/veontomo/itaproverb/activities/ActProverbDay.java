@@ -13,7 +13,7 @@ import com.veontomo.itaproverb.api.ProverbDay;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
-public class ActProverbDay extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
+public class ActProverbDay extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions, FragShowSingle.ShowSingleActions {
 
     /**
      * Fragments that manages single proverb visualisation.
@@ -84,5 +84,17 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
         /// TODO
         Log.i(Config.APP_NAME, "method onDelete has yet to be implemented.");
 
+    }
+
+    @Override
+    public void onNext() {
+        /// TODO
+        Log.i(Config.APP_NAME, "method onNext in ActProverb is not implemented yet");
+    }
+
+    @Override
+    public void onPrevious() {
+        /// TODO
+        Log.i(Config.APP_NAME, "method onPrevious in ActProverb is not implemented yet");
     }
 }

@@ -1,7 +1,8 @@
 package com.veontomo.itaproverb.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,7 +12,7 @@ import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
-public class ActShowSingle extends AppCompatActivity {
+public class ActShowSingle extends AppCompatActivity implements FragShowSingle.ShowSingleActions {
 
     /**
      * Id of the proverb for which this activity has been called
@@ -28,7 +29,7 @@ public class ActShowSingle extends AppCompatActivity {
     }
 
 
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_show_single_frag);
 
@@ -56,5 +57,17 @@ public class ActShowSingle extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onNext() {
+        /// TODO
+        Log.i(Config.APP_NAME, "method onNext in ActShowSingle is not implemented yet");
+    }
+
+    @Override
+    public void onPrevious() {
+        /// TODO
+        Log.i(Config.APP_NAME, "method onPrevious in ActShowSingle is not implemented yet");
     }
 }
