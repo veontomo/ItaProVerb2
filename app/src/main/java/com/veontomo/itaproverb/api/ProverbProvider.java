@@ -28,7 +28,7 @@ public class ProverbProvider {
      */
     public Proverb todayProverb() {
         /// TODO
-        return new Proverb(443, "Chi cerca trova", true);
+        return randomProverb();
     }
 
 

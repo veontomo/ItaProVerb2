@@ -19,6 +19,19 @@ import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
 public class ActProverbDay extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
+    /**
+     * name of the token under which the proverb text is saved in a bundle
+     */
+    private static final String PROVERB_TEXT_TOKEN = "text";
+    /**
+     * name of the token under which the proverb id is saved in a bundle
+     */
+    private static final String PROVERB_ID_TOKEN = "id";
+    /**
+     * name of the token under which the proverb status (i.e. being favorite or not)
+     * is saved in a bundle
+     */
+    private static final String PROVERB_STATUS_TOKEN = "status";
 
     /**
      * A gesture detector
@@ -36,6 +49,11 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
 
     private View mProverbFragmentView;
 
+    /**
+     * Proverb that this activity visualizes.
+     */
+    private Proverb mProverb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +62,11 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_proverb_day);
+        if (savedInstanceState != null) {
+            this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
+                    savedInstanceState.getString(PROVERB_TEXT_TOKEN),
+                    savedInstanceState.getBoolean(PROVERB_STATUS_TOKEN));
+        }
     }
 
     @Override
@@ -51,9 +74,11 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
         super.onStart();
         mProverbFragment = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_day_frag_proverb);
         if (mProverbFragment != null) {
-            ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-            Proverb proverb = provider.todayProverb();
-            mProverbFragment.load(proverb);
+            if (this.mProverb == null) {
+                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+                mProverb = provider.todayProverb();
+            }
+            mProverbFragment.load(mProverb);
             mProverbFragment.updateView();
 
             this.mGestureListener = new CustomGestureListener();
@@ -70,6 +95,15 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
                 });
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(Config.APP_NAME, "activity proverb a day: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        outState.putString(PROVERB_TEXT_TOKEN, this.mProverb.text);
+        outState.putInt(PROVERB_ID_TOKEN, this.mProverb.id);
+        outState.putBoolean(PROVERB_STATUS_TOKEN, this.mProverb.isFavorite);
     }
 
     @Override
@@ -108,28 +142,43 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
     @Override
     public void onStatusChange() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
 
     }
 
     @Override
     public void onEdit() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 
     @Override
     public void onShare() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 
     @Override
     public void onDelete() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 
+    /**
+     * Retrieves older proverb of the day and passes it to {@link FragShowSingle} fragment.
+     */
+    private void showOlderProverb() {
+        /// TODO
+        Log.i(Config.APP_NAME, "method showOlderProverb has yet to be implemented.");
+    }
+
+    /**
+     * Retrieves newer proverb of the day and passes it to {@link FragShowSingle} fragment.
+     */
+    private void showNewerProverb() {
+        /// TODO
+        Log.i(Config.APP_NAME, "method showNewerProverb has yet to be implemented.");
+    }
 
     /**
      * Gesture listener that detects fling-like gestures and calls hosting activity methods
@@ -147,21 +196,5 @@ public class ActProverbDay extends AppCompatActivity implements FragManagerPanel
             }
             return true;
         }
-    }
-
-    /**
-     * Retrieves older proverb of the day and passes it to {@link FragShowSingle} fragment.
-     */
-    private void showOlderProverb() {
-        /// TODO
-        Log.i(Config.APP_NAME, "method showOlderProverb has yet to be implemented.");
-    }
-
-    /**
-     * Retrieves newer proverb of the day and passes it to {@link FragShowSingle} fragment.
-     */
-    private void showNewerProverb() {
-        /// TODO
-        Log.i(Config.APP_NAME, "method showNewerProverb has yet to be implemented.");
     }
 }
