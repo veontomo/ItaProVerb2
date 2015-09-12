@@ -48,7 +48,7 @@ public class FragAddProverb extends Fragment {
             @Override
             public void onClick(View v) {
                 if (hostActivity != null){
-                    hostActivity.onCreate();
+                    hostActivity.onAddNew();
                 }
             }
         });
@@ -67,7 +67,7 @@ public class FragAddProverb extends Fragment {
         /**
          * It is called when a user wants to add a new item
          */
-        void onCreate();
+        void onAddNew();
     }
 
 }

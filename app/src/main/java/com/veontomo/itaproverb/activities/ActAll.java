@@ -37,6 +37,7 @@ public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddA
             Config.strictModeInit();
         }
         super.onCreate(savedInstanceState);
+        Log.i(Config.APP_NAME, "activity show all: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_favorites);
         AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
     }
@@ -44,6 +45,7 @@ public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddA
     @Override
     public void onStart() {
         super.onStart();
+        Log.i(Config.APP_NAME, "activity show all: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_show_multi);
         ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
         this.mProverbs = provider.getAllProverbs();
@@ -53,7 +55,15 @@ public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddA
 
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(Config.APP_NAME, "activity show all: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        getSupportFragmentManager().putFragment(outState, "mContent", this.mShowMulti);
+    }
+
+    @Override
     public void onStop() {
+        Log.i(Config.APP_NAME, "activity show all: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mShowMulti = null;
         super.onStop();
     }
@@ -85,7 +95,7 @@ public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddA
      * It is called when a user wants to add a new item
      */
     @Override
-    public void onCreate() {
+    public void onAddNew() {
         /// TODO
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
@@ -105,7 +115,7 @@ public class ActAll extends AppCompatActivity implements FragAddProverb.FragAddA
     public void onItemClick(int position) {
         /// TODO
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
-        Log.i(Config.APP_NAME, "click on "+ position);
+        Log.i(Config.APP_NAME, "click on " + position);
         Log.i(Config.APP_NAME, this.mProverbs.get(position).text);
     }
 }

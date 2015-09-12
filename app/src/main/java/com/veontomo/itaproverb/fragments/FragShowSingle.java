@@ -19,7 +19,6 @@ import com.veontomo.itaproverb.api.Proverb;
  * A fragment that displays a single proverb.
  */
 public class FragShowSingle extends Fragment {
-
     /**
      * proverb that this fragment should load
      */
@@ -41,25 +40,35 @@ public class FragShowSingle extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(Config.APP_NAME, "show single "+ Thread.currentThread().getStackTrace()[2].getMethodName());
         return inflater.inflate(R.layout.frag_show_single, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        Log.i(Config.APP_NAME, "show single " + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.i(Config.APP_NAME, "show single " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mIdView = (TextView) getActivity().findViewById(R.id.frag_show_single_id);
         this.mTextView = (TextView) getActivity().findViewById(R.id.frag_show_single_text);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        Log.i(Config.APP_NAME, "show single " + Thread.currentThread().getStackTrace()[2].getMethodName());
+
     }
 
 
     @Override
     public void onStop() {
+        Log.i(Config.APP_NAME, "show single "+ Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mTextView = null;
         this.mIdView = null;
         super.onStop();

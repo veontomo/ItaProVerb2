@@ -83,7 +83,7 @@ public class ActFavorites extends AppCompatActivity implements FragAddProverb.Fr
      * It is called when a user wants to add a new item
      */
     @Override
-    public void onCreate() {
+    public void onAddNew() {
         /// TODO
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }

@@ -15,6 +15,19 @@ import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
 public class ActProverbOracle extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
+    /**
+     * name of the token under which the proverb text is saved in a bundle
+     */
+    private static final String PROVERB_TEXT_TOKEN = "text";
+    /**
+     * name of the token under which the proverb id is saved in a bundle
+     */
+    private static final String PROVERB_ID_TOKEN = "id";
+    /**
+     * name of the token under which the proverb status (i.e. being favorite or not)
+     * is saved in a bundle
+     */
+    private static final String PROVERB_STATUS_TOKEN = "status";
 
     /**
      * fragment that takes care of visualization of the proverb
@@ -32,20 +45,42 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
             Config.strictModeInit();
         }
         super.onCreate(savedInstanceState);
+        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_proverb_oracle);
+        if (savedInstanceState != null) {
+            this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
+                    savedInstanceState.getString(PROVERB_TEXT_TOKEN),
+                    savedInstanceState.getBoolean(PROVERB_STATUS_TOKEN));
+        }
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_proverb);
-        ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-        this.mProverb = provider.randomProverb();
+        if (this.mProverb == null) {
+            ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+            this.mProverb = provider.randomProverb();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         this.mFragShowSingle.load(this.mProverb);
         this.mFragShowSingle.updateView();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        outState.putString(PROVERB_TEXT_TOKEN, this.mProverb.text);
+        outState.putInt(PROVERB_ID_TOKEN, this.mProverb.id);
+        outState.putBoolean(PROVERB_STATUS_TOKEN, this.mProverb.isFavorite);
+    }
 
     @Override
     protected void onStop() {
@@ -83,7 +118,7 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     @Override
     public void onStatusChange() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 
     /**
@@ -92,7 +127,7 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     @Override
     public void onEdit() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 
     /**
@@ -101,7 +136,7 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     @Override
     public void onShare() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 
     /**
@@ -110,6 +145,6 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     @Override
     public void onDelete() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 }
