@@ -33,10 +33,7 @@ public class ProverbProvider {
 
 
     public Proverb randomProverb() {
-        /// TODO
-        Random randomGenerator = new Random();
-        int id = randomGenerator.nextInt(1000);
-        return new Proverb(id, "Random text: " + String.valueOf(randomGenerator.nextInt(88)), id % 2 == 0);
+        return mStorage.getRandomProverb();
     }
 
     /**

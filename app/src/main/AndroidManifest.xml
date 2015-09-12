@@ -37,6 +37,11 @@
         <activity
             android:name=".activities.ActProverbOracle"
             android:label="@string/title_activity_act_proverb_oracle" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.ActFavorites"
@@ -45,11 +50,6 @@
         <activity
             android:name=".activities.ActAll"
             android:label="@string/title_activity_act_all" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.ActAddProverb"

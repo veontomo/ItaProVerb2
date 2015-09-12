@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
@@ -16,9 +17,14 @@ import com.veontomo.itaproverb.fragments.FragShowSingle;
 public class ActProverbOracle extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
 
     /**
-     * fragment that takes care of visialization of the proverb
+     * fragment that takes care of visualization of the proverb
      */
     private FragShowSingle mFragShowSingle;
+
+    /**
+     * Proverb that this activity should visualize
+     */
+    private Proverb mProverb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,8 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
         super.onStart();
         this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_proverb);
         ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-        this.mFragShowSingle.load(provider.randomProverb());
+        this.mProverb = provider.randomProverb();
+        this.mFragShowSingle.load(this.mProverb);
         this.mFragShowSingle.updateView();
     }
 

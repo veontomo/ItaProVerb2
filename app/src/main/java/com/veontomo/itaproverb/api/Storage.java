@@ -230,6 +230,27 @@ public class Storage extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Returns randomly chosen proverb.
+     * @return proverb
+     */
+    public Proverb getRandomProverb() {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Integer> favoriteIds = retrieveFavoriteIds(db);
+        Cursor cursor = db.rawQuery(ProverbQueries.SELECT_RANDOM, null);
+        int textColId = cursor.getColumnIndex(ProverbEntry.COLUMN_TEXT);
+        int idColId = cursor.getColumnIndex(ProverbEntry._ID);
+        Proverb proverb = null;
+        int proverbId;
+        if (cursor.moveToFirst()) {
+            proverbId = cursor.getInt(idColId);
+            proverb = new Proverb(proverbId, cursor.getString(textColId), favoriteIds.contains(proverbId));
+        }
+        cursor.close();
+        db.close();
+        return proverb;
+    }
+
 
     /**
      * Scheme of a table that stores proverbs
@@ -249,6 +270,8 @@ public class Storage extends SQLiteOpenHelper {
                 ProverbEntry.COLUMN_TEXT + " TEXT NOT NULL UNIQUE ON CONFLICT IGNORE)";
         public static final String NUMBER_OF_RECORDS = "SELECT COUNT(*) FROM " + ProverbEntry.TABLE_NAME + ";";
         public static final String SELECT_ALL = "SELECT * FROM " + ProverbEntry.TABLE_NAME + ";";
+        public static final String SELECT_RANDOM = "SELECT * FROM " + ProverbEntry.TABLE_NAME +
+                " ORDER BY RANDOM() LIMIT 1;";
     }
 
     /**
