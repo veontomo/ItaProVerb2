@@ -20,7 +20,13 @@ import com.veontomo.itaproverb.fragments.FragShowMulti;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActFavorites extends AppCompatActivity implements FragAddProverb.FragAddActions,
+/**
+ * This activity deals with multiple proverbs: displays them,
+ * performs search among them.
+ * Based on the input data, this activity can show all proverbs, favorite
+ * ones or eventually other set of proverbs.
+ */
+public class ActMultiBase extends AppCompatActivity implements FragAddProverb.FragAddActions,
         FragSearch.FragSearchActions, FragShowMulti.ShowMultiActions {
 
     /**
