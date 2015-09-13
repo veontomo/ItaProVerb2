@@ -1,12 +1,11 @@
 package com.veontomo.itaproverb.activities;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.AppInit;
@@ -18,16 +17,43 @@ import com.veontomo.itaproverb.fragments.FragAddProverb;
 import com.veontomo.itaproverb.fragments.FragSearch;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ActFavorites extends AppCompatActivity implements FragAddProverb.FragAddActions, FragSearch.FragSearchActions {
+public class ActFavorites extends AppCompatActivity implements FragAddProverb.FragAddActions,
+        FragSearch.FragSearchActions, FragShowMulti.ShowMultiActions {
 
+    /**
+     * name of the token under which all proverb texts are saved in a bundle
+     * as an array of strings
+     */
+    private static final String PROVERB_TEXT_MULTI_TOKEN = "text";
+    /**
+     * name of the token under which the proverb ids are saved in a bundle
+     * as an array of integers
+     */
+    private static final String PROVERB_ID_MULTI_TOKEN = "id";
+    /**
+     * name of the token under which the proverb statuses (i.e. being favorite or not)
+     * are saved in a bundle as an array of booleans.
+     */
+    private static final String PROVERB_STATUS_MULTI_TOKEN = "status";
     /**
      * a fragment that takes care of visualization of multiple proverbs
      */
     private FragShowMulti mShowMulti;
+    /**
+     * list of proverb ids that this activity should visualize
+     */
+    private int[] mIds;
+    /**
+     * list of proverb texts that this activity should visualize
+     */
+    private String[] mTexts;
+    /**
+     * list of proverb statuses that this activity should visualize
+     */
+    private boolean[] mStatuses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +69,54 @@ public class ActFavorites extends AppCompatActivity implements FragAddProverb.Fr
     public void onStart() {
         super.onStart();
         this.mShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_show_multi);
-        ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-        List<Proverb> proverbs = provider.favoriteProverbs();
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mIds = savedInstanceState.getIntArray(PROVERB_ID_MULTI_TOKEN);
+        mTexts = savedInstanceState.getStringArray(PROVERB_TEXT_MULTI_TOKEN);
+        mStatuses = savedInstanceState.getBooleanArray(PROVERB_STATUS_MULTI_TOKEN);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<Proverb> proverbs;
+        if (mIds != null && mTexts != null && mStatuses != null) {
+            proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
+        } else {
+            ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+            proverbs = provider.favoriteProverbs();
+            int size = proverbs.size();
+            if (size > 0) {
+                mIds = new int[size];
+                mTexts = new String[size];
+                mStatuses = new boolean[size];
+                Proverb proverb;
+                for (int i = 0; i < size; i++) {
+                    proverb = proverbs.get(i);
+                    mIds[i] = proverb.id;
+                    mTexts[i] = proverb.text;
+                    mStatuses[i] = proverb.isFavorite;
+                }
+
+            }
+
+        }
         this.mShowMulti.load(proverbs);
         this.mShowMulti.updateView();
     }
 
+    private List<Proverb> createMultiProverbs(@NonNull int[] ids, @NonNull String[] texts, @NonNull boolean[] statuses) {
+        List<Proverb> proverbs = new ArrayList<>();
+        int size = mIds.length;
+        Proverb proverb;
+        for (int i = 0; i < size; i++) {
+            proverb = new Proverb(mIds[i], mTexts[i], mStatuses[i]);
+            proverbs.add(proverb);
+        }
+        return proverbs;
+    }
 
     @Override
     public void onStop() {
@@ -62,6 +130,15 @@ public class ActFavorites extends AppCompatActivity implements FragAddProverb.Fr
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_favorites, menu);
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putIntArray(PROVERB_ID_MULTI_TOKEN, mIds);
+        savedInstanceState.putStringArray(PROVERB_TEXT_MULTI_TOKEN, mTexts);
+        savedInstanceState.putBooleanArray(PROVERB_STATUS_MULTI_TOKEN, mStatuses);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -95,6 +172,12 @@ public class ActFavorites extends AppCompatActivity implements FragAddProverb.Fr
      */
     @Override
     public void onSearch(String searchTerm) {
+        /// TODO
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+    }
+
+    @Override
+    public void onItemClick(int position) {
         /// TODO
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
