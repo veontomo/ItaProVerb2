@@ -44,7 +44,7 @@ public class ActDispatch extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ActMultiBase.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(ActMultiBase.TOKEN, ActMultiBase.FAVORITE_PROVERBS);
+                bundle.putShort(ActMultiBase.TYPE_TOKEN, ActMultiBase.TYPE_FAVORITE_PROVERBS);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -54,7 +54,7 @@ public class ActDispatch extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ActMultiBase.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(ActMultiBase.TOKEN, ActMultiBase.ALL_PROVERBS);
+                bundle.putShort(ActMultiBase.TYPE_TOKEN, ActMultiBase.TYPE_ALL_PROVERBS);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

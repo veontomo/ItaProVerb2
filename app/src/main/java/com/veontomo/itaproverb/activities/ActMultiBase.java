@@ -30,6 +30,22 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
         FragSearch.FragSearchActions, FragShowMulti.ShowMultiActions {
 
     /**
+     * If the bundle {@link #TYPE_TOKEN} contains this value then the activity should
+     * display favorite proverbs.
+     */
+    public static final short TYPE_FAVORITE_PROVERBS = 1;
+    /**
+     * If the bundle {@link #TYPE_TOKEN} contains this value then the activity should
+     * display favorite proverbs.
+     */
+    public static final short TYPE_ALL_PROVERBS = 2;
+    /**
+     * name of the token in the bundle which value ({@link #TYPE_FAVORITE_PROVERBS} or
+     * {@link #TYPE_ALL_PROVERBS}) defines what this activity should display
+     * (all proverbs, favorite ones etc).
+     */
+    public static final String TYPE_TOKEN = "type";
+    /**
      * name of the token under which all proverb texts are saved in a bundle
      * as an array of strings
      */
@@ -45,20 +61,11 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
      */
     private static final String PROVERB_STATUS_MULTI_TOKEN = "status";
     /**
-     * If the bundle {@link #TOKEN} contains this value then the activity should
-     * display favorite proverbs.
+     * value of {@link #TYPE_TOKEN} with which this activity has been called.
+     * For the moment, either {@link #TYPE_FAVORITE_PROVERBS} or
+     * {@link #TYPE_ALL_PROVERBS}.
      */
-    public static final String FAVORITE_PROVERBS = "favorite";
-    /**
-     * If the bundle {@link #TOKEN} contains this value then the activity should
-     * display favorite proverbs.
-     */
-    public static final String ALL_PROVERBS = "all";
-    /**
-     * name of the token in the bundle under which it is stored information
-     * about what this activity should display (all proverbs, favorite ones etc).
-     */
-    public static final String TOKEN = "scope";
+    public short token_value = -1;
     /**
      * a fragment that takes care of visualization of multiple proverbs
      */
@@ -85,7 +92,8 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
         setContentView(R.layout.act_favorites);
         AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
         Bundle b = getIntent().getExtras();
-        Log.i(Config.APP_NAME, "multi base is started with parameter " + b.getString(TOKEN));
+        this.token_value = b.getShort(TYPE_TOKEN, (short) -1);
+        Log.i(Config.APP_NAME, "multi base is started with parameter " + b.getShort(TYPE_TOKEN));
     }
 
     @Override
@@ -108,9 +116,13 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
         if (mIds != null && mTexts != null && mStatuses != null) {
             proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
         } else {
-            ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-            proverbs = provider.favoriteProverbs();
-            int size = proverbs.size();
+            proverbs = getItems(this.token_value);
+            int size;
+            if (proverbs != null) {
+                size = proverbs.size();
+            } else {
+                size = 0;
+            }
             if (size > 0) {
                 mIds = new int[size];
                 mTexts = new String[size];
@@ -122,12 +134,29 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
                     mTexts[i] = proverb.text;
                     mStatuses[i] = proverb.isFavorite;
                 }
-
             }
-
         }
         this.mShowMulti.load(proverbs);
         this.mShowMulti.updateView();
+    }
+
+    /**
+     * Returns a list of proverbs based on the requested type:
+     * <p>either all proverbs or favorite ones</p>
+     *
+     * @param type
+     * @return
+     */
+    private List<Proverb> getItems(@NonNull short type) {
+        ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+        switch (type) {
+            case TYPE_ALL_PROVERBS:
+                return provider.getAllProverbs();
+            case TYPE_FAVORITE_PROVERBS:
+                return provider.favoriteProverbs();
+            default:
+                return null;
+        }
     }
 
     private List<Proverb> createMultiProverbs(@NonNull int[] ids, @NonNull String[] texts, @NonNull boolean[] statuses) {
