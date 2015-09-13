@@ -45,6 +45,21 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
      */
     private static final String PROVERB_STATUS_MULTI_TOKEN = "status";
     /**
+     * If the bundle {@link #TOKEN} contains this value then the activity should
+     * display favorite proverbs.
+     */
+    public static final String FAVORITE_PROVERBS = "favorite";
+    /**
+     * If the bundle {@link #TOKEN} contains this value then the activity should
+     * display favorite proverbs.
+     */
+    public static final String ALL_PROVERBS = "all";
+    /**
+     * name of the token in the bundle under which it is stored information
+     * about what this activity should display (all proverbs, favorite ones etc).
+     */
+    public static final String TOKEN = "scope";
+    /**
      * a fragment that takes care of visualization of multiple proverbs
      */
     private FragShowMulti mShowMulti;
@@ -69,6 +84,8 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_favorites);
         AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
+        Bundle b = getIntent().getExtras();
+        Log.i(Config.APP_NAME, "multi base is started with parameter " + b.getString(TOKEN));
     }
 
     @Override
