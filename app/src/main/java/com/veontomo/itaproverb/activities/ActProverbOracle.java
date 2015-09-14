@@ -45,9 +45,29 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     private FragShowSingle mFragShowSingle;
 
     /**
+     * fragment that visualizes the manager panel
+     */
+    private FragManagerPanel mFragManager;
+
+    /**
      * Proverb that this activity should visualize
      */
     private Proverb mProverb;
+
+
+    /**
+     * Whether the proverb status should be changed.
+     * <p/>
+     * The proverb status is not changed immediately, but the request
+     * to change the status is registered and is taken into account
+     * when the activity is about to be over.
+     */
+    private boolean shouldChangeStatus = false;
+
+    /**
+     * performs operations with proverbs
+     */
+    private ProverbProvider provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +90,9 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
         super.onStart();
         Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_proverb);
+        this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_manager_panel);
+        provider = new ProverbProvider(new Storage(getApplicationContext()));
         if (this.mProverb == null) {
-            ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
             this.mProverb = provider.randomProverb();
         }
     }
@@ -81,6 +102,8 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
         super.onResume();
         this.mFragShowSingle.load(this.mProverb);
         this.mFragShowSingle.updateView();
+
+        this.mFragManager.setFavorite(this.mProverb.isFavorite);
     }
 
     @Override
@@ -93,8 +116,21 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     }
 
     @Override
+    public void onPause(){
+        if (this.shouldChangeStatus){
+            if (this.mProverb.isFavorite){
+                provider.removeFromFavorites(this.mProverb.id);
+            } else {
+                provider.addToFavorites(this.mProverb.id);
+            }
+        }
+        super.onPause();
+    }
+
+    @Override
     protected void onStop() {
         this.mFragShowSingle = null;
+        this.provider = null;
         super.onStop();
     }
 
@@ -127,8 +163,8 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      */
     @Override
     public void onStatusChange() {
-        /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        this.shouldChangeStatus = !this.shouldChangeStatus;
+        this.mFragManager.setFavorite(this.shouldChangeStatus);
     }
 
     /**
@@ -175,7 +211,7 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
             }
             return;
         }
-        if (requestCode == EDIT_REQUEST){
+        if (requestCode == EDIT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Log.i(Config.APP_NAME, "updating the proverb");
                 ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));

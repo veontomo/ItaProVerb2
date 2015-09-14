@@ -132,6 +132,15 @@ public class FragManagerPanel extends Fragment {
         });
     }
 
+
+    /**
+     * Sets the opacity of the star.
+     * @param status
+     */
+    public void setFavorite(boolean status){
+        this.mStatus.setAlpha(status ? 1f : 0.5f);
+    }
+
     /**
      * interface that hosting activity should implement in order to receive actions from this fragment
      */

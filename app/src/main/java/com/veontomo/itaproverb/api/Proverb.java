@@ -23,7 +23,7 @@ public class Proverb {
     /**
      * Whether the proverb is among favorites or not.
      */
-    public final boolean isFavorite;
+    public boolean isFavorite;
 
     /**
      * Constructor.

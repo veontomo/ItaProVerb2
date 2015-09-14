@@ -73,4 +73,12 @@ public class ProverbProvider {
         Log.i(Config.APP_NAME, "new content of proverb " + id + " is " + text);
         mStorage.updateProverb(id, text);
     }
+
+    public void removeFromFavorites(int id) {
+        mStorage.removeFromFavorites(id);
+    }
+
+    public void addToFavorites(int id) {
+        mStorage.addToFavorites(id);
+    }
 }

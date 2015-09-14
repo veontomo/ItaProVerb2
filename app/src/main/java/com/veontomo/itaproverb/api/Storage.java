@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -286,6 +287,30 @@ public class Storage extends SQLiteOpenHelper {
         return numOfLines == 1;
 
 
+    }
+
+    /**
+     * Removes proverb with given id from the favorites
+     * @param id
+     * @return true if operation succeeds, false otherwise
+     */
+    public boolean removeFromFavorites(int id) {
+        /// TODO: this is just a stub
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, "proverb id = " + id);
+        return false;
+    }
+
+    /**
+     * Removes proverb with given id from the favorites
+     * @param id
+     * @return true if operation succeeds, false otherwise
+     */
+    public boolean addToFavorites(int id) {
+        /// TODO: this is just a stub
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, "proverb id = " + id);
+        return false;
     }
 
 
