@@ -251,6 +251,43 @@ public class Storage extends SQLiteOpenHelper {
         return proverb;
     }
 
+    /**
+     * Removes proverb with given id.
+     * <p>If necessary, remove the proverb from the favorites</p>
+     * @param id
+     * @return true if the proverb is deleted from the database, false otherwise
+     */
+    public boolean removeProverb(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        db.delete(FavoriteEntry.TABLE_NAME, FavoriteEntry.COLUMN_PROVERB_ID + " = ?", new String[]{String.valueOf(id)});
+        int numOfLines = db.delete(ProverbEntry.TABLE_NAME, ProverbEntry._ID + " = ?", new String[]{String.valueOf(id)});
+        try {
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        db.close();
+        return numOfLines > 0;
+    }
+
+    /**
+     * Updates the proverb with given id.
+     * @param id proverb id
+     * @param text new text of the proverb
+     * @return true, if the update succeeds, false otherwise
+     */
+    public boolean updateProverb(int id, String text) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(ProverbEntry.COLUMN_TEXT, text);
+        int numOfLines = db.update(ProverbEntry.TABLE_NAME, values, ProverbEntry._ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return numOfLines == 1;
+
+
+    }
+
 
     /**
      * Scheme of a table that stores proverbs

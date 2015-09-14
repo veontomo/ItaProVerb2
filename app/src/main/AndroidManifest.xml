@@ -59,6 +59,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.ActDelete"
+            android:label="@string/title_activity_act_delete" />
+        <activity
+            android:name=".activities.ActEdit"
+            android:label="@string/title_activity_act_edit" >
+        </activity>
     </application>
 
 </manifest>

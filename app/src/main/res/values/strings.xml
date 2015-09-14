@@ -21,4 +21,6 @@
     <string name="proverb_loading_failure">Failure</string>
     <string name="title_activity_act_all">All proverbs</string>
     <string name="title_activity_act_dispatch">Dispatcher</string>
+    <string name="title_activity_act_delete">Delete Proverb</string>
+    <string name="title_activity_act_edit">Edit Proverb</string>
 </resources>

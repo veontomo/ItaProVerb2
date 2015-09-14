@@ -1,5 +1,9 @@
 package com.veontomo.itaproverb.api;
 
+import android.util.Log;
+
+import com.veontomo.itaproverb.tasks.ProverbDeleteTask;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,12 +44,7 @@ public class ProverbProvider {
      * Returns favorite proverbs
      */
     public List<Proverb> favoriteProverbs() {
-        List<Proverb> output = new ArrayList<>();
-        output.add(mStorage.getRandomProverb());
-        output.add(mStorage.getRandomProverb());
-        output.add(mStorage.getRandomProverb());
-        output.add(mStorage.getRandomProverb());
-        return output;
+        return mStorage.getFavorites();
     }
 
     /**
@@ -54,5 +53,24 @@ public class ProverbProvider {
      */
     public List<Proverb> getAllProverbs() {
         return mStorage.getAllProverbs();
+    }
+
+    /**
+     * Removes proverb with given id.
+     * @param id
+     */
+    public void deleteProverb(int id) {
+        ProverbDeleteTask task = new ProverbDeleteTask(mStorage);
+        task.execute(id);
+    }
+
+    /**
+     * Updates text of proverb with given id.
+     * @param id  proverb id
+     * @param text updated text of proverb
+     */
+    public void updateProverb(final int id, final String text) {
+        Log.i(Config.APP_NAME, "new content of proverb " + id + " is " + text);
+        mStorage.updateProverb(id, text);
     }
 }

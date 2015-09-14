@@ -92,8 +92,9 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
         setContentView(R.layout.act_favorites);
         AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
         Bundle b = getIntent().getExtras();
-        this.token_value = b.getShort(TYPE_TOKEN, (short) -1);
-        Log.i(Config.APP_NAME, "multi base is started with parameter " + b.getShort(TYPE_TOKEN));
+        if (b != null) {
+            this.token_value = b.getShort(TYPE_TOKEN, (short) -1);
+        }
     }
 
     @Override

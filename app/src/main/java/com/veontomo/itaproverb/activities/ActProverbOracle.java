@@ -1,5 +1,6 @@
 package com.veontomo.itaproverb.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +29,15 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      * is saved in a bundle
      */
     private static final String PROVERB_STATUS_TOKEN = "status";
+    /**
+     * a number that identifies the request to delete the proverb
+     */
+    private static final int DELETE_REQUEST = 1;
+
+    /**
+     * a number that identifies the request to edit the proverb
+     */
+    private static final int EDIT_REQUEST = 2;
 
     /**
      * fragment that takes care of visualization of the proverb
@@ -126,8 +136,10 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      */
     @Override
     public void onEdit() {
-        /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Log.i(Config.APP_NAME, "oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Intent intent = new Intent(getApplicationContext(), ActEdit.class);
+        intent.putExtra(ActDelete.TEXT_TOKEN, mProverb.text);
+        startActivityForResult(intent, EDIT_REQUEST);
     }
 
     /**
@@ -144,7 +156,34 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      */
     @Override
     public void onDelete() {
-        /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Log.i(Config.APP_NAME, "oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Intent intent = new Intent(getApplicationContext(), ActDelete.class);
+        intent.putExtra(ActDelete.ID_TOKEN, mProverb.id);
+        intent.putExtra(ActDelete.TEXT_TOKEN, mProverb.text);
+        intent.putExtra(ActDelete.STATUS_TOKEN, mProverb.isFavorite);
+        startActivityForResult(intent, DELETE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == DELETE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Log.i(Config.APP_NAME, "deleting the proverb");
+                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+                provider.deleteProverb(mProverb.id);
+                finish();
+            }
+            return;
+        }
+        if (requestCode == EDIT_REQUEST){
+            if (resultCode == RESULT_OK) {
+                Log.i(Config.APP_NAME, "updating the proverb");
+                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+                provider.updateProverb(mProverb.id, data.getStringExtra(ActEdit.TEXT_TOKEN));
+                finish();
+            }
+            return;
+
+        }
     }
 }
