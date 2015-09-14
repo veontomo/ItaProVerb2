@@ -1,5 +1,6 @@
 package com.veontomo.itaproverb.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -146,5 +147,11 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     public void onDelete() {
         /// TODO
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Intent intent = new Intent(getApplicationContext(), ActDelete.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(ActDelete.ID_TOKEN, mProverb.id);
+        bundle.putString(ActDelete.TEXT_TOKEN, mProverb.text);
+        bundle.putBoolean(ActDelete.STATUS_TOKEN, mProverb.isFavorite);
+        startActivity(intent);
     }
 }

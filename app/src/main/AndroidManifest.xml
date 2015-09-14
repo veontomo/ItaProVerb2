@@ -59,6 +59,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.ActDelete"
+            android:label="@string/title_activity_act_delete"
+            android:theme="@android:style/Theme.Holo.Light.Dialog">
+        </activity>
     </application>
 
 </manifest>
