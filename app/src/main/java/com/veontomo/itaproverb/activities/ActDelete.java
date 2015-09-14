@@ -1,11 +1,16 @@
 package com.veontomo.itaproverb.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Config;
 
 public class ActDelete extends AppCompatActivity {
 
@@ -23,10 +28,46 @@ public class ActDelete extends AppCompatActivity {
      */
     public static final String STATUS_TOKEN = "status";
 
+    /**
+     * id of the proverb
+     */
+    private int mId;
+
+    /**
+     * text of the proverb
+     */
+    private String mText;
+
+    /**
+     * status of the proverb
+     */
+    private boolean mStatus;
+    /**
+     * Text view that contains the proverb text
+     */
+    private TextView mProverbTextView;
+    /**
+     * a view click on which confirms the action
+     */
+    private ImageView mConfirm;
+
+    /**
+     * a view click on which cancels the action
+     */
+    private ImageView mCancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(Config.APP_NAME, "activity delete: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_delete);
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            Log.i(Config.APP_NAME, "bundle is not null");
+            mId = b.getInt(ID_TOKEN, -1);
+            mText = b.getString(TEXT_TOKEN);
+            mStatus = b.getBoolean(STATUS_TOKEN);
+        }
     }
 
     @Override
@@ -34,6 +75,46 @@ public class ActDelete extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_delete, menu);
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mProverbTextView = (TextView) findViewById(R.id.act_delete_proverb_text);
+        mConfirm = (ImageView) findViewById(R.id.act_delete_confirm);
+        mCancel = (ImageView) findViewById(R.id.act_delete_cancel);
+
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+
+        mConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                finish();
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mProverbTextView != null) {
+            mProverbTextView.setText(mText);
+        }
+    }
+
+    @Override
+    public void onStop(){
+        mConfirm.setOnClickListener(null);
+        mCancel.setOnClickListener(null);
+        super.onStop();
     }
 
     @Override

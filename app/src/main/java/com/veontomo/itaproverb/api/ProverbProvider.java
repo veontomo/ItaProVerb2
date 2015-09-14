@@ -55,4 +55,13 @@ public class ProverbProvider {
     public List<Proverb> getAllProverbs() {
         return mStorage.getAllProverbs();
     }
+
+    /**
+     * Removes proverb with given id.
+     * @param id
+     */
+    public void deleteProverb(int id) {
+        mStorage.removeProverb(id);
+
+    }
 }

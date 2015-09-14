@@ -29,6 +29,10 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      * is saved in a bundle
      */
     private static final String PROVERB_STATUS_TOKEN = "status";
+    /**
+     * a number that identifies the request to delete the proverb
+     */
+    private static final int DELETE_REQUEST = 1;
 
     /**
      * fragment that takes care of visualization of the proverb
@@ -145,13 +149,27 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      */
     @Override
     public void onDelete() {
-        /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Log.i(Config.APP_NAME, "oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intent = new Intent(getApplicationContext(), ActDelete.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt(ActDelete.ID_TOKEN, mProverb.id);
-        bundle.putString(ActDelete.TEXT_TOKEN, mProverb.text);
-        bundle.putBoolean(ActDelete.STATUS_TOKEN, mProverb.isFavorite);
-        startActivity(intent);
+        intent.putExtra(ActDelete.ID_TOKEN, mProverb.id);
+        intent.putExtra(ActDelete.TEXT_TOKEN, mProverb.text);
+        intent.putExtra(ActDelete.STATUS_TOKEN, mProverb.isFavorite);
+        startActivityForResult(intent, DELETE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == DELETE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Log.i(Config.APP_NAME, "deleting the proverb");
+                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+                provider.deleteProverb(mProverb.id);
+                finish();
+            }
+            if (resultCode == RESULT_CANCELED) {
+                Log.i(Config.APP_NAME, "the user changed his mind");
+            }
+
+        }
     }
 }
