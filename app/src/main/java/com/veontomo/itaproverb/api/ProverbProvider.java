@@ -42,12 +42,7 @@ public class ProverbProvider {
      * Returns favorite proverbs
      */
     public List<Proverb> favoriteProverbs() {
-        List<Proverb> output = new ArrayList<>();
-        output.add(mStorage.getRandomProverb());
-        output.add(mStorage.getRandomProverb());
-        output.add(mStorage.getRandomProverb());
-        output.add(mStorage.getRandomProverb());
-        return output;
+        return mStorage.getFavorites();
     }
 
     /**
