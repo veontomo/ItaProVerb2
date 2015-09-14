@@ -1,67 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.veontomo.itaproverb"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.veontomo.itaproverb" >
 
     <!-- To access Google+ APIs: -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/owl"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".DispatcherActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".activities.ActShowSingle"
-            android:label="@string/title_activity_ashow_single">
+            android:label="@string/title_activity_ashow_single" >
         </activity>
         <activity
             android:name=".activities.ActShowMulti"
-            android:label="@string/title_activity_act_show_multi">
+            android:label="@string/title_activity_act_show_multi" >
         </activity>
         <activity
             android:name=".activities.ActManagerPanel"
-            android:label="@string/title_activity_manager">
+            android:label="@string/title_activity_manager" >
         </activity>
         <activity
             android:name=".activities.ActSearch"
-            android:label="@string/title_activity_act_search">
+            android:label="@string/title_activity_act_search" >
         </activity>
         <activity
             android:name=".activities.ActProverbDay"
-            android:label="@string/title_activity_act_proverb_day">
+            android:label="@string/title_activity_act_proverb_day" >
         </activity>
         <activity
             android:name=".activities.ActProverbOracle"
-            android:label="@string/title_activity_act_proverb_oracle">
+            android:label="@string/title_activity_act_proverb_oracle" >
         </activity>
         <activity
             android:name=".activities.ActMultiBase"
-            android:label="@string/title_activity_act_favorites">
+            android:label="@string/title_activity_act_favorites" >
         </activity>
         <activity
             android:name=".activities.ActAll"
-            android:label="@string/title_activity_act_all">
+            android:label="@string/title_activity_act_all" >
         </activity>
         <activity
             android:name=".activities.ActAddProverb"
-            android:label="@string/title_activity_act_add_proverb">
+            android:label="@string/title_activity_act_add_proverb" >
         </activity>
         <activity
             android:name=".activities.ActDispatch"
-            android:label="@string/title_activity_act_dispatch">
+            android:label="@string/title_activity_act_dispatch" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.ActDelete"
-            android:label="@string/title_activity_act_delete"/>
+            android:label="@string/title_activity_act_delete" />
+        <activity
+            android:name=".activities.ActEdit"
+            android:label="@string/title_activity_act_edit" >
+        </activity>
     </application>
 
 </manifest>
