@@ -1,5 +1,7 @@
 package com.veontomo.itaproverb.api;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -63,5 +65,15 @@ public class ProverbProvider {
     public void deleteProverb(int id) {
         mStorage.removeProverb(id);
 
+    }
+
+    /**
+     * Updates text of proverb with given id.
+     * @param id  proverb id
+     * @param text updated text of proverb
+     */
+    public void updateProverb(final int id, final String text) {
+        Log.i(Config.APP_NAME, "new content of proverb " + id + " is " + text);
+        mStorage.updateProverb(id, text);
     }
 }

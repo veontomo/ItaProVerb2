@@ -58,6 +58,9 @@ public class ActDelete extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (!Config.PRODUCTION_MODE) {
+            Config.strictModeInit();
+        }
         super.onCreate(savedInstanceState);
         Log.i(Config.APP_NAME, "activity delete: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_delete);
@@ -84,6 +87,15 @@ public class ActDelete extends AppCompatActivity {
         mConfirm = (ImageView) findViewById(R.id.act_delete_confirm);
         mCancel = (ImageView) findViewById(R.id.act_delete_cancel);
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mProverbTextView != null) {
+            mProverbTextView.setText(mText);
+        }
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,21 +111,21 @@ public class ActDelete extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (mProverbTextView != null) {
-            mProverbTextView.setText(mText);
-        }
-    }
-
-    @Override
-    public void onStop(){
+    public void onPause() {
         mConfirm.setOnClickListener(null);
         mCancel.setOnClickListener(null);
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        mCancel = null;
+        mConfirm = null;
+        mProverbTextView = null;
+
         super.onStop();
     }
 

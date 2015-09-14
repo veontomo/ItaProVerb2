@@ -35,6 +35,11 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     private static final int DELETE_REQUEST = 1;
 
     /**
+     * a number that identifies the request to edit the proverb
+     */
+    private static final int EDIT_REQUEST = 2;
+
+    /**
      * fragment that takes care of visualization of the proverb
      */
     private FragShowSingle mFragShowSingle;
@@ -131,8 +136,10 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      */
     @Override
     public void onEdit() {
-        /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Log.i(Config.APP_NAME, "oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Intent intent = new Intent(getApplicationContext(), ActEdit.class);
+        intent.putExtra(ActDelete.TEXT_TOKEN, mProverb.text);
+        startActivityForResult(intent, EDIT_REQUEST);
     }
 
     /**
@@ -166,9 +173,16 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
                 provider.deleteProverb(mProverb.id);
                 finish();
             }
-            if (resultCode == RESULT_CANCELED) {
-                Log.i(Config.APP_NAME, "the user changed his mind");
+            return;
+        }
+        if (requestCode == EDIT_REQUEST){
+            if (resultCode == RESULT_OK) {
+                Log.i(Config.APP_NAME, "updating the proverb");
+                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+                provider.updateProverb(mProverb.id, data.getStringExtra(ActEdit.TEXT_TOKEN));
+                finish();
             }
+            return;
 
         }
     }

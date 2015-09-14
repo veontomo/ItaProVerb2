@@ -269,6 +269,23 @@ public class Storage extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Updates the proverb with given id.
+     * @param id proverb id
+     * @param text new text of the proverb
+     * @return true, if the update succeeds, false otherwise
+     */
+    public boolean updateProverb(int id, String text) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(ProverbEntry.COLUMN_TEXT, text);
+        int numOfLines = db.update(ProverbEntry.TABLE_NAME, values, ProverbEntry._ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return numOfLines == 1;
+
+
+    }
+
 
     /**
      * Scheme of a table that stores proverbs
