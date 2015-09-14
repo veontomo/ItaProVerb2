@@ -2,6 +2,8 @@ package com.veontomo.itaproverb.api;
 
 import android.util.Log;
 
+import com.veontomo.itaproverb.tasks.ProverbDeleteTask;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -58,8 +60,8 @@ public class ProverbProvider {
      * @param id
      */
     public void deleteProverb(int id) {
-        mStorage.removeProverb(id);
-
+        ProverbDeleteTask task = new ProverbDeleteTask(mStorage);
+        task.execute(id);
     }
 
     /**

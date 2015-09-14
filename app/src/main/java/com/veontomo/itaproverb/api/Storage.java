@@ -255,18 +255,20 @@ public class Storage extends SQLiteOpenHelper {
      * Removes proverb with given id.
      * <p>If necessary, remove the proverb from the favorites</p>
      * @param id
+     * @return true if the proverb is deleted from the database, false otherwise
      */
-    public void removeProverb(int id) {
+    public boolean removeProverb(int id) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         db.delete(FavoriteEntry.TABLE_NAME, FavoriteEntry.COLUMN_PROVERB_ID + " = ?", new String[]{String.valueOf(id)});
-        db.delete(ProverbEntry.TABLE_NAME, ProverbEntry._ID + " = ?", new String[]{String.valueOf(id)});
+        int numOfLines = db.delete(ProverbEntry.TABLE_NAME, ProverbEntry._ID + " = ?", new String[]{String.valueOf(id)});
         try {
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
         db.close();
+        return numOfLines > 0;
     }
 
     /**
