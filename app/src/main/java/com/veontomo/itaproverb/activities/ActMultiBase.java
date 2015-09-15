@@ -11,11 +11,11 @@ import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
-import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragAddProverb;
 import com.veontomo.itaproverb.fragments.FragSearch;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
+import com.veontomo.itaproverb.tasks.ProverbRetrievalTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,53 +113,49 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
     @Override
     public void onResume() {
         super.onResume();
+
         List<Proverb> proverbs;
         if (mIds != null && mTexts != null && mStatuses != null) {
             proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
+            this.mShowMulti.load(proverbs);
+            this.mShowMulti.updateView();
         } else {
-            proverbs = getItems(this.token_value);
-            int size;
-            if (proverbs != null) {
-                size = proverbs.size();
-            } else {
-                size = 0;
-            }
-            if (size > 0) {
-                mIds = new int[size];
-                mTexts = new String[size];
-                mStatuses = new boolean[size];
-                Proverb proverb;
-                for (int i = 0; i < size; i++) {
-                    proverb = proverbs.get(i);
-                    mIds[i] = proverb.id;
-                    mTexts[i] = proverb.text;
-                    mStatuses[i] = proverb.isFavorite;
-                }
-            }
+            ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this.token_value == TYPE_FAVORITE_PROVERBS);
+            task.cache(this);
+            task.execute();
         }
-        this.mShowMulti.load(proverbs);
-        this.mShowMulti.updateView();
     }
 
     /**
-     * Returns a list of proverbs based on the requested type:
-     * <p>either all proverbs or favorite ones</p>
-     *
-     * @param type
-     * @return
+     * Sets up {@link #mIds}, {@link #mTexts} and {@link #mStatuses} from given list of proverb.
+     * @param proverbs
      */
-    private List<Proverb> getItems(@NonNull short type) {
-        ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-        switch (type) {
-            case TYPE_ALL_PROVERBS:
-                return provider.getAllProverbs();
-            case TYPE_FAVORITE_PROVERBS:
-                return provider.favoriteProverbs();
-            default:
-                return null;
+    public void extractFromMultiProverbs(@NonNull List<Proverb> proverbs) {
+        int size = proverbs.size();
+        if (size > 0) {
+            mIds = new int[size];
+            mTexts = new String[size];
+            mStatuses = new boolean[size];
+            Proverb proverb;
+            for (int i = 0; i < size; i++) {
+                proverb = proverbs.get(i);
+                mIds[i] = proverb.id;
+                mTexts[i] = proverb.text;
+                mStatuses[i] = proverb.isFavorite;
+            }
         }
     }
 
+
+    /**
+     * Recreates list of proverbs based on split data: array of proverb ids, array of proverb texts,
+     * array of proverb statuses.
+     * It is supposed that the input arrays have the same length.
+     * @param ids
+     * @param texts
+     * @param statuses
+     * @return list of proverbs
+     */
     private List<Proverb> createMultiProverbs(@NonNull int[] ids, @NonNull String[] texts, @NonNull boolean[] statuses) {
         List<Proverb> proverbs = new ArrayList<>();
         int size = mIds.length;
