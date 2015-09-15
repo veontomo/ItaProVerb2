@@ -2,9 +2,11 @@ package com.veontomo.itaproverb.tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Storage;
 
 import java.io.BufferedReader;

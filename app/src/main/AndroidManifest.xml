@@ -47,10 +47,6 @@
             android:label="@string/title_activity_act_all" >
         </activity>
         <activity
-            android:name=".activities.ActAll"
-            android:label="@string/title_activity_act_all" >
-        </activity>
-        <activity
             android:name=".activities.ActAddProverb"
             android:label="@string/title_activity_act_add_proverb" >
         </activity>
