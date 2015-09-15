@@ -22,30 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This activity deals with multiple proverbs: displays them,
+ * This abstract activity deals with multiple proverbs: displays them,
  * performs search among them.
- * Based on the input data, this activity can show all proverbs, favorite
- * ones or eventually other set of proverbs.
+ *
+ * Activities that extend this one must implement method {@link #getItems(Storage)} that determines
+ * the content.
  */
-public class ActMultiBase extends AppCompatActivity implements FragAddProverb.FragAddActions,
+public abstract class ActMultiBase extends AppCompatActivity implements FragAddProverb.FragAddActions,
         FragSearch.FragSearchActions, FragShowMulti.ShowMultiActions {
 
-    /**
-     * If the bundle {@link #TYPE_TOKEN} contains this value then the activity should
-     * display favorite proverbs.
-     */
-    public static final short TYPE_FAVORITE_PROVERBS = 1;
-    /**
-     * If the bundle {@link #TYPE_TOKEN} contains this value then the activity should
-     * display favorite proverbs.
-     */
-    public static final short TYPE_ALL_PROVERBS = 2;
-    /**
-     * name of the token in the bundle which value ({@link #TYPE_FAVORITE_PROVERBS} or
-     * {@link #TYPE_ALL_PROVERBS}) defines what this activity should display
-     * (all proverbs, favorite ones etc).
-     */
-    public static final String TYPE_TOKEN = "type";
     /**
      * name of the token under which all proverb texts are saved in a bundle
      * as an array of strings
@@ -61,12 +46,7 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
      * are saved in a bundle as an array of booleans.
      */
     private static final String PROVERB_STATUS_MULTI_TOKEN = "status";
-    /**
-     * value of {@link #TYPE_TOKEN} with which this activity has been called.
-     * For the moment, either {@link #TYPE_FAVORITE_PROVERBS} or
-     * {@link #TYPE_ALL_PROVERBS}.
-     */
-    public short token_value = -1;
+
     /**
      * a fragment that takes care of visualization of multiple proverbs
      */
@@ -84,6 +64,9 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
      */
     private boolean[] mStatuses;
 
+    public abstract List<Proverb> getItems(Storage storage);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (!Config.PRODUCTION_MODE) {
@@ -92,10 +75,6 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_favorites);
         AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
-        Bundle b = getIntent().getExtras();
-        if (b != null) {
-            this.token_value = b.getShort(TYPE_TOKEN, (short) -1);
-        }
     }
 
     @Override
@@ -120,11 +99,11 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
             this.mShowMulti.load(proverbs);
             this.mShowMulti.updateView();
         } else {
-            ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this.token_value == TYPE_FAVORITE_PROVERBS);
-            task.cache(this);
+            ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
             task.execute();
         }
     }
+
 
     /**
      * Sets up {@link #mIds}, {@link #mTexts} and {@link #mStatuses} from given list of proverb.
