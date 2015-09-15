@@ -16,7 +16,7 @@
         </activity>
         <activity
             android:name=".activities.ActShowSingle"
-            android:label="@string/title_activity_ashow_single" >
+            android:label="@string/title_act_show_single" >
         </activity>
         <activity
             android:name=".activities.ActShowMulti"

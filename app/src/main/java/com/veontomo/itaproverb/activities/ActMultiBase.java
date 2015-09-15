@@ -1,5 +1,6 @@
 package com.veontomo.itaproverb.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -227,6 +228,8 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
     @Override
     public void onItemClick(int position) {
         /// TODO
+        Intent intent = new Intent(getApplicationContext(), ActShowSingle.class);
+        startActivity(intent);
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 }
