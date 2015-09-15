@@ -39,8 +39,12 @@
             android:label="@string/title_activity_act_proverb_oracle" >
         </activity>
         <activity
-            android:name=".activities.ActMultiBase"
-            android:label="@string/title_activity_act_favorites" >
+            android:name=".activities.ActFavoriteProverbs"
+            android:label="@string/title_act_favorites" >
+        </activity>
+        <activity
+            android:name=".activities.ActAllProverbs"
+            android:label="@string/title_activity_act_all" >
         </activity>
         <activity
             android:name=".activities.ActAll"

@@ -15,7 +15,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_act_proverb_oracle">ProverbOracle</string>
-    <string name="title_activity_act_favorites">Favorite Proverbs</string>
+    <string name="title_act_favorites">Favorite Proverbs</string>
     <string name="title_activity_act_add_proverb">Add Proverb</string>
     <string name="proverb_loading_success">Success</string>
     <string name="proverb_loading_failure">Failure</string>

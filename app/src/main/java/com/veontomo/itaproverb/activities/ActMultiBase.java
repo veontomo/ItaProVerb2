@@ -26,7 +26,7 @@ import java.util.List;
  * Based on the input data, this activity can show all proverbs, favorite
  * ones or eventually other set of proverbs.
  */
-public class ActMultiBase extends AppCompatActivity implements FragAddProverb.FragAddActions,
+public abstract class ActMultiBase extends AppCompatActivity implements FragAddProverb.FragAddActions,
         FragSearch.FragSearchActions, FragShowMulti.ShowMultiActions {
 
     /**
@@ -119,11 +119,12 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
             this.mShowMulti.load(proverbs);
             this.mShowMulti.updateView();
         } else {
-            ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this.token_value == TYPE_FAVORITE_PROVERBS);
-            task.cache(this);
+            ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
             task.execute();
         }
     }
+
+    public abstract List<Proverb> getItems(Storage storage);
 
     /**
      * Sets up {@link #mIds}, {@link #mTexts} and {@link #mStatuses} from given list of proverb.
