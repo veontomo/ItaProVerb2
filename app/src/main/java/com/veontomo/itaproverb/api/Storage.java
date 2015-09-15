@@ -290,27 +290,29 @@ public class Storage extends SQLiteOpenHelper {
     }
 
     /**
-     * Removes proverb with given id from the favorites
+     * Removes proverb with given id from the favorites.
      * @param id
      * @return true if operation succeeds, false otherwise
      */
     public boolean removeFromFavorites(int id) {
-        /// TODO: this is just a stub
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
-        Log.i(Config.APP_NAME, "proverb id = " + id);
-        return false;
+        SQLiteDatabase db = getWritableDatabase();
+        int numOfRows = db.delete(FavoriteEntry.TABLE_NAME, FavoriteEntry.COLUMN_PROVERB_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return numOfRows > 0;
     }
 
     /**
      * Removes proverb with given id from the favorites
-     * @param id
+     * @param pid proverb id
      * @return true if operation succeeds, false otherwise
      */
-    public boolean addToFavorites(int id) {
-        /// TODO: this is just a stub
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
-        Log.i(Config.APP_NAME, "proverb id = " + id);
-        return false;
+    public boolean addToFavorites(int pid) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(FavoriteEntry.COLUMN_PROVERB_ID, pid);
+        long id = db.insert(FavoriteEntry.TABLE_NAME, null, values);
+        db.close();
+        return id != -1;
     }
 
 

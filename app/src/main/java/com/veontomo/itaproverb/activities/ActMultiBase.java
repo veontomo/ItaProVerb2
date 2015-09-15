@@ -1,5 +1,6 @@
 package com.veontomo.itaproverb.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,40 +12,25 @@ import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
-import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragAddProverb;
 import com.veontomo.itaproverb.fragments.FragSearch;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
+import com.veontomo.itaproverb.tasks.ProverbRetrievalTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This activity deals with multiple proverbs: displays them,
+ * This abstract activity deals with multiple proverbs: displays them,
  * performs search among them.
- * Based on the input data, this activity can show all proverbs, favorite
- * ones or eventually other set of proverbs.
+ *
+ * Activities that extend this one must implement method {@link #getItems(Storage)} that determines
+ * the content.
  */
-public class ActMultiBase extends AppCompatActivity implements FragAddProverb.FragAddActions,
+public abstract class ActMultiBase extends AppCompatActivity implements FragAddProverb.FragAddActions,
         FragSearch.FragSearchActions, FragShowMulti.ShowMultiActions {
 
-    /**
-     * If the bundle {@link #TYPE_TOKEN} contains this value then the activity should
-     * display favorite proverbs.
-     */
-    public static final short TYPE_FAVORITE_PROVERBS = 1;
-    /**
-     * If the bundle {@link #TYPE_TOKEN} contains this value then the activity should
-     * display favorite proverbs.
-     */
-    public static final short TYPE_ALL_PROVERBS = 2;
-    /**
-     * name of the token in the bundle which value ({@link #TYPE_FAVORITE_PROVERBS} or
-     * {@link #TYPE_ALL_PROVERBS}) defines what this activity should display
-     * (all proverbs, favorite ones etc).
-     */
-    public static final String TYPE_TOKEN = "type";
     /**
      * name of the token under which all proverb texts are saved in a bundle
      * as an array of strings
@@ -60,12 +46,7 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
      * are saved in a bundle as an array of booleans.
      */
     private static final String PROVERB_STATUS_MULTI_TOKEN = "status";
-    /**
-     * value of {@link #TYPE_TOKEN} with which this activity has been called.
-     * For the moment, either {@link #TYPE_FAVORITE_PROVERBS} or
-     * {@link #TYPE_ALL_PROVERBS}.
-     */
-    public short token_value = -1;
+
     /**
      * a fragment that takes care of visualization of multiple proverbs
      */
@@ -83,6 +64,9 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
      */
     private boolean[] mStatuses;
 
+    public abstract List<Proverb> getItems(Storage storage);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (!Config.PRODUCTION_MODE) {
@@ -91,10 +75,6 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_favorites);
         AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
-        Bundle b = getIntent().getExtras();
-        if (b != null) {
-            this.token_value = b.getShort(TYPE_TOKEN, (short) -1);
-        }
     }
 
     @Override
@@ -113,53 +93,48 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
     @Override
     public void onResume() {
         super.onResume();
-        List<Proverb> proverbs;
+
         if (mIds != null && mTexts != null && mStatuses != null) {
-            proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
+            List<Proverb> proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
+            this.mShowMulti.load(proverbs);
+            this.mShowMulti.updateView();
         } else {
-            proverbs = getItems(this.token_value);
-            int size;
-            if (proverbs != null) {
-                size = proverbs.size();
-            } else {
-                size = 0;
-            }
-            if (size > 0) {
-                mIds = new int[size];
-                mTexts = new String[size];
-                mStatuses = new boolean[size];
-                Proverb proverb;
-                for (int i = 0; i < size; i++) {
-                    proverb = proverbs.get(i);
-                    mIds[i] = proverb.id;
-                    mTexts[i] = proverb.text;
-                    mStatuses[i] = proverb.isFavorite;
-                }
-            }
+            ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
+            task.execute();
         }
-        this.mShowMulti.load(proverbs);
-        this.mShowMulti.updateView();
     }
+
 
     /**
-     * Returns a list of proverbs based on the requested type:
-     * <p>either all proverbs or favorite ones</p>
-     *
-     * @param type
-     * @return
+     * Sets up {@link #mIds}, {@link #mTexts} and {@link #mStatuses} from given list of proverb.
+     * @param proverbs
      */
-    private List<Proverb> getItems(@NonNull short type) {
-        ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-        switch (type) {
-            case TYPE_ALL_PROVERBS:
-                return provider.getAllProverbs();
-            case TYPE_FAVORITE_PROVERBS:
-                return provider.favoriteProverbs();
-            default:
-                return null;
+    public void extractFromMultiProverbs(@NonNull List<Proverb> proverbs) {
+        int size = proverbs.size();
+        if (size > 0) {
+            mIds = new int[size];
+            mTexts = new String[size];
+            mStatuses = new boolean[size];
+            Proverb proverb;
+            for (int i = 0; i < size; i++) {
+                proverb = proverbs.get(i);
+                mIds[i] = proverb.id;
+                mTexts[i] = proverb.text;
+                mStatuses[i] = proverb.isFavorite;
+            }
         }
     }
 
+
+    /**
+     * Recreates list of proverbs based on split data: array of proverb ids, array of proverb texts,
+     * array of proverb statuses.
+     * It is supposed that the input arrays have the same length.
+     * @param ids
+     * @param texts
+     * @param statuses
+     * @return list of proverbs
+     */
     private List<Proverb> createMultiProverbs(@NonNull int[] ids, @NonNull String[] texts, @NonNull boolean[] statuses) {
         List<Proverb> proverbs = new ArrayList<>();
         int size = mIds.length;
@@ -232,6 +207,8 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
     @Override
     public void onItemClick(int position) {
         /// TODO
+        Intent intent = new Intent(getApplicationContext(), ActShowSingle.class);
+        startActivity(intent);
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 }

@@ -42,20 +42,14 @@ public class ActDispatch extends AppCompatActivity {
         proverbFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActMultiBase.class);
-                Bundle bundle = new Bundle();
-                bundle.putShort(ActMultiBase.TYPE_TOKEN, ActMultiBase.TYPE_FAVORITE_PROVERBS);
-                intent.putExtras(bundle);
+                Intent intent = new Intent(getApplicationContext(), ActFavoriteProverbs.class);
                 startActivity(intent);
             }
         });
         proverbAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActMultiBase.class);
-                Bundle bundle = new Bundle();
-                bundle.putShort(ActMultiBase.TYPE_TOKEN, ActMultiBase.TYPE_ALL_PROVERBS);
-                intent.putExtras(bundle);
+                Intent intent = new Intent(getApplicationContext(), ActAllProverbs.class);
                 startActivity(intent);
             }
         });

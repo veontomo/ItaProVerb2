@@ -42,6 +42,16 @@ public class FragManagerPanel extends Fragment {
      */
     private ManagerPanelActions hostActivity;
 
+    /**
+     * opacity of the icon corresponding to a favorite proverb
+     */
+    private final float FAVORITE = 1f;
+
+    /**
+     * opacity of the icon corresponding to a non-favorite proverb
+     */
+    private final float NON_FAVORITE = 0.2f;
+
     public FragManagerPanel() {
     }
 
@@ -138,7 +148,7 @@ public class FragManagerPanel extends Fragment {
      * @param status
      */
     public void setFavorite(boolean status){
-        this.mStatus.setAlpha(status ? 1f : 0.5f);
+        this.mStatus.setAlpha(status ? FAVORITE : NON_FAVORITE);
     }
 
     /**
