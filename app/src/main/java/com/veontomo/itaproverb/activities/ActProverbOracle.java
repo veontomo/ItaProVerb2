@@ -118,11 +118,7 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     @Override
     public void onPause(){
         if (this.shouldChangeStatus){
-            if (this.mProverb.isFavorite){
-                provider.removeFromFavorites(this.mProverb.id);
-            } else {
-                provider.addToFavorites(this.mProverb.id);
-            }
+            provider.setProverbStatus(this.mProverb.id, !this.mProverb.isFavorite);
         }
         super.onPause();
     }
