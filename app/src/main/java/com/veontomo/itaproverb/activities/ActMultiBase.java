@@ -114,9 +114,8 @@ public class ActMultiBase extends AppCompatActivity implements FragAddProverb.Fr
     public void onResume() {
         super.onResume();
 
-        List<Proverb> proverbs;
         if (mIds != null && mTexts != null && mStatuses != null) {
-            proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
+            List<Proverb> proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
             this.mShowMulti.load(proverbs);
             this.mShowMulti.updateView();
         } else {

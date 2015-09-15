@@ -36,7 +36,6 @@ public class ProverbRetrievalTask extends AsyncTask <Void, Void, List<Proverb>>{
     private ActMultiBase cache;
 
     public ProverbRetrievalTask(Storage storage, FragShowMulti fragment, boolean onlyFavorites) {
-        Log.i(Config.APP_NAME, "asynctask is started");
         this.storage = storage;
         this.holder = fragment;
         this.onlyFavorites = onlyFavorites;
@@ -65,11 +64,16 @@ public class ProverbRetrievalTask extends AsyncTask <Void, Void, List<Proverb>>{
 
 
     /**
-     * An action that stores the results of execution of this concurrent operation.
+     * An activity that stores the results of execution of this concurrent operation.
+     *
+     * There is an activity {@link ActMultiBase} that starts this task. In order to prevent
+     * that it starts this task every time it needs the result (when the device configs change),
+     * let us save the result in the activity internal state.
+     *
      *
      * @param cache
      */
-    public void cache(ActMultiBase cache) {
+    public void cache(final ActMultiBase cache) {
         this.cache = cache;
     }
 }
