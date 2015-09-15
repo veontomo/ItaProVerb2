@@ -2,11 +2,8 @@ package com.veontomo.itaproverb.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -40,7 +37,7 @@ public class FragShowSingle extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(Config.APP_NAME, "show single "+ Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, "show single " + Thread.currentThread().getStackTrace()[2].getMethodName());
         return inflater.inflate(R.layout.frag_show_single, container, false);
     }
 
@@ -68,7 +65,7 @@ public class FragShowSingle extends Fragment {
 
     @Override
     public void onStop() {
-        Log.i(Config.APP_NAME, "show single "+ Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, "show single " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mTextView = null;
         this.mIdView = null;
         super.onStop();
@@ -87,8 +84,15 @@ public class FragShowSingle extends Fragment {
      * Make the fragment layout visualize {@link #mProverb}.
      */
     public void updateView() {
-        this.mIdView.setText(String.valueOf(mProverb.id));
-        this.mTextView.setText(mProverb.text);
+        /// TODO: analyze why the very first start of the app on a device produces NullPointerException
+        /// if the user clicks on "oracle"
+        /// To avoid the problem, the conditionals are added below. But it is better resolve the problem.
+        if (this.mIdView != null) {
+            this.mIdView.setText(String.valueOf(mProverb.id));
+        }
+        if (this.mTextView != null) {
+            this.mTextView.setText(mProverb.text);
+        }
 
     }
 }
