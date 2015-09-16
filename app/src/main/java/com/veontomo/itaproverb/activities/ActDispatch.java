@@ -35,7 +35,7 @@ public class ActDispatch extends AppCompatActivity {
         proverbOracle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActProverbOracle.class);
+                Intent intent = new Intent(getApplicationContext(), ActOracle.class);
                 startActivity(intent);
             }
         });

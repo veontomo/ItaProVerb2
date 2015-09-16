@@ -15,7 +15,10 @@ import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
-public class ActProverbOracle extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
+/**
+ * Displays a single proverb along with the manager panel.
+ */
+public abstract class ActSingleBase extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
     /**
      * name of the token under which the proverb text is saved in a bundle
      */
@@ -69,33 +72,28 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      */
     private ProverbProvider provider;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        if (!Config.PRODUCTION_MODE) {
-            Config.strictModeInit();
-        }
-        super.onCreate(savedInstanceState);
-        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        setContentView(R.layout.act_proverb_oracle);
-        if (savedInstanceState != null) {
-            this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
-                    savedInstanceState.getString(PROVERB_TEXT_TOKEN),
-                    savedInstanceState.getBoolean(PROVERB_STATUS_TOKEN));
-        }
+    public void initializeItem(Bundle savedInstanceState) {
+        this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
+                savedInstanceState.getString(PROVERB_TEXT_TOKEN),
+                savedInstanceState.getBoolean(PROVERB_STATUS_TOKEN));
 
     }
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_proverb);
-        this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_manager_panel);
+        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_proverb);
+        this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_manager_panel);
         provider = new ProverbProvider(new Storage(getApplicationContext()));
+
         if (this.mProverb == null) {
-            this.mProverb = provider.randomProverb();
+            this.mProverb = getItem(provider);
         }
     }
+
+    public abstract Proverb getItem(ProverbProvider provider);
 
     @Override
     public void onResume() {
@@ -109,7 +107,7 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         outState.putString(PROVERB_TEXT_TOKEN, this.mProverb.text);
         outState.putInt(PROVERB_ID_TOKEN, this.mProverb.id);
         outState.putBoolean(PROVERB_STATUS_TOKEN, this.mProverb.isFavorite);
