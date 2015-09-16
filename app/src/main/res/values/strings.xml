@@ -13,13 +13,13 @@
     <string name="search_hint_example">esempio: pizza</string>
     <string name="title_activity_act_proverb_day">Proverb of the day</string>
 
-    <string name="title_activity_act_proverb_oracle">ProverbOracle</string>
-    <string name="title_act_favorites">Favorite Proverbs</string>
-    <string name="title_activity_act_add_proverb">Add Proverb</string>
+    <string name="title_activity_act_proverb_oracle">Fortune teller</string>
+    <string name="title_act_favorites">Favorite proverbs</string>
+    <string name="title_activity_act_add_proverb">Add proverb</string>
     <string name="proverb_loading_success">Success</string>
     <string name="proverb_loading_failure">Failure</string>
     <string name="title_activity_act_all">All proverbs</string>
     <string name="title_activity_act_dispatch">Dispatcher</string>
-    <string name="title_activity_act_delete">Delete Proverb</string>
-    <string name="title_activity_act_edit">Edit Proverb</string>
+    <string name="title_activity_act_delete">Delete proverb</string>
+    <string name="title_activity_act_edit">Edit proverb</string>
 </resources>

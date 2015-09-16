@@ -17,7 +17,6 @@ public class ProverbDeleteTask  extends AsyncTask<Integer, Void, Boolean> {
 
     public ProverbDeleteTask(final Storage storage){
         this.storage = storage;
-
     }
     /**
      * Deletes proverbs from the database. For the moment, only the first

@@ -3,6 +3,7 @@ package com.veontomo.itaproverb.api;
 import android.util.Log;
 
 import com.veontomo.itaproverb.tasks.ProverbDeleteTask;
+import com.veontomo.itaproverb.tasks.ProverbEditTask;
 import com.veontomo.itaproverb.tasks.ProverbSetStatusTask;
 
 import java.util.ArrayList;
@@ -83,5 +84,16 @@ public class ProverbProvider {
     public void setProverbStatus(final int id, final boolean status) {
         ProverbSetStatusTask task = new ProverbSetStatusTask(mStorage, status);
         task.execute(id);
+    }
+
+    /**
+     * Create a new proverb (in database)
+     * @param text proverb text
+     * @param status whether the proverb is among favorites
+     */
+    public void createProverb(String text, boolean status) {
+        Log.i(Config.APP_NAME, "new proverb: " + text + ", is it favorite? " + status);
+        ProverbEditTask task = new ProverbEditTask(mStorage, text, status);
+        task.execute();
     }
 }

@@ -15,7 +15,10 @@ import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
 
-public class ActProverbOracle extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
+/**
+ * Displays a single proverb along with the manager panel.
+ */
+public abstract class ActSingleBase extends AppCompatActivity implements FragManagerPanel.ManagerPanelActions {
     /**
      * name of the token under which the proverb text is saved in a bundle
      */
@@ -42,12 +45,12 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
     /**
      * fragment that takes care of visualization of the proverb
      */
-    private FragShowSingle mFragShowSingle;
+    protected FragShowSingle mFragItem;
 
     /**
      * fragment that visualizes the manager panel
      */
-    private FragManagerPanel mFragManager;
+    protected FragManagerPanel mFragManager;
 
     /**
      * Proverb that this activity should visualize
@@ -69,63 +72,73 @@ public class ActProverbOracle extends AppCompatActivity implements FragManagerPa
      */
     private ProverbProvider provider;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        if (!Config.PRODUCTION_MODE) {
-            Config.strictModeInit();
-        }
-        super.onCreate(savedInstanceState);
-        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        setContentView(R.layout.act_proverb_oracle);
-        if (savedInstanceState != null) {
-            this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
-                    savedInstanceState.getString(PROVERB_TEXT_TOKEN),
-                    savedInstanceState.getBoolean(PROVERB_STATUS_TOKEN));
-        }
+    public void initializeItem(Bundle savedInstanceState) {
+        this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
+                savedInstanceState.getString(PROVERB_TEXT_TOKEN),
+                savedInstanceState.getBoolean(PROVERB_STATUS_TOKEN));
 
     }
+
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_proverb);
-        this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_proverb_oracle_frag_manager_panel);
+        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mFragItem = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_proverb);
+        this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_manager_panel);
         provider = new ProverbProvider(new Storage(getApplicationContext()));
+
         if (this.mProverb == null) {
-            this.mProverb = provider.randomProverb();
+            this.mProverb = getItem(provider);
         }
     }
+
+    public abstract Proverb getItem(ProverbProvider provider);
 
     @Override
     public void onResume() {
         super.onResume();
-        this.mFragShowSingle.load(this.mProverb);
-        this.mFragShowSingle.updateView();
-
+        this.mFragItem.load(this.mProverb);
+        this.mFragItem.updateView();
         this.mFragManager.setFavorite(this.mProverb.isFavorite);
+        registerListeners();
     }
+
+    /**
+     * Register listeners.
+     * <p>It is supposed to be overridden by a subclass in order to have non-trivial behaviour.
+     * It is called in {@link #onResume()} method.</p>
+     */
+    protected void registerListeners(){};
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(Config.APP_NAME, "activity oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         outState.putString(PROVERB_TEXT_TOKEN, this.mProverb.text);
         outState.putInt(PROVERB_ID_TOKEN, this.mProverb.id);
         outState.putBoolean(PROVERB_STATUS_TOKEN, this.mProverb.isFavorite);
     }
 
     @Override
-    public void onPause(){
-        if (this.shouldChangeStatus){
+    public void onPause() {
+        if (this.shouldChangeStatus) {
             provider.setProverbStatus(this.mProverb.id, !this.mProverb.isFavorite);
         }
+        unregisterListeners();
         super.onPause();
     }
 
+    /**
+     * Unset previously registered listeners.
+     * <p>It is called in {@link #onPause()} method.</p>
+     */
+    protected void unregisterListeners() {}
+
     @Override
     protected void onStop() {
-        this.mFragShowSingle = null;
+        this.mFragItem = null;
         this.provider = null;
         super.onStop();
     }

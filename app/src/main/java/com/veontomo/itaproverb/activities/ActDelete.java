@@ -84,8 +84,8 @@ public class ActDelete extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mProverbTextView = (TextView) findViewById(R.id.act_delete_proverb_text);
-        mConfirm = (ImageView) findViewById(R.id.act_delete_confirm);
-        mCancel = (ImageView) findViewById(R.id.act_delete_cancel);
+        mConfirm = (ImageView) findViewById(R.id.act_edit_confirm);
+        mCancel = (ImageView) findViewById(R.id.act_edit_cancel);
 
 
     }

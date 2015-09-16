@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,6 +154,7 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Returns list of favorite proverbs
+     *
      * @return
      */
     public List<Proverb> getFavorites() {
@@ -177,7 +177,6 @@ public class Storage extends SQLiteOpenHelper {
         return proverbs;
 
     }
-
 
 
     /**
@@ -206,6 +205,7 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Returns list of all proverbs taking into account their status (favorite/non-favorite)
+     *
      * @return
      */
     public List<Proverb> getAllProverbs() {
@@ -233,6 +233,7 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Returns randomly chosen proverb.
+     *
      * @return proverb
      */
     public Proverb getRandomProverb() {
@@ -255,6 +256,7 @@ public class Storage extends SQLiteOpenHelper {
     /**
      * Removes proverb with given id.
      * <p>If necessary, remove the proverb from the favorites</p>
+     *
      * @param id
      * @return true if the proverb is deleted from the database, false otherwise
      */
@@ -274,7 +276,8 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Updates the proverb with given id.
-     * @param id proverb id
+     *
+     * @param id   proverb id
      * @param text new text of the proverb
      * @return true, if the update succeeds, false otherwise
      */
@@ -291,6 +294,7 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Removes proverb with given id from the favorites.
+     *
      * @param id
      * @return true if operation succeeds, false otherwise
      */
@@ -303,6 +307,7 @@ public class Storage extends SQLiteOpenHelper {
 
     /**
      * Removes proverb with given id from the favorites
+     *
      * @param pid proverb id
      * @return true if operation succeeds, false otherwise
      */
@@ -313,6 +318,27 @@ public class Storage extends SQLiteOpenHelper {
         long id = db.insert(FavoriteEntry.TABLE_NAME, null, values);
         db.close();
         return id != -1;
+    }
+
+    /**
+     * Create new record corresponding to a proverb
+     *
+     * @param text
+     * @param status
+     * @return
+     */
+    public int createProverb(String text, boolean status) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values;
+        values = new ContentValues();
+        values.put(ProverbEntry.COLUMN_TEXT, text);
+        int id = (int) db.insert(ProverbEntry.TABLE_NAME, null, values);
+        if (status && id != -1) {
+            addToFavorites(id);
+        }
+        db.close();
+        return id;
+
     }
 
 

@@ -15,7 +15,7 @@ public class ActDispatch extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dispatch);
+        setContentView(R.layout.act_dispatch);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ActDispatch extends AppCompatActivity {
         proverbOracle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActProverbOracle.class);
+                Intent intent = new Intent(getApplicationContext(), ActOracle.class);
                 startActivity(intent);
             }
         });
