@@ -105,6 +105,7 @@ public class ActEdit extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra(TEXT_TOKEN, mInput.getEditableText().toString());
+                intent.putExtra(STATUS_TOKEN, mStatus);
                 setResult(RESULT_OK, intent);
                 finish();
             }
