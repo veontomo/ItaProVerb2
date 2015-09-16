@@ -45,12 +45,12 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     /**
      * fragment that takes care of visualization of the proverb
      */
-    private FragShowSingle mFragShowSingle;
+    protected FragShowSingle mFragItem;
 
     /**
      * fragment that visualizes the manager panel
      */
-    private FragManagerPanel mFragManager;
+    protected FragManagerPanel mFragManager;
 
     /**
      * Proverb that this activity should visualize
@@ -80,11 +80,12 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     }
 
 
+
     @Override
     protected void onStart() {
         super.onStart();
         Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_proverb);
+        this.mFragItem = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_proverb);
         this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_manager_panel);
         provider = new ProverbProvider(new Storage(getApplicationContext()));
 
@@ -98,11 +99,18 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onResume() {
         super.onResume();
-        this.mFragShowSingle.load(this.mProverb);
-        this.mFragShowSingle.updateView();
-
+        this.mFragItem.load(this.mProverb);
+        this.mFragItem.updateView();
         this.mFragManager.setFavorite(this.mProverb.isFavorite);
+        registerListeners();
     }
+
+    /**
+     * Register listeners.
+     * <p>It is supposed to be overridden by a subclass in order to have non-trivial behaviour.
+     * It is called in {@link #onResume()} method.</p>
+     */
+    protected void registerListeners(){};
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -114,16 +122,23 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     }
 
     @Override
-    public void onPause(){
-        if (this.shouldChangeStatus){
+    public void onPause() {
+        if (this.shouldChangeStatus) {
             provider.setProverbStatus(this.mProverb.id, !this.mProverb.isFavorite);
         }
+        unregisterListeners();
         super.onPause();
     }
 
+    /**
+     * Unset previously registered listeners.
+     * <p>It is called in {@link #onPause()} method.</p>
+     */
+    protected void unregisterListeners() {}
+
     @Override
     protected void onStop() {
-        this.mFragShowSingle = null;
+        this.mFragItem = null;
         this.provider = null;
         super.onStop();
     }
