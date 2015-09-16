@@ -84,4 +84,14 @@ public class ProverbProvider {
         ProverbSetStatusTask task = new ProverbSetStatusTask(mStorage, status);
         task.execute(id);
     }
+
+    /**
+     * Create a new proverb (in database)
+     * @param text proverb text
+     * @param status whether the proverb is among favorites
+     */
+    public void createProverb(String text, boolean status) {
+        Log.i(Config.APP_NAME, "new proverb: " + text + ", is it favorite? " + status);
+
+    }
 }

@@ -12,6 +12,7 @@ import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
+import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragAddProverb;
 import com.veontomo.itaproverb.fragments.FragSearch;
@@ -46,6 +47,11 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      * are saved in a bundle as an array of booleans.
      */
     private static final String PROVERB_STATUS_MULTI_TOKEN = "status";
+
+    /**
+     * a number that identifies the request to create a new proverb
+     */
+    private static final int CREATE_PROVERB_REQUEST = 1;
 
     /**
      * a fragment that takes care of visualization of multiple proverbs
@@ -189,11 +195,9 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     @Override
     public void onAddNew() {
-        /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intent = new Intent(getApplicationContext(), ActEdit.class);
-        startActivityForResult(intent, 1);
-
+        startActivityForResult(intent, CREATE_PROVERB_REQUEST);
     }
 
     /**
@@ -213,5 +217,19 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         Intent intent = new Intent(getApplicationContext(), ActShowSingle.class);
         startActivity(intent);
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CREATE_PROVERB_REQUEST){
+            if (resultCode == RESULT_OK){
+                Log.i(Config.APP_NAME, "creating the proverb");
+                String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
+                if (text != null) {
+                    ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+                    provider.createProverb(text, data.getBooleanExtra(ActEdit.STATUS_TOKEN, false));
+                }
+            }
+        }
     }
 }
