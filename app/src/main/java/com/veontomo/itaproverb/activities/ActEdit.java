@@ -13,49 +13,80 @@ import com.veontomo.itaproverb.R;
 
 public class ActEdit extends AppCompatActivity {
     /**
+     * opacity of the icon corresponding to a favorite proverb
+     */
+    private final float FAVORITE = 1f;
+
+    /**
+     * opacity of the icon corresponding to a non-favorite proverb
+     */
+    private final float NON_FAVORITE = 0.2f;
+    /**
      * text of the proverb
      */
     private String mText;
 
     /**
+     * proverb status (whether the proverb is favorite)
+     */
+    private boolean mStatus = false;
+
+    /**
      * name of the token under which the proverb text is stored in the bundle
      */
     public static final String TEXT_TOKEN = "text";
+
+    /**
+     * name of the token under which the proverb status is stored in the bundle
+     */
+    public static final String STATUS_TOKEN = "status";
     /**
      * a view that contains the text of the proverb to modify
      */
     private EditText mInput;
 
     /**
-     * a view click on which confirms the action
+     * click on this view confirms the action
      */
     private ImageView mConfirm;
 
     /**
-     * a view click on which cancels the action
+     * click on this view cancels the action
      */
     private ImageView mCancel;
+    /**
+     * click on this view sets the proverb status
+     */
+    private View mStatusView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_edit);
-        Bundle b = getIntent().getExtras();
+
+        Bundle b = savedInstanceState;
+        if (b == null) {
+            b = getIntent().getExtras();
+        }
         if (b != null) {
             mText = b.getString(TEXT_TOKEN);
+            mStatus = b.getBoolean(STATUS_TOKEN);
         }
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
         this.mInput = (EditText) findViewById(R.id.act_edit_proverb_text);
-        this.mConfirm = (ImageView) findViewById(R.id.act_delete_confirm);
-        this.mCancel = (ImageView) findViewById(R.id.act_delete_cancel);
+        this.mConfirm = (ImageView) findViewById(R.id.act_edit_confirm);
+        this.mCancel = (ImageView) findViewById(R.id.act_edit_cancel);
+        this.mStatusView = findViewById(R.id.act_edit_favorite);
 
         if (this.mText != null) {
             this.mInput.setText(this.mText);
         }
+        setFavorite(this.mStatus);
     }
 
     @Override
@@ -78,7 +109,27 @@ public class ActEdit extends AppCompatActivity {
                 finish();
             }
         });
+        mStatusView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when a view has been clicked.
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                mStatus = !mStatus;
+                setFavorite(mStatus);
+            }
+        });
 
+    }
+
+    @Override
+    public void onPause() {
+        mStatusView.setOnClickListener(null);
+        mConfirm.setOnClickListener(null);
+        mCancel.setOnClickListener(null);
+        super.onPause();
     }
 
     @Override
@@ -89,11 +140,13 @@ public class ActEdit extends AppCompatActivity {
         super.onStop();
     }
 
+
     @Override
-    public void onPause() {
-        mConfirm.setOnClickListener(null);
-        mCancel.setOnClickListener(null);
-        super.onPause();
+    public void onSaveInstanceState(Bundle b){
+        b.putString(TEXT_TOKEN, this.mText);
+        b.putBoolean(STATUS_TOKEN, this.mStatus);
+        super.onSaveInstanceState(b);
+
     }
 
     @Override
@@ -116,5 +169,14 @@ public class ActEdit extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Sets the opacity of the star.
+     *
+     * @param status
+     */
+    public void setFavorite(boolean status) {
+        this.mStatusView.setAlpha(status ? FAVORITE : NON_FAVORITE);
     }
 }

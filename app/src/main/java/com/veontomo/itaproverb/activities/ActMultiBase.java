@@ -191,6 +191,9 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     public void onAddNew() {
         /// TODO
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Intent intent = new Intent(getApplicationContext(), ActEdit.class);
+        startActivityForResult(intent, 1);
+
     }
 
     /**

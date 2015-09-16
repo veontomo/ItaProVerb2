@@ -22,19 +22,19 @@
         android:layout_height="wrap_content"/>
 
     <ImageButton
-        android:id="@+id/act_delete_cancel"
+        android:id="@+id/act_edit_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/act_delete_proverb_text"
         android:src="@mipmap/cancel"/>
 
     <ImageButton
-        android:id="@+id/act_delete_confirm"
+        android:id="@+id/act_edit_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/act_delete_cancel"
-        android:layout_toRightOf="@id/act_delete_cancel"
-        android:layout_toEndOf="@id/act_delete_cancel"
+        android:layout_alignBottom="@id/act_edit_cancel"
+        android:layout_toRightOf="@id/act_edit_cancel"
+        android:layout_toEndOf="@id/act_edit_cancel"
         android:src="@mipmap/ok"/>
 
 </RelativeLayout>
