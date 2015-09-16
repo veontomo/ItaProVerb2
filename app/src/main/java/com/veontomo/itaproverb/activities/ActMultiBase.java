@@ -80,7 +80,6 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_favorites);
-        AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
     }
 
     @Override
@@ -213,8 +212,12 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
     @Override
     public void onItemClick(int position) {
-        /// TODO
         Intent intent = new Intent(getApplicationContext(), ActShowSingle.class);
+        intent.putExtra(ActShowSingle.ID_TOKEN, this.mIds[position]);
+        intent.putExtra(ActShowSingle.TEXT_TOKEN, this.mTexts[position]);
+        intent.putExtra(ActShowSingle.STATUS_TOKEN, this.mStatuses[position]);
+
+
         startActivity(intent);
         Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }

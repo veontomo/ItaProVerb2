@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.AppInit;
+import com.veontomo.itaproverb.api.Config;
 
 public class ActDispatch extends AppCompatActivity {
 
@@ -16,6 +18,7 @@ public class ActDispatch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_dispatch);
+        AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
     }
 
     @Override

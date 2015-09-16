@@ -1,60 +1,63 @@
 package com.veontomo.itaproverb.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.AppInit;
-import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
-import com.veontomo.itaproverb.fragments.FragShowSingle;
+import com.veontomo.itaproverb.api.ProverbProvider;
 
-public class ActShowSingle extends AppCompatActivity {
-
+/**
+ * Displays single proverb along with manager panel
+ */
+public class ActShowSingle extends ActSingleBase {
+    /**
+     * name of the token under which the proverb id is stored in the bundle
+     */
+    public static final String ID_TOKEN = "id";
+    /**
+     * name of the token under which the proverb text is stored in the bundle
+     */
+    public static final String TEXT_TOKEN = "text";
+    /**
+     * name of the token under which the proverb status is stored in the bundle
+     */
+    public static final String STATUS_TOKEN = "status";
     /**
      * Id of the proverb for which this activity has been called
      */
-    int mId;
-
-    private FragShowSingle mFragShowSingle;
+    private int mId;
+    /**
+     * Text of the proverb for which this activity has been called
+     */
+    private String mText;
+    /**
+     * Status of the proverb for which this activity has been called
+     */
+    private boolean mStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_show_single);
-    }
-
-
-    public void onStart() {
-        super.onStart();
-        this.mFragShowSingle = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_show_single_frag);
-
-        this.mFragShowSingle.load(new Proverb(34, "chi cerca trova", true));
-        this.mFragShowSingle.updateView();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_show_single, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        setContentView(R.layout.act_single_base);
+        Bundle b = savedInstanceState;
+        if (b == null) {
+            Intent intent = getIntent();
+            if (intent != null) {
+                b = getIntent().getExtras();
+            }
         }
+        if (b != null) {
+            this.mId = b.getInt(ID_TOKEN, -1);
+            this.mText = b.getString(TEXT_TOKEN);
+            this.mStatus = b.getBoolean(STATUS_TOKEN, false);
+        }
+    }
 
-        return super.onOptionsItemSelected(item);
+
+    @Override
+    public Proverb getItem(ProverbProvider provider) {
+        return new Proverb(mId, mText, mStatus);
     }
 
 }
