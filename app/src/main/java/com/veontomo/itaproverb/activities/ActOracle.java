@@ -9,16 +9,16 @@ import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 
 /**
- * Displays a proverb of the day along with manager panel.
+ * Displays an oracle proverb along with manager panel.
  */
-public class ActProverbDay extends ActSingleBase {
+public class ActOracle extends ActSingleBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (!Config.PRODUCTION_MODE) {
             Config.strictModeInit();
         }
         super.onCreate(savedInstanceState);
-        Log.i(Config.APP_NAME, "ActProverbDay: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, "ActOracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_single_base);
         if (savedInstanceState != null) {
             initializeItem(savedInstanceState);
@@ -28,6 +28,6 @@ public class ActProverbDay extends ActSingleBase {
 
     @Override
     public Proverb getItem(ProverbProvider provider){
-        return provider.todayProverb();
+        return provider.randomProverb();
     }
 }
