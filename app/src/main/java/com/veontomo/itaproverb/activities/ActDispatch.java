@@ -15,7 +15,7 @@ public class ActDispatch extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dispatch);
+        setContentView(R.layout.act_dispatch);
     }
 
     @Override
