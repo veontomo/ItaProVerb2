@@ -22,4 +22,9 @@
     <string name="title_activity_act_dispatch">Dispatcher</string>
     <string name="title_activity_act_delete">Delete proverb</string>
     <string name="title_activity_act_edit">Edit proverb</string>
+    <string name="facebook_app_id" translatable="false">604747132997976</string>
+    <string name="title_activity_act_facebook_share">Share with facebook</string>
+
+    <string name="hello_world">Hello world!</string>
+
 </resources>
