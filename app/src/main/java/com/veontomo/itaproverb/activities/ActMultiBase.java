@@ -9,16 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
+import com.veontomo.itaproverb.api.ProverbSearcher;
 import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragAddProverb;
 import com.veontomo.itaproverb.fragments.FragSearch;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
 import com.veontomo.itaproverb.tasks.ProverbRetrievalTask;
-import com.veontomo.itaproverb.tasks.ProverbSearchTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.List;
 /**
  * This abstract activity deals with multiple proverbs: displays them,
  * performs search among them.
- *
+ * <p/>
  * Activities that extend this one must implement method {@link #getItems(Storage)} that determines
  * the content.
  */
@@ -77,6 +76,11 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     private List<Proverb> mItems;
 
+    /**
+     * performs search in given set
+     */
+    private ProverbSearcher searcher;
+
     public abstract List<Proverb> getItems(Storage storage);
 
 
@@ -93,6 +97,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     public void onStart() {
         super.onStart();
         this.mShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_show_multi);
+        this.searcher = new ProverbSearcher(this);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -118,9 +123,10 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
     /**
      * Passes given list of proverbs to the fragment responcible for displaying them.
+     *
      * @param proverbs
      */
-    public void displayProverbs(List<Proverb> proverbs){
+    public void displayProverbs(List<Proverb> proverbs) {
         this.mShowMulti.load(proverbs);
         this.mShowMulti.updateView();
     }
@@ -128,6 +134,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
     /**
      * Sets up {@link #mIds}, {@link #mTexts} and {@link #mStatuses} from given list of proverb.
+     *
      * @param proverbs
      */
     public void extractFromMultiProverbs(@NonNull List<Proverb> proverbs) {
@@ -151,6 +158,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      * Recreates list of proverbs based on split data: array of proverb ids, array of proverb texts,
      * array of proverb statuses.
      * It is supposed that the input arrays have the same length.
+     *
      * @param ids
      * @param texts
      * @param statuses
@@ -222,10 +230,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     @Override
     public void onSearch(String searchTerm) {
-        /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + searchTerm);
-        ProverbSearchTask task = new ProverbSearchTask(this.mItems, this);
-        task.execute(searchTerm);
+        searcher.find(searchTerm, this.mItems);
     }
 
     @Override
@@ -242,8 +247,8 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CREATE_PROVERB_REQUEST){
-            if (resultCode == RESULT_OK){
+        if (requestCode == CREATE_PROVERB_REQUEST) {
+            if (resultCode == RESULT_OK) {
                 Log.i(Config.APP_NAME, "creating the proverb");
                 String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
                 if (text != null) {
@@ -260,6 +265,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      * Once called, it calls method {@link #extractFromMultiProverbs(List)} in order to set values
      * of the triple {@link #mIds}, {@link #mTexts} and {@link #mStatuses} that are duplicates
      * of {@link #mItems}.</p>
+     *
      * @param proverbs
      */
     public void setItems(List<Proverb> proverbs) {

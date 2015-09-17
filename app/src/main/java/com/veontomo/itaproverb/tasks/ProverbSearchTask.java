@@ -24,6 +24,8 @@ public class ProverbSearchTask extends AsyncTask<String, Void, List<Proverb>> {
      */
     private final ActMultiBase caller;
 
+    public boolean isFree = true;
+
     public ProverbSearchTask(List<Proverb> data, ActMultiBase caller) {
         this.data = data;
         this.caller = caller;
@@ -31,10 +33,9 @@ public class ProverbSearchTask extends AsyncTask<String, Void, List<Proverb>> {
 
     @Override
     protected List<Proverb> doInBackground(@NonNull String... params) {
+        isFree = false;
         List<Proverb> result = new ArrayList<>();
-
         if (params.length > 0) {
-            Log.i(Config.APP_NAME, "searching " + params[0]);
             for (Proverb p : data) {
                 if (p.text.contains(params[0])) {
                     result.add(p);
@@ -47,6 +48,7 @@ public class ProverbSearchTask extends AsyncTask<String, Void, List<Proverb>> {
     @Override
     public void onPostExecute(List<Proverb> proverbs){
         caller.displayProverbs(proverbs);
+        isFree = true;
     }
 
 }
