@@ -1,5 +1,8 @@
 package com.veontomo.itaproverb.activities;
 
+import android.util.Log;
+
+import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.Storage;
 

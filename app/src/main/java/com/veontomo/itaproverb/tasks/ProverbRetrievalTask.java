@@ -1,10 +1,8 @@
 package com.veontomo.itaproverb.tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.veontomo.itaproverb.activities.ActMultiBase;
-import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
@@ -14,7 +12,7 @@ import java.util.List;
 /**
  * Retrieves proverbs from database.
  */
-public class ProverbRetrievalTask extends AsyncTask <Void, Void, List<Proverb>>{
+public class ProverbRetrievalTask extends AsyncTask<Void, Void, List<Proverb>> {
     /**
      * object that performs the retrieval of required proverbs from the database
      */
@@ -40,15 +38,16 @@ public class ProverbRetrievalTask extends AsyncTask <Void, Void, List<Proverb>>{
 
     @Override
     protected List<Proverb> doInBackground(Void... params) {
-        List<Proverb> proverbs = cache.getItems(storage);
-        if (this.cache != null){
-            this.cache.extractFromMultiProverbs(proverbs);
+        List<Proverb> proverbs = null;
+        if (this.cache != null) {
+            proverbs = cache.getItems(storage);
+            this.cache.setItems(proverbs);
         }
         return proverbs;
     }
 
     @Override
-    public void onPostExecute(List<Proverb> result){
+    public void onPostExecute(List<Proverb> result) {
         this.holder.load(result);
         this.holder.updateView();
     }

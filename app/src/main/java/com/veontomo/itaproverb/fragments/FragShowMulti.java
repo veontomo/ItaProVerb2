@@ -1,8 +1,7 @@
 package com.veontomo.itaproverb.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbAdapter;
 
@@ -56,7 +54,7 @@ public class FragShowMulti extends Fragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         this.hostActivity = (ShowMultiActions) getActivity();
 
@@ -77,7 +75,7 @@ public class FragShowMulti extends Fragment {
         this.mAdapter.load(this.mProverbs);
     }
 
-    public void updateView(){
+    public void updateView() {
         this.mAdapter.notifyDataSetChanged();
     }
 
@@ -85,6 +83,7 @@ public class FragShowMulti extends Fragment {
     public interface ShowMultiActions {
         /**
          * It is called when an item that this fragment visualizes gets clicked.
+         *
          * @param position
          */
         void onItemClick(int position);

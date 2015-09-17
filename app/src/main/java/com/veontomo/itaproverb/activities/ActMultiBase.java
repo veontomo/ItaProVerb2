@@ -18,6 +18,7 @@ import com.veontomo.itaproverb.fragments.FragAddProverb;
 import com.veontomo.itaproverb.fragments.FragSearch;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
 import com.veontomo.itaproverb.tasks.ProverbRetrievalTask;
+import com.veontomo.itaproverb.tasks.ProverbSearchTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,12 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     private boolean[] mStatuses;
 
+    /**
+     * list of proverbs (if fact, this member duplicates info stored in the triple {@link #mIds},
+     * {@link #mTexts} and {@link #mStatuses}).
+     */
+    private List<Proverb> mItems;
+
     public abstract List<Proverb> getItems(Storage storage);
 
 
@@ -101,12 +108,21 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
         if (mIds != null && mTexts != null && mStatuses != null) {
             List<Proverb> proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
-            this.mShowMulti.load(proverbs);
-            this.mShowMulti.updateView();
+            this.displayProverbs(proverbs);
         } else {
+            // this task launches method getItems in order to fill the activity with content
             ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
             task.execute();
         }
+    }
+
+    /**
+     * Passes given list of proverbs to the fragment responcible for displaying them.
+     * @param proverbs
+     */
+    public void displayProverbs(List<Proverb> proverbs){
+        this.mShowMulti.load(proverbs);
+        this.mShowMulti.updateView();
     }
 
 
@@ -207,7 +223,9 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     @Override
     public void onSearch(String searchTerm) {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
+        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + searchTerm);
+        ProverbSearchTask task = new ProverbSearchTask(this.mItems, this);
+        task.execute(searchTerm);
     }
 
     @Override
@@ -234,5 +252,20 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
                 }
             }
         }
+    }
+
+    /**
+     * {@link #mItems} setter.
+     * <p>
+     * Once called, it calls method {@link #extractFromMultiProverbs(List)} in order to set values
+     * of the triple {@link #mIds}, {@link #mTexts} and {@link #mStatuses} that are duplicates
+     * of {@link #mItems}.</p>
+     * @param proverbs
+     */
+    public void setItems(List<Proverb> proverbs) {
+        this.mItems = proverbs;
+        extractFromMultiProverbs(proverbs);
+
+
     }
 }
