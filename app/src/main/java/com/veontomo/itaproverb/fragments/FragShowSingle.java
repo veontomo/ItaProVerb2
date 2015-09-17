@@ -17,14 +17,9 @@ import com.veontomo.itaproverb.api.Proverb;
  */
 public class FragShowSingle extends Fragment {
     /**
-     * proverb that this fragment should load
+     * proverb that this fragment visualizes
      */
     private Proverb mProverb;
-
-    /**
-     * Text view of the fragment layout that displays proverb id
-     */
-    private TextView mIdView;
 
     /**
      * Text view of the fragment layout that displays proverb text
@@ -51,7 +46,6 @@ public class FragShowSingle extends Fragment {
     public void onStart() {
         super.onStart();
         Log.i(Config.APP_NAME, "show single " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        this.mIdView = (TextView) getActivity().findViewById(R.id.frag_show_single_id);
         this.mTextView = (TextView) getActivity().findViewById(R.id.frag_show_single_text);
     }
 
@@ -67,7 +61,6 @@ public class FragShowSingle extends Fragment {
     public void onStop() {
         Log.i(Config.APP_NAME, "show single " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mTextView = null;
-        this.mIdView = null;
         super.onStop();
     }
 
@@ -87,9 +80,6 @@ public class FragShowSingle extends Fragment {
         /// TODO: analyze why the very first start of the app on a device produces NullPointerException
         /// if the user clicks on "oracle"
         /// To avoid the problem, the conditionals are added below. But it is better resolve the problem.
-        if (this.mIdView != null) {
-            this.mIdView.setText(String.valueOf(mProverb.id));
-        }
         if (this.mTextView != null) {
             this.mTextView.setText(mProverb.text);
         }
