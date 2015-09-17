@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.veontomo.itaproverb"
-        minSdkVersion 11
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 4
         versionName "2.0"
@@ -26,4 +26,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:7.8.0'
     compile 'junit:junit:4.12'
     compile 'org.mockito:mockito-core:2.0.31-beta'
+    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
 }

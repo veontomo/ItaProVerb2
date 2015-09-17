@@ -192,9 +192,8 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     @Override
     public void onShare() {
-        /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
         Intent intent = new Intent(getApplicationContext(), ActFacebookShare.class);
+        startActivity(intent);
     }
 
     /**
