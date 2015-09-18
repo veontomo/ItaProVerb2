@@ -1,5 +1,6 @@
 package com.veontomo.itaproverb.fragments;
 
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 import com.veontomo.itaproverb.R;
 
 /**
@@ -21,7 +25,7 @@ public class FragManagerPanel extends Fragment {
     /**
      * An image view that holds "share" image
      */
-    private ImageView mShare;
+    private ShareButton mShare;
     /**
      * An image view that holds "edit" button
      */
@@ -71,7 +75,8 @@ public class FragManagerPanel extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        this.mShare = (ImageView) getActivity().findViewById(R.id.frag_manager_share);
+//        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        this.mShare = (ShareButton) getActivity().findViewById(R.id.frag_manager_share);
         this.mEdit = (ImageView) getActivity().findViewById(R.id.frag_manager_edit);
         this.mDelete = (ImageView) getActivity().findViewById(R.id.frag_manager_delete);
         this.mStatus = (ImageView) getActivity().findViewById(R.id.frag_manager_star);
@@ -79,6 +84,11 @@ public class FragManagerPanel extends Fragment {
         this.hostActivity = (ManagerPanelActions) getActivity();
 
         attachListeners();
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .build();
+        mShare.setShareContent(content);
+        mShare.performClick();
     }
 
 

@@ -23,12 +23,13 @@
         android:contentDescription="@string/descr_edit"
         android:src="@mipmap/pencil"/>
 
-    <ImageView
+
+    <com.facebook.share.widget.ShareButton
         android:id="@+id/frag_manager_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/descr_share"
-        android:src="@mipmap/share"/>
+        android:src="@mipmap/share" />
 
     <ImageView
         android:id="@+id/frag_manager_delete"
