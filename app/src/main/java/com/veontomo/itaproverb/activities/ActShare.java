@@ -11,15 +11,17 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 import com.veontomo.itaproverb.R;
 
-public class ActFacebookShare extends AppCompatActivity {
+/**
+ * Contains buttons to share content on social networks.
+ */
+public class ActShare extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_facebook_share);
+        setContentView(R.layout.act_share);
         FacebookSdk.sdkInitialize(getApplicationContext());
-
     }
 
     @Override
@@ -28,8 +30,9 @@ public class ActFacebookShare extends AppCompatActivity {
         ShareLinkContent content = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse("https://developers.facebook.com"))
                 .build();
-        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+        ShareButton shareButton = (ShareButton)findViewById(R.id.act_share_fb);
         shareButton.setShareContent(content);
+        shareButton.performClick();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

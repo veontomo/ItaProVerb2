@@ -25,7 +25,7 @@ public class FragManagerPanel extends Fragment {
     /**
      * An image view that holds "share" image
      */
-    private ShareButton mShare;
+    private ImageView mShare;
     /**
      * An image view that holds "edit" button
      */
@@ -75,8 +75,7 @@ public class FragManagerPanel extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-//        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-        this.mShare = (ShareButton) getActivity().findViewById(R.id.frag_manager_share);
+        this.mShare = (ImageView) getActivity().findViewById(R.id.frag_manager_share);
         this.mEdit = (ImageView) getActivity().findViewById(R.id.frag_manager_edit);
         this.mDelete = (ImageView) getActivity().findViewById(R.id.frag_manager_delete);
         this.mStatus = (ImageView) getActivity().findViewById(R.id.frag_manager_star);
@@ -84,11 +83,7 @@ public class FragManagerPanel extends Fragment {
         this.hostActivity = (ManagerPanelActions) getActivity();
 
         attachListeners();
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("https://developers.facebook.com"))
-                .build();
-        mShare.setShareContent(content);
-        mShare.performClick();
+
     }
 
 

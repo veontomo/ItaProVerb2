@@ -74,7 +74,7 @@
             android:label="@string/title_activity_act_edit" >
         </activity>
         <activity
-            android:name=".activities.ActFacebookShare"
+            android:name=".activities.ActShare"
             android:label="@string/title_activity_act_facebook_share" >
         </activity>
     </application>

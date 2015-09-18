@@ -23,8 +23,7 @@
         android:contentDescription="@string/descr_edit"
         android:src="@mipmap/pencil"/>
 
-
-    <com.facebook.share.widget.ShareButton
+    <ImageView
         android:id="@+id/frag_manager_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
