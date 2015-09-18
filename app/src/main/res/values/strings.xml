@@ -25,6 +25,6 @@
     <string name="facebook_app_id" translatable="false">604747132997976</string>
     <string name="title_activity_act_facebook_share">Share with facebook</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="share_post_title">Proverb I\'ve got right now</string>
 
 </resources>

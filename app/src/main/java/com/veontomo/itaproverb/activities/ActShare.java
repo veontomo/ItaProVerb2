@@ -67,17 +67,18 @@ public class ActShare extends AppCompatActivity {
 //        SharePhotoContent content = new SharePhotoContent.Builder()
 //                .addPhoto(photo)
 //                .build();
+//        shareDialog.show(content);
         ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("http://xxx.lanl.gov/"))
-                .setContentTitle("My proverb")
+                .setContentUrl(Uri.parse(Config.FACEBOOK_URL))
+                .setContentTitle(getString(R.string.share_post_title))
+                .setImageUrl(Uri.parse(Config.LOGO_URL))
                 .setContentDescription(this.mText)
-                .setImageUrl(Uri.parse("https://lh3.googleusercontent.com/yDsAof472u9GZYaw0nQkS4p5_odYkuneSKVjvbkBEXO9UGOJBE8HdsjkiKFuGuwClg=w300"))
                 .build();
-        shareDialog.show(content);
+
         ShareButton shareButton = (ShareButton) findViewById(R.id.act_share_fb);
         shareButton.setShareContent(content);
+        shareButton.performClick();
         finish();
-//        shareButton.performClick();
     }
 
     @Override

@@ -32,6 +32,15 @@ public abstract class Config {
      */
     public static final String GOOGLE_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.veontomo.itaproverb";
 
+    /**
+     * an url created by facebook that redirects to google play
+     */
+    public static final String FACEBOOK_URL = "https://fb.me/615874071885282";
+    /**
+     * location of the app logo
+     */
+    public static final String LOGO_URL = "https://lh3.googleusercontent.com/yDsAof472u9GZYaw0nQkS4p5_odYkuneSKVjvbkBEXO9UGOJBE8HdsjkiKFuGuwClg=w300";
+
 
     /**
      * Strict mode initialisation.

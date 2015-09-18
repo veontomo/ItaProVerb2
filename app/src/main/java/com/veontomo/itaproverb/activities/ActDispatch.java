@@ -1,17 +1,22 @@
 package com.veontomo.itaproverb.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
+
+import bolts.AppLinks;
 
 public class ActDispatch extends AppCompatActivity {
 
@@ -20,6 +25,13 @@ public class ActDispatch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_dispatch);
         AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+        if (targetUrl != null) {
+            Log.i(Config.APP_NAME, "App Link Target URL: " + targetUrl.toString());
+        } else {
+            Log.i(Config.APP_NAME, "App Link Target URL is null ");
+        }
     }
 
     @Override
