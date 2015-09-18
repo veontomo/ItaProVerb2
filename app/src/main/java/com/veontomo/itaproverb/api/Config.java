@@ -28,6 +28,12 @@ public abstract class Config {
     public static final String ENCODING = "UTF-8";
 
     /**
+     * Url of the app at google play store
+     */
+    public static final String GOOGLE_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.veontomo.itaproverb";
+
+
+    /**
      * Strict mode initialisation.
      */
     public final static void strictModeInit() {

@@ -193,6 +193,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onShare() {
         Intent intent = new Intent(getApplicationContext(), ActShare.class);
+        intent.putExtra(ActShare.TEXT_TOKEN, this.mProverb.text);
         startActivity(intent);
     }
 
