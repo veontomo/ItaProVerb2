@@ -13,7 +13,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -26,5 +26,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:7.8.0'
     compile 'junit:junit:4.12'
     compile 'org.mockito:mockito-core:2.0.31-beta'
-    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+
 }
