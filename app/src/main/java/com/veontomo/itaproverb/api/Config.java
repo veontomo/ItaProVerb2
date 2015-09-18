@@ -28,7 +28,7 @@ public abstract class Config {
     public static final String ENCODING = "UTF-8";
 
     /**
-     * Address at which the app is available at google play store
+     * Url of the app at google play store
      */
     public static final String GOOGLE_PLAY_STORE = "https://play.google.com/store/apps/details?id=com.veontomo.itaproverb";
 
