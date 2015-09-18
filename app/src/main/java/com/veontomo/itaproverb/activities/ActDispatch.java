@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
@@ -24,6 +25,7 @@ public class ActDispatch extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+        AppEventsLogger.activateApp(this);
         TextView proverbDay = (TextView) findViewById(R.id.dispatcher_proverb_day);
         TextView proverbOracle = (TextView) findViewById(R.id.dispatcher_proverb_oracle);
         TextView proverbFavorites = (TextView) findViewById(R.id.dispatcher_favorites);
@@ -57,6 +59,14 @@ public class ActDispatch extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
