@@ -5,31 +5,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookSdk;
-import com.facebook.share.Sharer;
-import com.facebook.share.widget.ShareDialog;
 import com.veontomo.itaproverb.R;
 
 public class ActFacebookShare extends AppCompatActivity {
 
-    private CallbackManager callbackManager;
-    private ShareDialog shareDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_facebook_share);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog(this);
-        // this part is optional
-        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-        });
+
+    };
 
 
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
