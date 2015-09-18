@@ -28,12 +28,21 @@ public class ActShare extends AppCompatActivity {
      */
     public static final String TEXT_TOKEN = "text";
     /**
+     * name of the token under which the title text of the post to share
+     * is saved in a bundle
+     */
+    public static final String TITLE_TOKEN = "title";
+    /**
      * text of the proverb that this activity deals with.
      */
     private String mText;
 
     CallbackManager callbackManager;
     ShareDialog shareDialog;
+    /**
+     * title with which the post is published
+     */
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,7 @@ public class ActShare extends AppCompatActivity {
         }
         if (b != null) {
             this.mText = b.getString(TEXT_TOKEN);
+            this.mTitle = b.getString(TITLE_TOKEN);
         }
     }
 
@@ -70,7 +80,7 @@ public class ActShare extends AppCompatActivity {
 //        shareDialog.show(content);
         ShareLinkContent content = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse(Config.FACEBOOK_URL))
-                .setContentTitle(getString(R.string.share_post_title))
+                .setContentTitle(this.mTitle)
                 .setImageUrl(Uri.parse(Config.LOGO_URL))
                 .setContentDescription(this.mText)
                 .build();
@@ -84,6 +94,7 @@ public class ActShare extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle b){
         b.putString(TEXT_TOKEN, this.mText);
+        b.putString(TITLE_TOKEN, this.mTitle);
         super.onSaveInstanceState(b);
     }
 

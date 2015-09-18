@@ -17,6 +17,15 @@ import com.veontomo.itaproverb.api.ProverbProvider;
  * Displays a proverb of the day along with manager panel.
  */
 public class ActProverbDay extends ActSingleBase {
+    /**
+     * title with which the proverb of the day is shared on a social network
+     */
+    @Override
+    public String getSharePostTitle() {
+        return getString(R.string.share_post_title_proverb_day);
+    }
+
+
     private GestureDetectorCompat mDetector;
 
     @Override

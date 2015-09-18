@@ -26,5 +26,7 @@
     <string name="title_activity_act_facebook_share">Share with facebook</string>
 
     <string name="share_post_title">Proverb I\'ve got right now</string>
+    <string name="share_post_title_oracle">Fortune teller has just said to me:</string>
+    <string name="share_post_title_proverb_day">Proverb of the day:</string>
 
 </resources>

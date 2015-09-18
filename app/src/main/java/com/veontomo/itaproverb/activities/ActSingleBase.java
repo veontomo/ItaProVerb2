@@ -72,13 +72,20 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     private ProverbProvider provider;
 
+    /**
+     * title with which the post is shared on a social network
+     */
+    public String getSharePostTitle() {
+        return getString(R.string.share_post_title);
+    }
+
+
     public void initializeItem(Bundle savedInstanceState) {
         this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
                 savedInstanceState.getString(PROVERB_TEXT_TOKEN),
                 savedInstanceState.getBoolean(PROVERB_STATUS_TOKEN));
 
     }
-
 
 
     @Override
@@ -110,7 +117,10 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * <p>It is supposed to be overridden by a subclass in order to have non-trivial behaviour.
      * It is called in {@link #onResume()} method.</p>
      */
-    protected void registerListeners(){};
+    protected void registerListeners() {
+    }
+
+    ;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -134,7 +144,8 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * Unset previously registered listeners.
      * <p>It is called in {@link #onPause()} method.</p>
      */
-    protected void unregisterListeners() {}
+    protected void unregisterListeners() {
+    }
 
     @Override
     protected void onStop() {
@@ -194,6 +205,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     public void onShare() {
         Intent intent = new Intent(getApplicationContext(), ActShare.class);
         intent.putExtra(ActShare.TEXT_TOKEN, this.mProverb.text);
+        intent.putExtra(ActShare.TITLE_TOKEN, getSharePostTitle());
         startActivity(intent);
     }
 

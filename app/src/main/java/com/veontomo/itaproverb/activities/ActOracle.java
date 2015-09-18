@@ -12,6 +12,14 @@ import com.veontomo.itaproverb.api.ProverbProvider;
  * Displays an oracle proverb along with manager panel.
  */
 public class ActOracle extends ActSingleBase {
+    /**
+     * title with which the oracle proverb is shared on a social network
+     */
+    @Override
+    public String getSharePostTitle() {
+        return getString(R.string.share_post_title_oracle);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (!Config.PRODUCTION_MODE) {
