@@ -28,10 +28,6 @@ public class ActOracle extends ActSingleBase {
         super.onCreate(savedInstanceState);
         Log.i(Config.APP_NAME, "ActOracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_single_base);
-        if (savedInstanceState != null) {
-            initializeItem(savedInstanceState);
-        }
-
     }
 
     @Override

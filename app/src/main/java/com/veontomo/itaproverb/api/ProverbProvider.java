@@ -2,6 +2,9 @@ package com.veontomo.itaproverb.api;
 
 import android.util.Log;
 
+import com.veontomo.itaproverb.activities.ActProverbDay;
+import com.veontomo.itaproverb.activities.ActSingleBase;
+import com.veontomo.itaproverb.tasks.ProverbDayTask;
 import com.veontomo.itaproverb.tasks.ProverbDeleteTask;
 import com.veontomo.itaproverb.tasks.ProverbEditTask;
 import com.veontomo.itaproverb.tasks.ProverbSetStatusTask;
@@ -20,7 +23,6 @@ import java.util.Random;
  * <br/> 5. retrieve proverb of the day and related operations (newer/older)
  */
 public class ProverbProvider {
-
 
     private final Storage mStorage;
 
@@ -105,15 +107,20 @@ public class ProverbProvider {
 
     /**
      * Retrieves older proverb from today's ones
+     *
+     * @param caller instance that should deal with the result of the execution
      */
-    public void getOlder() {
-        /// TODO
+    public void getOlder(ActSingleBase caller) {
+        ProverbDayTask task = new ProverbDayTask(mStorage, caller);
+        task.execute();
     }
 
     /**
      * Retrieves newer proverb from today's ones
+     *
+     * @param caller instance that should deal with the result of the execution
      */
-    public void getNewer() {
+    public void getNewer(ActSingleBase caller) {
         /// TODO
     }
 }

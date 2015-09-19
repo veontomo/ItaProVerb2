@@ -83,6 +83,17 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         return provider;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            initializeItem(savedInstanceState);
+        }
+
+
+    }
+
     public void initializeItem(Bundle savedInstanceState) {
         this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
                 savedInstanceState.getString(PROVERB_TEXT_TOKEN),
@@ -109,10 +120,19 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onResume() {
         super.onResume();
-        this.mFragItem.load(this.mProverb);
-        this.mFragItem.updateView();
+        loadItem(this.mProverb);
         this.mFragManager.setFavorite(this.mProverb.isFavorite);
         registerListeners();
+    }
+
+    /**
+     * Loads proverb in corresponding fragment and update the view
+     * @param p
+     */
+    public void loadItem(Proverb p){
+        this.mFragItem.load(p);
+        this.mFragItem.updateView();
+
     }
 
     /**

@@ -38,12 +38,12 @@ public class ActProverbDay extends ActSingleBase {
         super.onCreate(savedInstanceState);
         Log.i(Config.APP_NAME, "ActProverbDay: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_single_base);
-        if (savedInstanceState != null) {
-            initializeItem(savedInstanceState);
-        }
-        this.mDetector = new GestureDetectorCompat(this, new SwipeGestureListener(getProverbProvider()));
+    }
 
-
+    @Override
+    public void onStart(){
+        super.onStart();
+        this.mDetector = new GestureDetectorCompat(this, new SwipeGestureListener(this, getProverbProvider()));
     }
 
     @Override
@@ -87,23 +87,34 @@ public class ActProverbDay extends ActSingleBase {
      * Gesture listener that is attached to the view with the proverb
      */
     class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
+        /**
+         * takes care of getting newer or older proverb
+         */
         private final ProverbProvider provider;
+        /**
+         * instance that use this listener and to which {@link #provider} should
+         * handle the result of execution
+         */
+        private final ActSingleBase caller;
 
-        public SwipeGestureListener(final ProverbProvider provider){
+        public SwipeGestureListener(final ActSingleBase caller, final ProverbProvider provider){
+            this.caller = caller;
             this.provider = provider;
+            if (provider == null){
+                Log.i(Config.APP_NAME, "provider is null!!!");
+            }
         }
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
-            Proverb proverb;
             float dx = event2.getX() - event1.getX();
             if (dx > 0) {
                 Log.i(Config.APP_NAME, "get older");
-                provider.getOlder();
+                provider.getOlder(caller);
 
             } else {
                 Log.i(Config.APP_NAME, "get newer");
-                provider.getNeweer();
+                provider.getNewer(caller);
             }
             return true;
         }
