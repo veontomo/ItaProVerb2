@@ -1,6 +1,7 @@
 package com.veontomo.itaproverb.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.veontomo.itaproverb.api.ProverbProvider;
  * Displays a proverb of the day along with manager panel.
  */
 public class ActProverbDay extends ActSingleBase {
+
     /**
      * title with which the proverb of the day is shared on a social network
      */
@@ -39,13 +41,13 @@ public class ActProverbDay extends ActSingleBase {
         if (savedInstanceState != null) {
             initializeItem(savedInstanceState);
         }
-        mDetector = new GestureDetectorCompat(this, new SwipeGestureListener());
+        this.mDetector = new GestureDetectorCompat(this, new SwipeGestureListener(getProverbProvider()));
 
 
     }
 
     @Override
-    public Proverb getItem(ProverbProvider provider) {
+    public Proverb getItem(@NonNull ProverbProvider provider) {
         return provider.todayProverb();
     }
 
@@ -79,10 +81,17 @@ public class ActProverbDay extends ActSingleBase {
         }
     }
 
+
+
     /**
      * Gesture listener that is attached to the view with the proverb
      */
     class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private final ProverbProvider provider;
+
+        public SwipeGestureListener(final ProverbProvider provider){
+            this.provider = provider;
+        }
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
@@ -90,8 +99,11 @@ public class ActProverbDay extends ActSingleBase {
             float dx = event2.getX() - event1.getX();
             if (dx > 0) {
                 Log.i(Config.APP_NAME, "get older");
+                provider.getOlder();
+
             } else {
                 Log.i(Config.APP_NAME, "get newer");
+                provider.getNeweer();
             }
             return true;
         }

@@ -79,6 +79,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         return getString(R.string.share_post_title);
     }
 
+    public ProverbProvider getProverbProvider() {
+        return provider;
+    }
 
     public void initializeItem(Bundle savedInstanceState) {
         this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
@@ -94,7 +97,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mFragItem = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_proverb);
         this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_manager_panel);
-        provider = new ProverbProvider(new Storage(getApplicationContext()));
+        this.provider = new ProverbProvider(new Storage(getApplicationContext()));
 
         if (this.mProverb == null) {
             this.mProverb = getItem(provider);
@@ -117,10 +120,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * <p>It is supposed to be overridden by a subclass in order to have non-trivial behaviour.
      * It is called in {@link #onResume()} method.</p>
      */
-    protected void registerListeners() {
-    }
-
-    ;
+    protected void registerListeners() {};
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

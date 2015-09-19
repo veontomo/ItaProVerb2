@@ -24,9 +24,10 @@ public class ProverbProvider {
 
     private final Storage mStorage;
 
-    public ProverbProvider(Storage storage){
+    public ProverbProvider(Storage storage) {
         this.mStorage = storage;
     }
+
     /**
      * Returns proverb of today
      *
@@ -51,6 +52,7 @@ public class ProverbProvider {
 
     /**
      * Returns list of all proverbs (taking in consideration their statuses as well)
+     *
      * @return
      */
     public List<Proverb> getAllProverbs() {
@@ -59,6 +61,7 @@ public class ProverbProvider {
 
     /**
      * Removes proverb with given id.
+     *
      * @param id
      */
     public void deleteProverb(int id) {
@@ -68,7 +71,8 @@ public class ProverbProvider {
 
     /**
      * Updates text of proverb with given id.
-     * @param id  proverb id
+     *
+     * @param id   proverb id
      * @param text updated text of proverb
      */
     public void updateProverb(final int id, final String text) {
@@ -78,7 +82,8 @@ public class ProverbProvider {
 
     /**
      * Sets the status of the proverb
-     * @param id id of the proverb which status is to be set
+     *
+     * @param id     id of the proverb which status is to be set
      * @param status status to be set
      */
     public void setProverbStatus(final int id, final boolean status) {
@@ -88,12 +93,27 @@ public class ProverbProvider {
 
     /**
      * Create a new proverb (in database)
-     * @param text proverb text
+     *
+     * @param text   proverb text
      * @param status whether the proverb is among favorites
      */
     public void createProverb(String text, boolean status) {
         Log.i(Config.APP_NAME, "new proverb: " + text + ", is it favorite? " + status);
         ProverbEditTask task = new ProverbEditTask(mStorage, text, status);
         task.execute();
+    }
+
+    /**
+     * Retrieves older proverb from today's ones
+     */
+    public void getOlder() {
+        /// TODO
+    }
+
+    /**
+     * Retrieves newer proverb from today's ones
+     */
+    public void getNewer() {
+        /// TODO
     }
 }
