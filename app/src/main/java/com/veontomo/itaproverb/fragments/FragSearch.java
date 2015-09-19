@@ -3,6 +3,9 @@ package com.veontomo.itaproverb.fragments;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Config;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -52,7 +56,7 @@ public class FragSearch extends Fragment {
     }
 
     /**
-     * Attaches a listener to the search button
+     * Attaches listeners to the input field and search button
      */
     private void attachListeners() {
         this.mButton.setOnClickListener(new View.OnClickListener() {
@@ -61,15 +65,42 @@ public class FragSearch extends Fragment {
                 hostActivity.onSearch(mInputField.getEditableText().toString());
             }
         });
+        this.mInputField.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hostActivity.onSearch(s.toString());
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+            }
+        });
 
     }
 
     @Override
     public void onStop() {
+        detachListeners();
         this.mButton = null;
         this.mInputField = null;
         super.onStop();
     }
+
+    private void detachListeners() {
+        this.mInputField.addTextChangedListener(null);
+        this.mButton.setOnClickListener(null);
+    }
+
+
+
 
     /**
      * interface that hosting activity should implement in order to receive actions from this fragment

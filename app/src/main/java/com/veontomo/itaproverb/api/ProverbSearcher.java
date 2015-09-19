@@ -35,6 +35,8 @@ public class ProverbSearcher {
         if (worker == null || worker.isFree) {
             worker = new ProverbSearchTask(items, caller);
             worker.execute(keyword);
+        } else {
+            Log.i(Config.APP_NAME, "I am busy");
         }
     }
 }
