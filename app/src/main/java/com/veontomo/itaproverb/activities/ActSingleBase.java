@@ -121,7 +121,6 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     public void onResume() {
         super.onResume();
         loadItem(this.mProverb);
-        this.mFragManager.setFavorite(this.mProverb.isFavorite);
         registerListeners();
     }
 
@@ -131,6 +130,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     public void loadItem(Proverb p){
         this.mFragItem.load(p);
+        this.mFragManager.setFavorite(p.isFavorite);
         this.mFragItem.updateView();
 
     }

@@ -26,6 +26,19 @@ public class ProverbProvider {
 
     private final Storage mStorage;
 
+    /**
+     * number of the proverb to retrieve from the end of proverb-of-day table.
+     * <br> 0 corresponds to the latest proverb of the day (let say, today's one,
+     * 1 corresponds to yesterday's one etc.
+     * <br> Must be non-negative.
+     */
+    private int proverbNumber = 0;
+
+    /**
+     * task that retrieves the proverbs from proverb-of-day table
+     */
+    private ProverbDayTask dayTask;
+
     public ProverbProvider(Storage storage) {
         this.mStorage = storage;
     }
@@ -111,8 +124,11 @@ public class ProverbProvider {
      * @param caller instance that should deal with the result of the execution
      */
     public void getOlder(ActSingleBase caller) {
-        ProverbDayTask task = new ProverbDayTask(mStorage, caller);
-        task.execute();
+        if (dayTask == null || !dayTask.isBusy) {
+            proverbNumber++;
+            dayTask = new ProverbDayTask(mStorage, caller);
+            dayTask.execute(proverbNumber);
+        }
     }
 
     /**
@@ -121,6 +137,14 @@ public class ProverbProvider {
      * @param caller instance that should deal with the result of the execution
      */
     public void getNewer(ActSingleBase caller) {
-        /// TODO
+        if (proverbNumber <= 0){
+            Log.i(Config.APP_NAME, "already the latest proverb");
+            return;
+        }
+        if (dayTask == null || !dayTask.isBusy) {
+            proverbNumber--;
+            dayTask = new ProverbDayTask(mStorage, caller);
+            dayTask.execute(proverbNumber);
+        }
     }
 }

@@ -15,6 +15,10 @@ import java.util.Date;
 public class ProverbDayTask extends AsyncTask<Integer, Void, Proverb> {
     private final ActSingleBase caller;
     private final Storage storage;
+    /**
+     * whether the task is already running
+     */
+    public boolean isBusy = false;
 
     public ProverbDayTask(Storage storage, ActSingleBase caller){
         this.storage = storage;
@@ -23,7 +27,7 @@ public class ProverbDayTask extends AsyncTask<Integer, Void, Proverb> {
     @Override
     protected Proverb doInBackground(Integer... params) {
         /// TODO: stub
-        return new Proverb(1, new Date().toString(), true);
+        return new Proverb(1, (new Date().toString()) + params[0], params[0] %2  == 0);
     }
 
     @Override
