@@ -105,15 +105,18 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         mIds = savedInstanceState.getIntArray(PROVERB_ID_MULTI_TOKEN);
         mTexts = savedInstanceState.getStringArray(PROVERB_TEXT_MULTI_TOKEN);
         mStatuses = savedInstanceState.getBooleanArray(PROVERB_STATUS_MULTI_TOKEN);
+        if (mIds != null && mTexts != null && mStatuses != null) {
+            mItems = createMultiProverbs(mIds, mTexts, mStatuses);
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        if (mIds != null && mTexts != null && mStatuses != null) {
-            List<Proverb> proverbs = createMultiProverbs(mIds, mTexts, mStatuses);
-            this.displayProverbs(proverbs);
+        if (mItems != null) {
+            this.displayProverbs(mItems);
         } else {
             // this task launches method getItems in order to fill the activity with content
             ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
