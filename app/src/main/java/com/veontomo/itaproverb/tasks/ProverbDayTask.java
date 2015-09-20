@@ -10,7 +10,6 @@ import java.util.Date;
 
 /**
  * Retrieves proverb from proverb-of-day table
- *
  */
 public class ProverbDayTask extends AsyncTask<Integer, Void, Proverb> {
     private final ActSingleBase caller;
@@ -20,7 +19,7 @@ public class ProverbDayTask extends AsyncTask<Integer, Void, Proverb> {
      */
     public boolean isBusy = false;
 
-    public ProverbDayTask(Storage storage, ActSingleBase caller){
+    public ProverbDayTask(Storage storage, ActSingleBase caller) {
         this.storage = storage;
         this.caller = caller;
     }
@@ -28,12 +27,18 @@ public class ProverbDayTask extends AsyncTask<Integer, Void, Proverb> {
     @Override
     protected Proverb doInBackground(Integer... params) {
         isBusy = true;
-        return new Proverb(1, (new Date().toString()) + params[0], params[0] %2  == 0);
+        int counter = 0;
+        if (params.length > 0) {
+            counter = params[0];
+        }
+        return storage.getTodayProverb(counter);
     }
 
     @Override
-    public void onPostExecute(Proverb p){
-        caller.loadItem(p);
+    public void onPostExecute(Proverb p) {
+        if (p != null) {
+            caller.loadItem(p);
+        }
         isBusy = false;
     }
 }

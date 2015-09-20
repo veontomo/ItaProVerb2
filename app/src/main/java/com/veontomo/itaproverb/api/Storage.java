@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -341,6 +342,31 @@ public class Storage extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Returns n-th proverb from the end of the proverb-of-day table.
+     * <br> n = 0 corresponds to the last record,
+     * n = 1 - one before last, etc.
+     *
+     * @param n number of the record starting from the end of the proverb-of-day table
+     * @return
+     */
+    public Proverb getTodayProverb(int n) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Integer> favoriteIds = retrieveFavoriteIds(db);
+        Cursor cursor = db.rawQuery(TodayProverbsQueries.TODAY_PROVERB, new String[]{String.valueOf(n)} );
+        int textColId = cursor.getColumnIndex(ProverbEntry.COLUMN_TEXT);
+        int idColId = cursor.getColumnIndex(ProverbEntry._ID);
+        Proverb proverb = null;
+        int proverbId;
+        if (cursor.moveToFirst()) {
+            proverbId = cursor.getInt(idColId);
+            proverb = new Proverb(proverbId, cursor.getString(textColId), favoriteIds.contains(proverbId));
+        }
+        cursor.close();
+        db.close();
+        return proverb;
+    }
+
 
     /**
      * Scheme of a table that stores proverbs
@@ -411,6 +437,14 @@ public class Storage extends SQLiteOpenHelper {
                 TodayProverbsEntry.COLUMN_PROVERB_ID + " INTEGER, " +
                 "FOREIGN KEY(" + TodayProverbsEntry.COLUMN_PROVERB_ID + ") REFERENCES " + ProverbEntry.TABLE_NAME + "(" + ProverbEntry._ID + ")" +
                 ")";
+        public static final String TODAY_PROVERB = "SELECT " +
+                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry._ID + " AS t_id, " +
+                ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID + ", " +
+                ProverbEntry.TABLE_NAME + "." + ProverbEntry.COLUMN_TEXT +
+                " FROM " + TodayProverbsEntry.TABLE_NAME + ", " + ProverbEntry.TABLE_NAME +
+                " WHERE " + TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_PROVERB_ID +
+                " = " + ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID +
+                " ORDER BY t_id DESC LIMIT 1 OFFSET ?;";
     }
 
 
