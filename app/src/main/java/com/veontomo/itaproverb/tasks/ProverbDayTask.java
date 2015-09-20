@@ -24,14 +24,16 @@ public class ProverbDayTask extends AsyncTask<Integer, Void, Proverb> {
         this.storage = storage;
         this.caller = caller;
     }
+
     @Override
     protected Proverb doInBackground(Integer... params) {
-        /// TODO: stub
+        isBusy = true;
         return new Proverb(1, (new Date().toString()) + params[0], params[0] %2  == 0);
     }
 
     @Override
     public void onPostExecute(Proverb p){
         caller.loadItem(p);
+        isBusy = false;
     }
 }
