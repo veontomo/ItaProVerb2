@@ -12,6 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Proverb;
+import com.veontomo.itaproverb.api.ProverbProvider;
+import com.veontomo.itaproverb.api.Storage;
 
 public class ActNotification extends AppCompatActivity {
     private int mId = 22;
@@ -20,11 +23,14 @@ public class ActNotification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_notification);
+
+        ProverbProvider p = new ProverbProvider(new Storage(getApplicationContext()));
+        Proverb proverb = p.todayProverb();
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.owl)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentTitle(proverb.date)
+                        .setContentText(proverb.text);
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, ActProverbDay.class);
 
