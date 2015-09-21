@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Performs search among list of proverbs by given keyword.
  */
-public class ProverbSearchTask extends AsyncTask<String, Void, List<Proverb>> {
+public class ProverbSearchTask extends AsyncTask<String, Void, int[]> {
     /**
      * list of proverbs to search within
      */
@@ -30,22 +30,30 @@ public class ProverbSearchTask extends AsyncTask<String, Void, List<Proverb>> {
     }
 
     @Override
-    protected List<Proverb> doInBackground(@NonNull String... params) {
+    protected int[] doInBackground(@NonNull String... params) {
         isFree = false;
-        List<Proverb> result = new ArrayList<>();
+        int size;
+        List<Integer> list = new ArrayList<>();
         if (params.length > 0) {
-            for (Proverb p : data) {
-                if (p.text.contains(params[0])) {
-                    result.add(p);
+            size = data.size();
+            for (int i = 0; i < size; i++) {
+                if (data.get(i).text.contains(params[0])) {
+                    list.add(i);
                 }
             }
+        }
+        size = list.size();
+        int[] result = new int[size];
+        for (int i = 0; i < size; i++) {
+            result[i] = list.get(i);
         }
         return result;
     }
 
     @Override
-    public void onPostExecute(List<Proverb> proverbs){
-        caller.displayProverbs(proverbs);
+    public void onPostExecute(int[] filter) {
+        caller.setFilter(filter);
+        caller.displayProverbs();
         isFree = true;
     }
 

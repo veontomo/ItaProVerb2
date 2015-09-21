@@ -81,6 +81,13 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     private ProverbSearcher searcher;
 
+
+    /**
+     * Array of proverb ids that should be displayed out of original proverbs.
+     * <br>This filter serves in order to perform search over original proverbs.
+     */
+    private int[] filter;
+
     public abstract List<Proverb> getItems(Storage storage);
 
 
@@ -116,7 +123,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         super.onResume();
 
         if (mItems != null) {
-            this.displayProverbs(mItems);
+            this.displayProverbs();
         } else {
             // this task launches method getItems in order to fill the activity with content
             ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
@@ -127,10 +134,21 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     /**
      * Passes given list of proverbs to the fragment responsible for displaying them.
      *
-     * @param proverbs
+     * <br>In case {@link #filter} is not null, the method filters out proverbs that are not in
+     * that list.
+     *
      */
-    public void displayProverbs(List<Proverb> proverbs) {
-        this.mShowMulti.load(proverbs);
+    public void displayProverbs() {
+        List<Proverb> filtered = new ArrayList();
+        if (filter != null){
+            int size = filter.length;
+            for (int i = 0; i < size; i++){
+                filtered.add(mItems.get(filter[i]));
+            }
+        } else {
+            filtered = mItems;
+        }
+        this.mShowMulti.load(filtered);
         this.mShowMulti.updateView();
     }
 
@@ -236,13 +254,11 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getApplicationContext(), ActShowSingle.class);
-        intent.putExtra(ActShowSingle.ID_TOKEN, this.mIds[position]);
-        intent.putExtra(ActShowSingle.TEXT_TOKEN, this.mTexts[position]);
-        intent.putExtra(ActShowSingle.STATUS_TOKEN, this.mStatuses[position]);
-
-
+        int id = filter != null ? filter[position] : position;
+        intent.putExtra(ActShowSingle.ID_TOKEN, this.mIds[id]);
+        intent.putExtra(ActShowSingle.TEXT_TOKEN, this.mTexts[id]);
+        intent.putExtra(ActShowSingle.STATUS_TOKEN, this.mStatuses[id]);
         startActivity(intent);
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented");
     }
 
     @Override
@@ -271,7 +287,13 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     public void setItems(List<Proverb> proverbs) {
         this.mItems = proverbs;
         extractFromMultiProverbs(proverbs);
+    }
 
-
+    /**
+     * {@link #filter} setter.
+     * @param filter
+     */
+    public void setFilter(int[] filter) {
+        this.filter = filter;
     }
 }
