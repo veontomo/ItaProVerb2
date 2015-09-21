@@ -2,16 +2,17 @@ package com.veontomo.itaproverb.api;
 
 import android.util.Log;
 
-import com.veontomo.itaproverb.activities.ActProverbDay;
 import com.veontomo.itaproverb.activities.ActSingleBase;
 import com.veontomo.itaproverb.tasks.ProverbDayTask;
 import com.veontomo.itaproverb.tasks.ProverbDeleteTask;
 import com.veontomo.itaproverb.tasks.ProverbEditTask;
 import com.veontomo.itaproverb.tasks.ProverbSetStatusTask;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Performs proverb-related operations like following ones:
@@ -44,14 +45,55 @@ public class ProverbProvider {
     }
 
     /**
-     * Returns proverb of today
+     * Returns proverb of today. If it does not exist or if its date corresponds to
+     * another day (different from today)
      *
      * @return
      */
     public Proverb todayProverb() {
         Proverb p = mStorage.getTodayProverb(0);
-        if (p == null)
-        return randomProverb();
+        if (p == null){
+            Log.i(Config.APP_NAME, "no proverb of today");
+        } else {
+            Log.i(Config.APP_NAME, "proverb of today: " + p.id + ", " + p.text);
+        }
+        String today = formatTodayDate(Config.DATE_FORMAT);
+        Log.i(Config.APP_NAME, "formatted date = " + today);
+        if (p == null || !today.equals(p.date)) {
+            p = assignProverbOfToday(today);
+        }
+        return p;
+    }
+
+    /**
+     * Assign proverb for given date
+     *
+     * @return proverb of day
+     */
+    private Proverb assignProverbOfToday(String today) {
+        Proverb p = mStorage.getRandomNonRepeating(Config.TODAY_MIN_CYCLE);
+        if (p == null) {
+            return null;
+        }
+        int id = mStorage.saveAsToday(p.id, today);
+        if (id == -1) {
+            return null;
+        }
+        return new Proverb(p.id, p.text, p.isFavorite, today);
+    }
+
+    /**
+     * Returns a string corresponding to a today date formatted accordingly to
+     * {@link Config#APP_NAME}
+     *
+     * @param format
+     * @return
+     */
+    private String formatTodayDate(String format) {
+        Calendar cal = Calendar.getInstance();
+        DateFormat sdf = new SimpleDateFormat(format);
+        Date date = cal.getTime();
+        return sdf.format(date);
     }
 
 
@@ -138,7 +180,7 @@ public class ProverbProvider {
      * @param caller instance that should deal with the result of the execution
      */
     public void getNewer(ActSingleBase caller) {
-        if (proverbNumber <= 0){
+        if (proverbNumber <= 0) {
             Log.i(Config.APP_NAME, "already the latest proverb");
             return;
         }

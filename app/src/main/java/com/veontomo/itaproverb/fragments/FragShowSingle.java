@@ -80,7 +80,7 @@ public class FragShowSingle extends Fragment {
         /// TODO: analyze why the very first start of the app on a device produces NullPointerException
         /// if the user clicks on "oracle"
         /// To avoid the problem, the conditionals are added below. But it is better resolve the problem.
-        if (this.mTextView != null) {
+        if (this.mTextView != null && mProverb.text != null) {
             this.mTextView.setText(mProverb.text);
         }
 

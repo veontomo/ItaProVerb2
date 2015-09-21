@@ -130,8 +130,8 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     public void loadItem(Proverb p){
         this.mFragItem.load(p);
-        this.mFragManager.setFavorite(p.isFavorite);
         this.mFragItem.updateView();
+        this.mFragManager.setFavorite(p.isFavorite);
 
     }
 
