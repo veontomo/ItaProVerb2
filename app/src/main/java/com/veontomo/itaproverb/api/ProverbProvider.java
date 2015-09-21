@@ -49,7 +49,8 @@ public class ProverbProvider {
      * @return
      */
     public Proverb todayProverb() {
-        /// TODO
+        Proverb p = mStorage.getTodayProverb(0);
+        if (p == null)
         return randomProverb();
     }
 

@@ -26,6 +26,11 @@ public class Proverb {
     public boolean isFavorite;
 
     /**
+     * latest date when given proverb was proverb of the day
+     */
+    public final String date;
+
+    /**
      * Constructor.
      * <p>To be used for creation of proverbs that have not been yet saved in a storage.</p>
      * @param text proverb content
@@ -33,6 +38,7 @@ public class Proverb {
     public Proverb(String text, boolean isFavorite){
         this.id = NO_ID;
         this.text = text;
+        this.date = null;
         this.isFavorite = isFavorite;
     }
 
@@ -45,8 +51,21 @@ public class Proverb {
         this.id = id;
         this.text = text;
         this.isFavorite = isFavorite;
+        this.date = null;
     }
 
+    /**
+     * Constructor
+     * @param id  proverb id
+     * @param text proverb content
+     * @param date date when the proverb was the proverb of the day for the most recent time
+     */
+    public Proverb(int id, String text, boolean isFavorite, String date){
+        this.id = id;
+        this.text = text;
+        this.isFavorite = isFavorite;
+        this.date = date;
+    }
 
 
 }
