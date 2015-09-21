@@ -204,7 +204,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onStatusChange() {
         this.shouldChangeStatus = !this.shouldChangeStatus;
-        this.mFragManager.setFavorite(this.shouldChangeStatus);
+        this.mFragManager.setFavorite(this.shouldChangeStatus ? !mProverb.isFavorite : mProverb.isFavorite);
     }
 
     /**
@@ -212,7 +212,6 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     @Override
     public void onEdit() {
-        Log.i(Config.APP_NAME, "oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intent = new Intent(getApplicationContext(), ActEdit.class);
         intent.putExtra(ActDelete.TEXT_TOKEN, mProverb.text);
         startActivityForResult(intent, EDIT_REQUEST);
@@ -234,7 +233,6 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     @Override
     public void onDelete() {
-        Log.i(Config.APP_NAME, "oracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intent = new Intent(getApplicationContext(), ActDelete.class);
         intent.putExtra(ActDelete.ID_TOKEN, mProverb.id);
         intent.putExtra(ActDelete.TEXT_TOKEN, mProverb.text);
