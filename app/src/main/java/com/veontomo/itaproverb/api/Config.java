@@ -41,6 +41,17 @@ public abstract class Config {
      */
     public static final String LOGO_URL = "https://lh3.googleusercontent.com/yDsAof472u9GZYaw0nQkS4p5_odYkuneSKVjvbkBEXO9UGOJBE8HdsjkiKFuGuwClg=w300";
 
+    /**
+     * Format in which it is represented time in today's proverb table.
+     */
+    public static final String DATE_FORMAT = "yyyy MM dd";
+
+    /**
+     * Size of sequence of consecutive records in proverb-of-day table within which
+     * all proverbs must be different.
+     */
+    public static final int TODAY_MIN_CYCLE = 10;
+
 
     /**
      * Strict mode initialisation.

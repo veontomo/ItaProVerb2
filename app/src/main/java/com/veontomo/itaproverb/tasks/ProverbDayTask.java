@@ -6,7 +6,6 @@ import com.veontomo.itaproverb.activities.ActSingleBase;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.Storage;
 
-import java.util.Date;
 
 /**
  * Retrieves proverb from proverb-of-day table

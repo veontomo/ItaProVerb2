@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,16 +59,6 @@ public class Storage extends SQLiteOpenHelper {
         return count > 0;
     }
 
-
-    /**
-     * context getter.
-     *
-     * @return application context
-     * @since 0.1
-     */
-    public Context getContext() {
-        return mContext;
-    }
 
     /**
      * Creates database.
@@ -353,18 +342,58 @@ public class Storage extends SQLiteOpenHelper {
     public Proverb getTodayProverb(int n) {
         SQLiteDatabase db = getReadableDatabase();
         List<Integer> favoriteIds = retrieveFavoriteIds(db);
-        Cursor cursor = db.rawQuery(TodayProverbsQueries.TODAY_PROVERB, new String[]{String.valueOf(n)} );
+        Cursor cursor = db.rawQuery(TodayProverbsQueries.TODAY_PROVERB, new String[]{String.valueOf(n)});
         int textColId = cursor.getColumnIndex(ProverbEntry.COLUMN_TEXT);
         int idColId = cursor.getColumnIndex(ProverbEntry._ID);
+        int dateColId  =cursor.getColumnIndex(TodayProverbsEntry.COLUMN_DATE);
         Proverb proverb = null;
         int proverbId;
         if (cursor.moveToFirst()) {
             proverbId = cursor.getInt(idColId);
-            proverb = new Proverb(proverbId, cursor.getString(textColId), favoriteIds.contains(proverbId));
+            proverb = new Proverb(proverbId, cursor.getString(textColId), favoriteIds.contains(proverbId), cursor.getString(dateColId));
         }
         cursor.close();
         db.close();
         return proverb;
+    }
+
+    /**
+     * Returns a proverb that is guaranteed to be different from any of last n proverb in proverb-of-day
+     * table.
+     * @param n
+     */
+    public Proverb getRandomNonRepeating(int n) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Integer> favoriteIds = retrieveFavoriteIds(db);
+        Cursor cursor = db.rawQuery(ProverbQueries.SELECT_RANDOM_NON_REPEATING, new String[]{String.valueOf(n)});
+        Proverb p = null;
+        if (cursor.moveToFirst()){
+            int colId = cursor.getColumnIndex(ProverbEntry._ID);
+            int colText = cursor.getColumnIndex(ProverbEntry.COLUMN_TEXT);
+            int id = cursor.getInt(colId);
+            p = new Proverb(id, cursor.getString(colText), favoriteIds.contains(id));
+        }
+        cursor.close();
+        db.close();
+        return p;
+    }
+
+    /**
+     * Saves proverb with given id as a proverb-of-day of given date.
+     * Returns id of newly saved record, or -1 in case of failure.
+     * @param pid proverb id
+     * @param date date to which the proverb id correspond
+     * @return id of the record inserted in proverb-of-day table, or -1 if the insertion fails.
+     */
+    public int saveAsToday(int pid, String date) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values;
+        values = new ContentValues();
+        values.put(TodayProverbsEntry.COLUMN_PROVERB_ID, pid);
+        values.put(TodayProverbsEntry.COLUMN_DATE, date);
+        int id = (int) db.insert(TodayProverbsEntry.TABLE_NAME, null, values);
+        db.close();
+        return id;
     }
 
 
@@ -388,6 +417,12 @@ public class Storage extends SQLiteOpenHelper {
         public static final String SELECT_ALL = "SELECT * FROM " + ProverbEntry.TABLE_NAME + ";";
         public static final String SELECT_RANDOM = "SELECT * FROM " + ProverbEntry.TABLE_NAME +
                 " ORDER BY RANDOM() LIMIT 1;";
+        public static final String SELECT_RANDOM_NON_REPEATING = "SELECT * FROM " + ProverbEntry.TABLE_NAME +
+                " WHERE " + ProverbEntry._ID + " NOT IN (SELECT " +
+                TodayProverbsEntry.COLUMN_PROVERB_ID + " FROM " +
+                TodayProverbsEntry.TABLE_NAME + " ORDER BY " +
+                TodayProverbsEntry.COLUMN_DATE + " DESC LIMIT ?) ORDER BY RANDOM () LIMIT 1";
+
     }
 
     /**
@@ -439,12 +474,14 @@ public class Storage extends SQLiteOpenHelper {
                 ")";
         public static final String TODAY_PROVERB = "SELECT " +
                 TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry._ID + " AS t_id, " +
+                TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_DATE + ", " +
                 ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID + ", " +
                 ProverbEntry.TABLE_NAME + "." + ProverbEntry.COLUMN_TEXT +
                 " FROM " + TodayProverbsEntry.TABLE_NAME + ", " + ProverbEntry.TABLE_NAME +
                 " WHERE " + TodayProverbsEntry.TABLE_NAME + "." + TodayProverbsEntry.COLUMN_PROVERB_ID +
                 " = " + ProverbEntry.TABLE_NAME + "." + ProverbEntry._ID +
                 " ORDER BY t_id DESC LIMIT 1 OFFSET ?;";
+
     }
 
 
