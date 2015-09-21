@@ -1,9 +1,10 @@
 package com.veontomo.itaproverb.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Config;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,9 +31,12 @@ public class FragSearch extends Fragment {
 
     /**
      * Hosting activity that is cast to {@link com.veontomo.itaproverb.fragments.FragSearch.FragSearchActions}
-     *
      */
     private FragSearchActions hostActivity;
+    /**
+     * a watcher that detects changes of {@link #mInputField} input field.
+     */
+    private TextWatcher mWatcher;
 
     public FragSearch() {
     }
@@ -48,6 +53,7 @@ public class FragSearch extends Fragment {
         this.mInputField = (EditText) getActivity().findViewById(R.id.frag_search_input);
         this.mButton = (ImageButton) getActivity().findViewById(R.id.frag_search_button);
         this.hostActivity = (FragSearchActions) getActivity();
+        this.mWatcher = new InputFieldChangeWatcher(this.hostActivity);
         attachListeners();
     }
 
@@ -61,24 +67,7 @@ public class FragSearch extends Fragment {
                 hostActivity.onSearch(mInputField.getEditableText().toString());
             }
         });
-        this.mInputField.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                hostActivity.onSearch(s.toString());
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-            }
-        });
+        this.mInputField.addTextChangedListener(this.mWatcher);
 
     }
 
@@ -91,11 +80,9 @@ public class FragSearch extends Fragment {
     }
 
     private void detachListeners() {
-        this.mInputField.addTextChangedListener(null);
+        this.mInputField.removeTextChangedListener(this.mWatcher);
         this.mButton.setOnClickListener(null);
     }
-
-
 
 
     /**
@@ -104,8 +91,40 @@ public class FragSearch extends Fragment {
     public interface FragSearchActions {
         /**
          * It is called when a user presses the search button
+         *
          * @param searchTerm a string that the user wants to look for
          */
         void onSearch(String searchTerm);
     }
+
+    private final class InputFieldChangeWatcher implements TextWatcher {
+        /**
+         * an instance of a class that is able to process the calls from this
+         * watcher
+         */
+        private final FragSearchActions handler;
+
+        public InputFieldChangeWatcher(final FragSearchActions handler) {
+            this.handler = handler;
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (handler != null) {
+                handler.onSearch(s.toString());
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start,
+                                      int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start,
+                                  int before, int count) {
+        }
+    }
+
+    ;
 }
