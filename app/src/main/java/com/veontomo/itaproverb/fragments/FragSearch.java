@@ -2,19 +2,15 @@ package com.veontomo.itaproverb.fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.Config;
 
 /**
  * A placeholder fragment containing a simple view.

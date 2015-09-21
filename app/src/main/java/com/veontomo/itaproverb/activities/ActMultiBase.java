@@ -106,7 +106,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         mTexts = savedInstanceState.getStringArray(PROVERB_TEXT_MULTI_TOKEN);
         mStatuses = savedInstanceState.getBooleanArray(PROVERB_STATUS_MULTI_TOKEN);
         if (mIds != null && mTexts != null && mStatuses != null) {
-            mItems = createMultiProverbs(mIds, mTexts, mStatuses);
+            mItems = createMultiProverbs();
         }
 
     }
@@ -125,7 +125,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     }
 
     /**
-     * Passes given list of proverbs to the fragment responcible for displaying them.
+     * Passes given list of proverbs to the fragment responsible for displaying them.
      *
      * @param proverbs
      */
@@ -158,16 +158,13 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
 
     /**
-     * Recreates list of proverbs based on split data: array of proverb ids, array of proverb texts,
-     * array of proverb statuses.
-     * It is supposed that the input arrays have the same length.
+     * Recreates list of proverbs based on split data: array of proverb ids {@link #mIds},
+     * array of proverb texts {@link #mTexts} and array of proverb statuses {@link #mStatuses}.
+     * It is supposed that the above arrays have the same length.
      *
-     * @param ids
-     * @param texts
-     * @param statuses
      * @return list of proverbs
      */
-    private List<Proverb> createMultiProverbs(@NonNull int[] ids, @NonNull String[] texts, @NonNull boolean[] statuses) {
+    private List<Proverb> createMultiProverbs() {
         List<Proverb> proverbs = new ArrayList<>();
         int size = mIds.length;
         Proverb proverb;

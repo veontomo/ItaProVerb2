@@ -25,11 +25,6 @@ public class ActShowMulti extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         this.mFragShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_show_multi_fragment);
-        List<Proverb> proverbs = new ArrayList<>();
-        proverbs.add(new Proverb(1, "chi cerca trova", true));
-        proverbs.add(new Proverb(2, "una mela al giorno", false));
-        this.mFragShowMulti.load(proverbs);
-        this.mFragShowMulti.updateView();
 
     }
 

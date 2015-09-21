@@ -134,7 +134,9 @@ public class ProverbProvider {
      * @param text updated text of proverb
      */
     public void updateProverb(final int id, final String text) {
+        /// TODO: check whether it is executed asynchronously.
         Log.i(Config.APP_NAME, "new content of proverb " + id + " is " + text);
+        /// TODO: make use of return value of the updateProverb method
         mStorage.updateProverb(id, text);
     }
 

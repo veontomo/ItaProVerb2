@@ -140,7 +140,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * <p>It is supposed to be overridden by a subclass in order to have non-trivial behaviour.
      * It is called in {@link #onResume()} method.</p>
      */
-    protected void registerListeners() {};
+    protected void registerListeners() {}
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

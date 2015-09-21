@@ -3,7 +3,6 @@ package com.veontomo.itaproverb.activities;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.Storage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

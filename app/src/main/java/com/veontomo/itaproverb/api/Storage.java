@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,16 +59,6 @@ public class Storage extends SQLiteOpenHelper {
         return count > 0;
     }
 
-
-    /**
-     * context getter.
-     *
-     * @return application context
-     * @since 0.1
-     */
-    public Context getContext() {
-        return mContext;
-    }
 
     /**
      * Creates database.
@@ -387,7 +376,7 @@ public class Storage extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return p;
-    };
+    }
 
     /**
      * Saves proverb with given id as a proverb-of-day of given date.

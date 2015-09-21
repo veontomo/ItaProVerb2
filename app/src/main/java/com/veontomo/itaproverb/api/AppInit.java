@@ -1,11 +1,8 @@
 package com.veontomo.itaproverb.api;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.veontomo.itaproverb.tasks.ProverbLoaderTask;
-
-import java.io.InputStream;
 
 /**
  * Initializes the application.

@@ -2,10 +2,8 @@ package com.veontomo.itaproverb.tasks;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.veontomo.itaproverb.activities.ActMultiBase;
-import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 
 import java.util.ArrayList;

@@ -49,11 +49,6 @@ public class FragShowMulti extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         this.hostActivity = (ShowMultiActions) getActivity();

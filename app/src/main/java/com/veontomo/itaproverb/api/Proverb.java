@@ -5,11 +5,11 @@ package com.veontomo.itaproverb.api;
  *
  * @since 0.1
  */
-public class Proverb {
+public final class Proverb {
     /**
      * a number reserved for a proverb that has not been yet saved in a storage
      */
-    public final static int NO_ID = -1;
+    private final static int NO_ID = -1;
     /**
      * Proverb text
      */

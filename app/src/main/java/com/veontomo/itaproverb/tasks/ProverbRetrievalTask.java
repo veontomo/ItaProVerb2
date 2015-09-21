@@ -27,7 +27,7 @@ public class ProverbRetrievalTask extends AsyncTask<Void, Void, List<Proverb>> {
      * If not set, the results are not stored anywhere, hence the task should be called each time
      * when the result is required.
      */
-    private ActMultiBase cache;
+    private final ActMultiBase cache;
 
     public ProverbRetrievalTask(Storage storage, FragShowMulti fragment, ActMultiBase cache) {
         this.storage = storage;
