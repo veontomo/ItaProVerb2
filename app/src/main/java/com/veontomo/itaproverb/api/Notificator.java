@@ -9,7 +9,7 @@ import android.util.Log;
 import com.veontomo.itaproverb.AlarmReceiver;
 
 /**
- *  Initiate notificaton broadcast.
+ *  Initiate notification broadcast.
  */
 public class Notificator {
     public static void  start(final Context context){
@@ -17,7 +17,7 @@ public class Notificator {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 5, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), Config.PROVERB_DAY_FREQUENCY, pi);
 
     }
 }

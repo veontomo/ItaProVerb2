@@ -30,10 +30,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="all proverbs" />
-    <TextView
-        android:id="@+id/dispatcher_notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="notification" />
 
 </LinearLayout>

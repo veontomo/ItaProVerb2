@@ -48,7 +48,6 @@ public class ActDispatch extends AppCompatActivity {
         TextView proverbOracle = (TextView) findViewById(R.id.dispatcher_proverb_oracle);
         TextView proverbFavorites = (TextView) findViewById(R.id.dispatcher_favorites);
         TextView proverbAll = (TextView) findViewById(R.id.dispatcher_all_proverb);
-        TextView notification = (TextView) findViewById(R.id.dispatcher_notification);
         proverbDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,13 +73,6 @@ public class ActDispatch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ActAllProverbs.class);
-                startActivity(intent);
-            }
-        });
-        notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActNotification.class);
                 startActivity(intent);
             }
         });
