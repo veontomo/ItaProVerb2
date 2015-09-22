@@ -41,8 +41,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.mipmap.owl)
                         .setContentTitle(proverb.date)
-                        .setContentText(proverb.text);
-//                        .setAutoCancel(true);
+                        .setContentText(proverb.text)
+                        .setAutoCancel(true);
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(context, ActProverbDay.class);
 
