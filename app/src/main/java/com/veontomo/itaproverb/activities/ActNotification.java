@@ -31,6 +31,7 @@ public class ActNotification extends AppCompatActivity {
                         .setSmallIcon(R.mipmap.owl)
                         .setContentTitle(proverb.date)
                         .setContentText(proverb.text);
+//                        .setAutoCancel(true);
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, ActProverbDay.class);
 

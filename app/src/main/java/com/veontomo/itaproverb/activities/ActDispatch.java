@@ -1,9 +1,12 @@
 package com.veontomo.itaproverb.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,9 +15,11 @@ import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.veontomo.itaproverb.AlarmReceiver;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Notificator;
 
 import bolts.AppLinks;
 
@@ -32,10 +37,11 @@ public class ActDispatch extends AppCompatActivity {
         } else {
             Log.i(Config.APP_NAME, "App Link Target URL is null ");
         }
+        Notificator.start(getApplicationContext());
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         AppEventsLogger.activateApp(this);
         TextView proverbDay = (TextView) findViewById(R.id.dispatcher_proverb_day);

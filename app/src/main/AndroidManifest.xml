@@ -1,92 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.veontomo.itaproverb" >
+<manifest package="com.veontomo.itaproverb"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- To access Google+ APIs: -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/owl"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"/>
 
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".activities.ActShowSingle"
-            android:label="@string/title_act_show_single" >
+            android:label="@string/title_act_show_single">
         </activity>
         <activity
             android:name=".activities.ActShowMulti"
-            android:label="@string/title_activity_act_show_multi" >
+            android:label="@string/title_activity_act_show_multi">
         </activity>
         <activity
             android:name=".activities.ActManagerPanel"
-            android:label="@string/title_activity_manager" >
+            android:label="@string/title_activity_manager">
         </activity>
         <activity
             android:name=".activities.ActSearch"
-            android:label="@string/title_activity_act_search" >
+            android:label="@string/title_activity_act_search">
         </activity>
         <activity
             android:name=".activities.ActProverbDay"
-            android:label="@string/title_activity_act_proverb_day" >
+            android:label="@string/title_activity_act_proverb_day">
         </activity>
         <activity
             android:name=".activities.ActOracle"
-            android:label="@string/title_activity_act_proverb_oracle" >
+            android:label="@string/title_activity_act_proverb_oracle">
         </activity>
         <activity
             android:name=".activities.ActFavoriteProverbs"
-            android:label="@string/title_act_favorites" >
+            android:label="@string/title_act_favorites">
         </activity>
         <activity
             android:name=".activities.ActAllProverbs"
-            android:label="@string/title_activity_act_all" >
+            android:label="@string/title_activity_act_all">
         </activity>
         <activity
             android:name=".activities.ActAddProverb"
-            android:label="@string/title_activity_act_add_proverb" >
+            android:label="@string/title_activity_act_add_proverb">
         </activity>
         <activity
             android:name=".activities.ActDispatch"
-            android:label="@string/title_activity_act_dispatch" >
+            android:label="@string/title_activity_act_dispatch">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <!-- Accepts URIs "com.example.myapp://" -->
-                <data android:scheme="com.example.myapp://" />
+                <data android:scheme="com.example.myapp://"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.ActDelete"
-            android:label="@string/title_activity_act_delete" />
+            android:label="@string/title_activity_act_delete"/>
         <activity
             android:name=".activities.ActEdit"
-            android:label="@string/title_activity_act_edit" >
+            android:label="@string/title_activity_act_edit">
         </activity>
         <activity
             android:name=".activities.ActShare"
-            android:label="@string/title_activity_act_facebook_share" >
+            android:label="@string/title_activity_act_facebook_share">
         </activity>
         <activity
             android:name=".activities.ActNotification"
-            android:label="@string/title_activity_act_notification" >
+            android:label="@string/title_activity_act_notification">
         </activity>
+
+        <receiver android:name='.AlarmReceiver'>
+        </receiver>
     </application>
 
 </manifest>
