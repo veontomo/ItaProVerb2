@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.veontomo.itaproverb.AlarmReceiver;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Notificator;

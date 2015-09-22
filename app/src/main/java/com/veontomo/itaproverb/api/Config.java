@@ -10,6 +10,9 @@ import com.veontomo.itaproverb.tasks.ProverbLoaderTask;
  * Configuration parameters of the app.
  */
 public abstract class Config {
+    /**
+     * Whether this is a first run of the app (in current session)
+     */
     private static boolean FIRST_EXEC = true;
     /**
      * Whether the app is in production or not.
