@@ -36,6 +36,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ProverbProvider p = new ProverbProvider(new Storage(context));
         Proverb proverb = p.todayProverb();
+        if (proverb == null) {
+            return;
+        }
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.mipmap.owl)

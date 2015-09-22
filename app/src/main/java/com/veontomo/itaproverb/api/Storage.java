@@ -253,6 +253,7 @@ public class Storage extends SQLiteOpenHelper {
     public boolean removeProverb(int id) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
+        db.delete(TodayProverbsEntry.TABLE_NAME, TodayProverbsEntry.COLUMN_PROVERB_ID + " = ?", new String[]{String.valueOf(id)});
         db.delete(FavoriteEntry.TABLE_NAME, FavoriteEntry.COLUMN_PROVERB_ID + " = ?", new String[]{String.valueOf(id)});
         int numOfLines = db.delete(ProverbEntry.TABLE_NAME, ProverbEntry._ID + " = ?", new String[]{String.valueOf(id)});
         try {
