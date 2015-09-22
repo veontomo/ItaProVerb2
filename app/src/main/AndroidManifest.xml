@@ -87,6 +87,10 @@
             android:name=".activities.ActNotification"
             android:label="@string/title_activity_act_notification" >
         </activity>
+        <activity
+            android:name=".activities.ActSettings"
+            android:label="@string/title_act_settings" >
+        </activity>
     </application>
 
 </manifest>
