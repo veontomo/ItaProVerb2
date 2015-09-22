@@ -1,12 +1,16 @@
 package com.veontomo.itaproverb.api;
 
+import android.content.Context;
 import android.os.StrictMode;
 import android.util.Log;
+
+import com.veontomo.itaproverb.tasks.ProverbLoaderTask;
 
 /**
  * Configuration parameters of the app.
  */
 public abstract class Config {
+    private static boolean FIRST_EXEC = true;
     /**
      * Whether the app is in production or not.
      */
@@ -77,4 +81,23 @@ public abstract class Config {
      * Period in milliseconds during with a proverb-of-day notification should be fired off.
      */
     public final static int PROVERB_DAY_FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 60 * 1000;
+
+
+    /**
+     * Initializes the application.
+     * <p>Reads the proverbs from a file that is supposed to be in the assets folder.</p>
+     *
+     * @param context
+     */
+    public static void loadProverbs(final Context context){
+        if (Config.FIRST_EXEC) {
+            ProverbLoaderTask task = new ProverbLoaderTask(context, PROVERB_SRC, ENCODING);
+            task.execute();
+            Config.FIRST_EXEC = false;
+            Log.i(APP_NAME, "first execution");
+        } else {
+            Log.i(APP_NAME, "not a first execution");
+
+        }
+    }
 }

@@ -17,7 +17,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.veontomo.itaproverb.AlarmReceiver;
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.AppInit;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Notificator;
 
@@ -29,7 +28,9 @@ public class ActDispatch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_dispatch);
-        AppInit.loadProverbs(getApplicationContext(), Config.PROVERB_SRC, Config.ENCODING);
+        Config.loadProverbs(getApplicationContext());
+        Notificator.start(getApplicationContext());
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
         if (targetUrl != null) {
@@ -37,7 +38,6 @@ public class ActDispatch extends AppCompatActivity {
         } else {
             Log.i(Config.APP_NAME, "App Link Target URL is null ");
         }
-        Notificator.start(getApplicationContext());
     }
 
     @Override
