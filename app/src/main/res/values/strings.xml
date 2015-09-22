@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ItaProVerb</string>
+    <string name="app_name">Italian Proverbs</string>
     <string name="action_settings">Settings</string>
 
     <string name="title_act_show_single">Proverb</string>
@@ -19,7 +19,7 @@
     <string name="proverb_loading_success">Success</string>
     <string name="proverb_loading_failure">Failure</string>
     <string name="title_act_all">All proverbs</string>
-    <string name="title_act_dispatch">Dispatcher</string>
+    <string name="title_act_dispatch">Main screen</string>
     <string name="title_act_delete">Delete proverb</string>
     <string name="title_act_edit">Edit proverb</string>
     <string name="facebook_app_id" translatable="false">604747132997976</string>
