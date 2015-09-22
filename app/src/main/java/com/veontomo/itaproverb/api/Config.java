@@ -73,4 +73,8 @@ public abstract class Config {
                 .build());
     }
 
+    /**
+     * Period in milliseconds during with a proverb-of-day notification should be fired off.
+     */
+    public final static int PROVERB_DAY_FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 60 * 1000;
 }
