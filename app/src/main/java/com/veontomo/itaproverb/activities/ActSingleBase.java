@@ -262,4 +262,5 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
         }
     }
+
 }
