@@ -44,7 +44,7 @@ public abstract class Config {
     /**
      * Format in which it is represented time in today's proverb table.
      */
-    public static final String DATE_FORMAT = "yyyy MM dd";
+    public static final String DATE_FORMAT_STORAGE = "yyyy MM dd";
 
     /**
      * Size of sequence of consecutive records in proverb-of-day table within which

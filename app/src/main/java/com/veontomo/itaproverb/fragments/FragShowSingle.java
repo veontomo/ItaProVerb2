@@ -20,7 +20,7 @@ public class FragShowSingle extends Fragment {
     /**
      * proverb that this fragment visualizes
      */
-    private Proverb mProverb;
+    protected Proverb mProverb;
 
     /**
      * Text view of the fragment layout that displays proverb text

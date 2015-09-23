@@ -81,7 +81,6 @@ public class ActProverbDay extends ActSingleBase {
     }
 
 
-
     /**
      * Gesture listener that is attached to the view with the proverb
      */
