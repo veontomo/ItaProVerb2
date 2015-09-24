@@ -36,8 +36,7 @@ public class ActProverbDay extends ActSingleBase {
             Config.strictModeInit();
         }
         super.onCreate(savedInstanceState);
-        Log.i(Config.APP_NAME, "ActProverbDay: " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        setContentView(R.layout.act_single_base);
+        setContentView(R.layout.act_proverb_day);
     }
 
     @Override
@@ -80,7 +79,6 @@ public class ActProverbDay extends ActSingleBase {
             v.setOnClickListener(null);
         }
     }
-
 
 
     /**

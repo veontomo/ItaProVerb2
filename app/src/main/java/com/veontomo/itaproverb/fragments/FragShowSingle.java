@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.activities.ActSingleBase;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 
@@ -19,7 +20,7 @@ public class FragShowSingle extends Fragment {
     /**
      * proverb that this fragment visualizes
      */
-    private Proverb mProverb;
+    protected Proverb mProverb;
 
     /**
      * Text view of the fragment layout that displays proverb text

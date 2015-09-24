@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
@@ -27,7 +28,7 @@ public class FragSearch extends Fragment {
     /**
      * the button that confirms user input
      */
-    private ImageButton mButton;
+    private ImageView mButton;
 
     /**
      * Hosting activity that is cast to {@link com.veontomo.itaproverb.fragments.FragSearch.FragSearchActions}
@@ -51,7 +52,7 @@ public class FragSearch extends Fragment {
     public void onStart() {
         super.onStart();
         this.mInputField = (EditText) getActivity().findViewById(R.id.frag_search_input);
-        this.mButton = (ImageButton) getActivity().findViewById(R.id.frag_search_button);
+        this.mButton = (ImageView) getActivity().findViewById(R.id.frag_search_button);
         this.hostActivity = (FragSearchActions) getActivity();
         this.mWatcher = new InputFieldChangeWatcher(this.hostActivity);
         attachListeners();

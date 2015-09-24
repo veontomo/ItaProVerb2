@@ -5,4 +5,38 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ProverbSingle" parent="AppTheme">
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="android:textColor">@color/secondary1_light</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:padding">@dimen/spaceMedium</item>
+    </style>
+
+    <style name="ProverbDate" parent="ProverbSingle">
+        <item name="android:textSize">@dimen/textSmall</item>
+        <item name="android:alpha">@dimen/opaque_high</item>
+    </style>
+
+    <style name="ProverbRow" parent="AppTheme">
+        <item name="android:padding">@dimen/spaceSmaller</item>
+        <item name="android:textSize">@dimen/textSmaller</item>
+        <item name="android:textColor">@color/secondary1_light</item>
+
+    </style>
+
+    <style name="ProverbsList">
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <style name="ProverbEditField" parent="AppTheme">
+        <item name="android:layout_marginTop">@dimen/spaceMedium</item>
+        <item name="android:layout_marginLeft">@dimen/spaceSmall</item>
+        <item name="android:layout_marginRight">@dimen/spaceSmall</item>
+        <item name="android:layout_marginBottom">@dimen/spaceLarge</item>
+        <item name="android:textSize">@dimen/textLarge</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+
 </resources>
