@@ -6,15 +6,20 @@
     </style>
 
     <style name="ProverbSingle" parent="AppTheme">
-        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="android:textSize">@dimen/textLarge</item>
         <item name="android:textColor">@color/secondary1_light</item>
         <item name="android:textStyle">italic</item>
-        <item name="android:padding">@dimen/spaceMedium</item>
+        <item name="android:paddingTop">@dimen/spaceSmall</item>
+        <item name="android:paddingBottom">@dimen/spaceMedium</item>
+        <item name="android:paddingLeft">@dimen/spaceSmall</item>
+        <item name="android:paddingRight">@dimen/spaceSmall</item>
     </style>
 
-    <style name="ProverbDate" parent="ProverbSingle">
+    <style name="ProverbDate" parent="AppTheme">
         <item name="android:textSize">@dimen/textSmall</item>
         <item name="android:alpha">@dimen/opaque_high</item>
+        <item name="android:padding">@dimen/spaceSmaller</item>
+        <item name="android:textColor">@color/secondary1_light</item>
     </style>
 
     <style name="ProverbRow" parent="AppTheme">

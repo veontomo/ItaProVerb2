@@ -6,16 +6,16 @@
               tools:context="com.veontomo.itaproverb.fragments.FragShowSingle">
 
     <TextView
+        android:id="@+id/frag_show_single_text"
+        tools:text="proverb text goes here"
+        style="@style/ProverbSingle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
         android:id="@+id/frag_show_single_date"
         tools:text="23 June 2033"
         android:layout_gravity="end"
         style="@style/ProverbDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/frag_show_single_text"
-        tools:text="proverb text goes here"
-        style="@style/ProverbSingle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
