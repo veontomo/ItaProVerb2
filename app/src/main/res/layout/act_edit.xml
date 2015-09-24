@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spaceLarger"
             android:drawableTop="@mipmap/ok"
-            android:text="@string/add_proverb"/>
+            android:text="@string/confirm"/>
 
     </LinearLayout>
 

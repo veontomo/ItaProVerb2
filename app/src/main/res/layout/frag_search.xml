@@ -4,15 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:windowSoftInputMode="stateHidden"
     tools:context="com.veontomo.itaproverb.fragments.FragSearch">
 
     <EditText
         android:id="@+id/frag_search_input"
         android:layout_width="0dp"
+        android:layout_margin="@dimen/spaceSmaller"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@drawable/search_field_bgr"
+        android:background="@drawable/insert_field_bgr"
         android:hint="@string/search_hint_example"
         android:inputType="text"/>
 

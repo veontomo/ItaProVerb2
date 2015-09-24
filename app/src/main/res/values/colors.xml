@@ -9,5 +9,5 @@
     <color name="secondary2">#175514</color>
     <color name="secondary2_dark">#899f88</color>
     <color name="secondary2_light">#0bdc00</color>
-    <color name="white">#BEFFFFFF</color>
+    <color name="white_almost_opaque">#EEFFFFFF</color>
 </resources>

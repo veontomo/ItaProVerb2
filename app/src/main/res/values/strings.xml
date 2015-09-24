@@ -10,7 +10,7 @@
     <string name="descr_share">share</string>
     <string name="descr_delete">delete</string>
     <string name="title_act_search">Search</string>
-    <string name="search_hint_example">esempio: pizza</string>
+    <string name="search_hint_example">type keywords here</string>
     <string name="title_act_proverb_day">Proverb of the day</string>
 
     <string name="title_act_proverb_oracle">Fortune teller</string>
@@ -31,6 +31,6 @@
     <string name="title_activity_act_notification">ActNotification</string>
 
     <string name="cancel">Cancel</string>
-    <string name="add_proverb">Add</string>
+    <string name="confirm">Confirm</string>
 
 </resources>
