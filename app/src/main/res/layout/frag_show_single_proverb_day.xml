@@ -15,7 +15,7 @@
     <TextView
         android:id="@+id/frag_show_single_text"
         tools:text="proverb text goes here"
-        style="@style/ProverbDay"
+        style="@style/ProverbSingle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

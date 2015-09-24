@@ -4,15 +4,15 @@
         android:alpha="100"
         android:color="@color/white"/>
     <stroke
-        android:width="@dimen/spaceTiny"
+        android:width="@dimen/spaceMin"
         android:alpha="100"
         android:color="@color/secondary1_light"
         />
     <corners
         android:radius="@dimen/spaceSmaller"/>
     <padding
-        android:bottom="@dimen/spaceTiny"
+        android:bottom="@dimen/spaceMin"
         android:left="@dimen/spaceSmall"
         android:right="@dimen/spaceSmall"
-        android:top="@dimen/spaceTiny"/>
+        android:top="@dimen/spaceMin"/>
 </shape>

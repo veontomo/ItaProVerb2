@@ -5,14 +5,14 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ProverbDay" parent="AppTheme">
+    <style name="ProverbSingle" parent="AppTheme">
         <item name="android:textSize">@dimen/textMedium</item>
         <item name="android:textColor">@color/secondary1_light</item>
         <item name="android:textStyle">italic</item>
-
+        <item name="android:padding">@dimen/spaceMedium</item>
     </style>
 
-    <style name="ProverbDate" parent="ProverbDay">
+    <style name="ProverbDate" parent="ProverbSingle">
         <item name="android:textSize">@dimen/textSmall</item>
         <item name="android:alpha">@dimen/opaque_high</item>
     </style>
@@ -29,10 +29,14 @@
         <item name="android:dividerHeight">0dp</item>
     </style>
 
-    <style name="ProverbEdit" parent="AppTheme">
-        <item name="android:layout_margin">@dimen/spaceMedium</item>
+    <style name="ProverbEditField" parent="AppTheme">
+        <item name="android:layout_marginTop">@dimen/spaceMedium</item>
+        <item name="android:layout_marginLeft">@dimen/spaceSmall</item>
+        <item name="android:layout_marginRight">@dimen/spaceSmall</item>
+        <item name="android:layout_marginBottom">@dimen/spaceLarge</item>
         <item name="android:textSize">@dimen/textLarge</item>
         <item name="android:textStyle">normal</item>
     </style>
+
 
 </resources>

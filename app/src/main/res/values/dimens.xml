@@ -9,7 +9,7 @@
     <dimen name="textLarge">25sp</dimen>
     <dimen name="textLarger">30sp</dimen>
     <dimen name="textHuge">40sp</dimen>
-    <dimen name="spaceTiny">2sp</dimen>
+    <dimen name="spaceMin">0.1sp</dimen>
     <dimen name="spaceSmaller">5dp</dimen>
     <dimen name="spaceSmall">8dp</dimen>
     <dimen name="spaceMedium">12dp</dimen>

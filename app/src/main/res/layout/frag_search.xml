@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@drawable/search_background"
+        android:background="@drawable/search_field_bgr"
         android:hint="@string/search_hint_example"
         android:inputType="text"/>
 

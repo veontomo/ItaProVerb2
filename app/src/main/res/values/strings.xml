@@ -5,7 +5,7 @@
     <string name="title_act_show_single">Proverb</string>
     <string name="title_act_show_multi">Proverbs</string>
     <string name="title_act_manager">Manager</string>
-    <string name="descr_favorite">add to favorites</string>
+    <string name="add_to_favorites">Add to favorites</string>
     <string name="descr_edit">edit proverb</string>
     <string name="descr_share">share</string>
     <string name="descr_delete">delete</string>
@@ -30,7 +30,6 @@
     <string name="share_post_title_proverb_day">Proverb of the day:</string>
     <string name="title_activity_act_notification">ActNotification</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="cancel">Cancel</string>
     <string name="add_proverb">Add</string>
 

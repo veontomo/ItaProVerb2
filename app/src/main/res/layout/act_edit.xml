@@ -2,42 +2,69 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/bgr"
                 tools:context="com.veontomo.itaproverb.activities.ActEdit">
 
     <EditText
         android:id="@+id/act_edit_proverb_text"
-        style="@style/ProverbEdit"
+        style="@style/ProverbEditField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_background"
+        android:background="@drawable/insert_field_bgr"
         tools:text="Chi cerca trova"/>
 
-    <ImageButton
+    <TextView
+        android:id="@+id/act_edit_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/act_edit_proverb_text"
+        android:layout_alignStart="@id/act_edit_proverb_text"
+        android:layout_below="@id/act_edit_proverb_text"
+        android:text="@string/add_to_favorites"/>
+
+    <CheckBox
+        android:id="@+id/act_edit_favorite_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/act_edit_label"
+        android:layout_toEndOf="@id/act_edit_label"
+        android:layout_toRightOf="@id/act_edit_label"/>
+
+    <ImageView
         android:id="@+id/act_edit_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/act_edit_proverb_text"
+        android:layout_alignBaseline="@id/act_edit_label"
+        android:layout_toEndOf="@id/act_edit_favorite_checkbox"
+        android:layout_toRightOf="@id/act_edit_favorite_checkbox"
+        android:baseline="16.5dp"
+        android:contentDescription="@string/add_to_favorites"
         android:src="@mipmap/star"/>
 
-    <TextView
-        android:id="@+id/act_edit_cancel"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/act_edit_favorite"
-        android:layout_margin="@dimen/spaceMedium"
-        android:drawableTop="@mipmap/cancel"
-        android:text="@string/cancel"/>
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/spaceHuge"
+        android:layout_below="@id/act_edit_label">
 
-    <TextView
-        android:id="@+id/act_edit_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/act_edit_cancel"
-        android:layout_margin="@dimen/spaceMedium"
-        android:layout_toEndOf="@id/act_edit_cancel"
-        android:layout_toRightOf="@id/act_edit_cancel"
-        android:drawableTop="@mipmap/ok"
-        android:text="@string/add_proverb"/>
+        <TextView
+            android:id="@+id/act_edit_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spaceLarger"
+            android:drawableTop="@mipmap/cancel"
+            android:text="@string/cancel"/>
 
+        <TextView
+            android:id="@+id/act_edit_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spaceLarger"
+            android:drawableTop="@mipmap/ok"
+            android:text="@string/add_proverb"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
