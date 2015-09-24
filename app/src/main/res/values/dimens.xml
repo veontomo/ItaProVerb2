@@ -3,8 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="textTiny">5sp</dimen>
-    <dimen name="textSmaller">7sp</dimen>
     <dimen name="textSmall">10sp</dimen>
+    <dimen name="textSmaller">12sp</dimen>
     <dimen name="textMedium">15sp</dimen>
     <dimen name="textLarge">25sp</dimen>
     <dimen name="textLarger">30sp</dimen>

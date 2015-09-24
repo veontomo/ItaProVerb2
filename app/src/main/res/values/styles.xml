@@ -7,7 +7,7 @@
 
     <style name="ProverbDay" parent="AppTheme">
         <item name="android:textSize">@dimen/textMedium</item>
-        <item name="android:textColor">@color/secondary1</item>
+        <item name="android:textColor">@color/secondary1_light</item>
         <item name="android:textStyle">italic</item>
 
     </style>
@@ -15,6 +15,18 @@
     <style name="ProverbDate" parent="ProverbDate">
         <item name="android:textSize">@dimen/textSmall</item>
         <item name="android:alpha">@dimen/opaque_high</item>
+    </style>
+
+    <style name="ProverbRow" parent="AppTheme">
+        <item name="android:padding">@dimen/spaceSmaller</item>
+        <item name="android:textSize">@dimen/textSmaller</item>
+        <item name="android:textColor">@color/secondary1_light</item>
+
+    </style>
+
+    <style name="ProverbsList">
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
     </style>
 
 </resources>
