@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
 
@@ -48,12 +48,12 @@ public class ActEdit extends AppCompatActivity {
     /**
      * click on this view confirms the action
      */
-    private ImageView mConfirm;
+    private TextView mConfirm;
 
     /**
      * click on this view cancels the action
      */
-    private ImageView mCancel;
+    private TextView mCancel;
     /**
      * click on this view sets the proverb status
      */
@@ -79,8 +79,8 @@ public class ActEdit extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         this.mInput = (EditText) findViewById(R.id.act_edit_proverb_text);
-        this.mConfirm = (ImageView) findViewById(R.id.act_edit_confirm);
-        this.mCancel = (ImageView) findViewById(R.id.act_edit_cancel);
+        this.mConfirm = (TextView) findViewById(R.id.act_edit_confirm);
+        this.mCancel = (TextView) findViewById(R.id.act_edit_cancel);
         this.mStatusView = findViewById(R.id.act_edit_favorite);
 
         if (this.mText != null) {
@@ -143,7 +143,7 @@ public class ActEdit extends AppCompatActivity {
 
 
     @Override
-    public void onSaveInstanceState(Bundle b){
+    public void onSaveInstanceState(Bundle b) {
         b.putString(TEXT_TOKEN, this.mText);
         b.putBoolean(STATUS_TOKEN, this.mStatus);
         super.onSaveInstanceState(b);

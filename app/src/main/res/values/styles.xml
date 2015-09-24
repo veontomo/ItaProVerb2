@@ -12,7 +12,7 @@
 
     </style>
 
-    <style name="ProverbDate" parent="ProverbDate">
+    <style name="ProverbDate" parent="ProverbDay">
         <item name="android:textSize">@dimen/textSmall</item>
         <item name="android:alpha">@dimen/opaque_high</item>
     </style>

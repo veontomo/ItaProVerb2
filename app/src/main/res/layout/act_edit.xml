@@ -10,6 +10,7 @@
 
     <EditText
         android:id="@+id/act_edit_proverb_text"
+        style="@style/ProverbDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Chi cerca trova"/>
@@ -21,21 +22,25 @@
         android:layout_below="@id/act_edit_proverb_text"
         android:src="@mipmap/star"/>
 
-    <ImageButton
+    <TextView
         android:id="@+id/act_edit_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/act_edit_favorite"
-        android:src="@mipmap/cancel"/>
+        android:layout_margin="@dimen/spaceMedium"
+        android:drawableTop="@mipmap/cancel"
+        android:text="@string/cancel"/>
 
-    <ImageButton
+    <TextView
         android:id="@+id/act_edit_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/act_edit_cancel"
-        android:layout_toRightOf="@id/act_edit_cancel"
+        android:layout_alignBaseline="@id/act_edit_cancel"
+        android:layout_margin="@dimen/spaceMedium"
         android:layout_toEndOf="@id/act_edit_cancel"
-        android:src="@mipmap/ok"/>
+        android:layout_toRightOf="@id/act_edit_cancel"
+        android:drawableTop="@mipmap/ok"
+        android:text="@string/add_proverb"/>
 
 
 </RelativeLayout>

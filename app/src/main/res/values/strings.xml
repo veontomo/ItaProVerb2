@@ -31,5 +31,7 @@
     <string name="title_activity_act_notification">ActNotification</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_proverb">Add</string>
 
 </resources>
