@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="transparent" format="float" type="dimen">0.0</item>
+    <item name="opaque_lowest" format="float" type="dimen">0.25</item>
+    <item name="opaque_lower" format="float" type="dimen">0.4</item>
+    <item name="opaque_low" format="float" type="dimen">0.5</item>
+    <item name="opaque_middle" format="float" type="dimen">0.75</item>
+    <item name="opaque_high" format="float" type="dimen">0.9</item>
+    <item name="opaque" format="float" type="dimen">1.0</item>
+</resources>
