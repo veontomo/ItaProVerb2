@@ -213,7 +213,8 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onEdit() {
         Intent intent = new Intent(getApplicationContext(), ActEdit.class);
-        intent.putExtra(ActDelete.TEXT_TOKEN, mProverb.text);
+        intent.putExtra(ActEdit.TEXT_TOKEN, mProverb.text);
+        intent.putExtra(ActEdit.STATUS_TOKEN, mProverb.isFavorite);
         startActivityForResult(intent, EDIT_REQUEST);
     }
 
