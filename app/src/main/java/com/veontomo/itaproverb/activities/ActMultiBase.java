@@ -305,7 +305,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     /**
      * Disables search input field
      */
-    public void disableSearch() {
+    public void onEmptyInput() {
         if (this.mSearchFrag != null){
             this.mSearchFrag.disableSearch();
         }

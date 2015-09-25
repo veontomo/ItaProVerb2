@@ -35,5 +35,6 @@
     <string name="confirm">Confirm</string>
     <string name="act_delete_warning">You are about to delete this proverb from the collection</string>
     <string name="add_proverb_hint">type here</string>
+    <string name="add_to_favorites_explanation">You have not marked yet any proverb as favorite.\nIn order to mark a proverb as favorite, just click a star like below when you see it near a proverb.</string>
 
 </resources>
