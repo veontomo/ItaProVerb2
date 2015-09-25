@@ -33,5 +33,6 @@
 
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
+    <string name="act_delete_warning">You are about to delete this proverb from the collection</string>
 
 </resources>

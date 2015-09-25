@@ -15,7 +15,7 @@
         style="@style/SystemMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You are about to delete this proverb from the collection"/>
+        android:text="@string/act_delete_warning"/>
 
     <TextView
         android:id="@+id/act_delete_proverb_text"

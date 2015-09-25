@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -58,6 +59,10 @@ public class ActEdit extends AppCompatActivity {
      * click on this view sets the proverb status
      */
     private View mStatusView;
+    /**
+     * a checkbox that corresponds to the proverb status
+     */
+    private CheckBox mCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,7 @@ public class ActEdit extends AppCompatActivity {
         this.mConfirm = (TextView) findViewById(R.id.act_edit_confirm);
         this.mCancel = (TextView) findViewById(R.id.act_edit_cancel);
         this.mStatusView = findViewById(R.id.act_edit_favorite);
+        this.mCheckBox = (CheckBox) findViewById(R.id.act_edit_favorite_checkbox);
 
         if (this.mText != null) {
             this.mInput.setText(this.mText);
@@ -112,7 +118,7 @@ public class ActEdit extends AppCompatActivity {
                 finish();
             }
         });
-        mStatusView.setOnClickListener(new View.OnClickListener() {
+        mCheckBox.setOnClickListener(new View.OnClickListener() {
             /**
              * Called when a view has been clicked.
              *
@@ -181,5 +187,6 @@ public class ActEdit extends AppCompatActivity {
      */
     public void setFavorite(boolean status) {
         this.mStatusView.setAlpha(status ? FAVORITE : NON_FAVORITE);
+        this.mCheckBox.setChecked(status);
     }
 }
