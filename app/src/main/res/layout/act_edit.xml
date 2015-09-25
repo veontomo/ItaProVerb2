@@ -2,6 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/spaceMedium"
                 tools:context="com.veontomo.itaproverb.activities.ActEdit">
 
     <EditText
@@ -19,6 +20,7 @@
         android:layout_alignLeft="@id/act_edit_proverb_text"
         android:layout_alignStart="@id/act_edit_proverb_text"
         android:layout_below="@id/act_edit_proverb_text"
+        style = "@style/SystemMessage"
         android:text="@string/add_to_favorites"/>
 
     <CheckBox
