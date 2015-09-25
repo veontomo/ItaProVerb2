@@ -47,8 +47,14 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="SystemMessage">
-        <item name="android:textSize">@dimen/textLarge</item>
+    <style name="warningMessage">
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="android:textColor">@color/warning</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="labelMessage">
+        <item name="android:textSize">@dimen/textMedium</item>
         <item name="android:textColor">@color/secondary1</item>
         <item name="android:textStyle">normal</item>
     </style>

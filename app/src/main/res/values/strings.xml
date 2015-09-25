@@ -10,7 +10,7 @@
     <string name="descr_share">share</string>
     <string name="descr_delete">delete</string>
     <string name="title_act_search">Search</string>
-    <string name="search_hint_example">type keywords here</string>
+    <string name="search_hint_example">start typing here</string>
     <string name="title_act_proverb_day">Proverb of the day</string>
 
     <string name="title_act_proverb_oracle">Fortune teller</string>
@@ -34,5 +34,6 @@
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="act_delete_warning">You are about to delete this proverb from the collection</string>
+    <string name="add_proverb_hint">type here</string>
 
 </resources>
