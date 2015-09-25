@@ -48,6 +48,10 @@ public class ProverbRetrievalTask extends AsyncTask<Void, Void, List<Proverb>> {
 
     @Override
     public void onPostExecute(List<Proverb> result) {
+        if (result == null || result.size() == 0){
+          this.cache.disableSearch();
+            return;
+        }
         this.holder.load(result);
         this.holder.updateView();
     }

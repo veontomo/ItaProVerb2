@@ -87,6 +87,10 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      * <br>This filter serves in order to perform search over original proverbs.
      */
     private int[] filter;
+    /**
+     * Fragment that performs the search
+     */
+    private FragSearch mSearchFrag;
 
     public abstract List<Proverb> getItems(Storage storage);
 
@@ -98,13 +102,13 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_favorites);
-        Log.i(Config.APP_NAME, "inside ActMultiBase");
     }
 
     @Override
     public void onStart() {
         super.onStart();
         this.mShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_show_multi);
+        this.mSearchFrag = (FragSearch) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_search);
         this.searcher = new ProverbSearcher(this);
     }
 
@@ -296,5 +300,14 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     public void setFilter(int[] filter) {
         this.filter = filter;
+    }
+
+    /**
+     * Disables search input field
+     */
+    public void disableSearch() {
+        if (this.mSearchFrag != null){
+            this.mSearchFrag.disableSearch();
+        }
     }
 }

@@ -75,6 +75,7 @@ public class FragShowMulti extends Fragment {
     }
 
 
+
     public interface ShowMultiActions {
         /**
          * It is called when an item that this fragment visualizes gets clicked.

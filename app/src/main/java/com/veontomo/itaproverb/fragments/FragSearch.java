@@ -80,9 +80,19 @@ public class FragSearch extends Fragment {
         super.onStop();
     }
 
-    private void detachListeners() {
-        this.mInputField.removeTextChangedListener(this.mWatcher);
+    private final void detachListeners() {
+        if (this.mWatcher != null) {
+            this.mInputField.removeTextChangedListener(this.mWatcher);
+        }
         this.mButton.setOnClickListener(null);
+    }
+
+    /**
+     * Disable input field
+     */
+    public final void disableSearch() {
+        this.mInputField.setFocusable(false);
+        detachListeners();
     }
 
 
