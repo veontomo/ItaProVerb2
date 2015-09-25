@@ -4,13 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:padding="@dimen/spaceMedium"
     tools:context="com.veontomo.itaproverb.fragments.FragShowSingle">
 
     <TextView
         android:id="@+id/frag_show_single_text"
         style="@style/ProverbSingle"
-        android:layout_width="wrap_content"
+        android:background="@drawable/insert_field_bgr"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         tools:text="proverb text goes here"/>
 
 </LinearLayout>
