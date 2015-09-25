@@ -22,6 +22,7 @@
     <string name="title_act_dispatch">Main screen</string>
     <string name="title_act_delete">Delete proverb</string>
     <string name="title_act_edit">Edit proverb</string>
+    <string name="title_new_proverb">Insert proverb</string>
     <string name="facebook_app_id" translatable="false">604747132997976</string>
     <string name="title_act_facebook_share">Share with facebook</string>
 

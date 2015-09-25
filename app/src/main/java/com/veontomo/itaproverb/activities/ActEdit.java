@@ -85,6 +85,8 @@ public class ActEdit extends AppCompatActivity {
 
         if (this.mText != null) {
             this.mInput.setText(this.mText);
+        } else {
+            setTitle(getString(R.string.title_new_proverb));
         }
         setFavorite(this.mStatus);
     }
