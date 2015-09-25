@@ -13,6 +13,7 @@
         <item name="android:paddingBottom">@dimen/spaceMedium</item>
         <item name="android:paddingLeft">@dimen/spaceSmall</item>
         <item name="android:paddingRight">@dimen/spaceSmall</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="ProverbDate" parent="AppTheme">
@@ -41,6 +42,13 @@
         <item name="android:layout_marginBottom">@dimen/spaceLarge</item>
         <item name="android:textSize">@dimen/textLarge</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="SystemMessage">
+        <item name="android:textSize">@dimen/textLarge</item>
+        <item name="android:textColor">@color/secondary1</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:padding">@dimen/spaceLarge</item>
     </style>
 
 

@@ -49,12 +49,12 @@ public class ActDelete extends AppCompatActivity {
     /**
      * a view click on which confirms the action
      */
-    private ImageView mConfirm;
+    private View mConfirm;
 
     /**
      * a view click on which cancels the action
      */
-    private ImageView mCancel;
+    private View mCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +84,8 @@ public class ActDelete extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mProverbTextView = (TextView) findViewById(R.id.act_delete_proverb_text);
-        mConfirm = (ImageView) findViewById(R.id.act_edit_confirm);
-        mCancel = (ImageView) findViewById(R.id.act_edit_cancel);
+        mConfirm = (View) findViewById(R.id.act_edit_confirm);
+        mCancel = (View) findViewById(R.id.act_edit_cancel);
 
 
     }
