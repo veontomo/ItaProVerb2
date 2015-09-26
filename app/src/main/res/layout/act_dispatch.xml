@@ -19,7 +19,9 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="@string/title_act_proverb_day" />
+            android:text="@string/title_act_proverb_day"
+            android:drawableTop="@mipmap/icon_calendar"
+            />
 
         <TextView
             android:id="@+id/dispatcher_proverb_oracle"
@@ -27,7 +29,8 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="@string/title_act_proverb_oracle" />
+            android:text="@string/title_act_proverb_oracle"
+            android:drawableTop="@mipmap/icon_sphere"/>
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +45,8 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="@string/title_act_favorites" />
+            android:text="@string/title_act_favorites"
+            android:drawableTop="@mipmap/star"/>
 
         <TextView
             android:id="@+id/dispatcher_all_proverb"
@@ -50,7 +54,8 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="@string/title_act_all" />
+            android:text="@string/title_act_all"
+            android:drawableTop="@mipmap/search"/>
     </LinearLayout>
 
 
