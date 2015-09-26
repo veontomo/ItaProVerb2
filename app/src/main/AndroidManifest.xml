@@ -36,6 +36,10 @@
             android:label="@string/title_act_search">
         </activity>
         <activity
+            android:name=".activities.ActSettings"
+            android:label="@string/title_act_settings">
+        </activity>
+        <activity
             android:name=".activities.ActProverbDay"
             android:label="@string/title_act_proverb_day">
         </activity>
