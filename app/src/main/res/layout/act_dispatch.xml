@@ -44,7 +44,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="@string/title_act_favorites"
-            android:drawableTop="@mipmap/star"/>
+            android:drawableTop="@mipmap/star.png"/>
 
         <TextView
             android:id="@+id/dispatcher_all_proverb"

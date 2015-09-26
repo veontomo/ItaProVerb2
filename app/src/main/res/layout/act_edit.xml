@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:contentDescription="@string/add_to_favorites"
-                android:src="@mipmap/star" />
+                android:src="@mipmap/star.png" />
         </LinearLayout>
 
         <LinearLayout
