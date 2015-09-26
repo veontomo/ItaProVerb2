@@ -83,10 +83,7 @@
             android:name=".activities.ActShare"
             android:label="@string/title_act_facebook_share">
         </activity>
-        <activity
-            android:name=".activities.ActSettings"
-            android:label="@string/title_act_settings" >
-        </activity>
+
         <receiver android:name='.AlarmReceiver'>
         </receiver>
     </application>
