@@ -10,5 +10,5 @@
         android:layout_height="wrap_content"
         style="@style/ProverbSingle"
         android:text="@string/add_to_favorites_explanation"
-        android:drawableBottom="@mipmap/star.png" />
+        android:drawableBottom="@mipmap/star" />
 </LinearLayout>

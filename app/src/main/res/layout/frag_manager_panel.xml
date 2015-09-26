@@ -14,7 +14,7 @@
         android:layout_marginLeft="@dimen/textMedium"
         android:layout_marginStart="@dimen/textMedium"
         android:contentDescription="@string/add_to_favorites"
-        android:src="@mipmap/star.png"/>
+        android:src="@mipmap/star"/>
 
     <ImageView
         android:id="@+id/frag_manager_edit"
