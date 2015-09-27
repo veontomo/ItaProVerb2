@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="checkbox_preference"
+        android:title="@string/enable_notification"
+        android:summary="@string/title_enable_notification"
+        android:defaultValue="true" />
+    <ListPreference
+        android:key="list_preference"
+        android:title="title"
+        android:summary="summary"
+        android:entries="@array/notification_times"
+        android:entryValues="@array/notification_times"
+        android:dialogTitle="dialog title" />
+
+
+</PreferenceScreen>

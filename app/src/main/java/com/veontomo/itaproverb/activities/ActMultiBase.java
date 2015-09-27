@@ -52,6 +52,11 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      * a number that identifies the request to create a new proverb
      */
     private static final int CREATE_PROVERB_REQUEST = 1;
+    /**
+     * name of the token under which the first visible proverb of the list view
+     * is saved in a bundle
+     */
+    private static final java.lang.String FIRST_VISIBLE_ITEM_TOKEN = "first_visible";
 
     /**
      * a fragment that takes care of visualization of multiple proverbs
@@ -91,6 +96,11 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      * Fragment that performs the search
      */
     private FragSearch mSearchFrag;
+    /**
+     * Index of the first visible item of the list view.
+     * It serves to scroll to that item once the activity restarts.
+     */
+    private int mFirstVisible = -1;
 
     public abstract List<Proverb> getItems(Storage storage);
 
@@ -117,6 +127,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         mIds = savedInstanceState.getIntArray(PROVERB_ID_MULTI_TOKEN);
         mTexts = savedInstanceState.getStringArray(PROVERB_TEXT_MULTI_TOKEN);
         mStatuses = savedInstanceState.getBooleanArray(PROVERB_STATUS_MULTI_TOKEN);
+        mFirstVisible = savedInstanceState.getInt(FIRST_VISIBLE_ITEM_TOKEN, -1);
         if (mIds != null && mTexts != null && mStatuses != null) {
             mItems = createMultiProverbs();
         }
@@ -129,6 +140,9 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
         if (mItems != null) {
             this.displayProverbs();
+            if (mFirstVisible != -1) {
+                this.mShowMulti.scrollTo(mFirstVisible);
+            }
         } else {
             // this task launches method getItems in order to fill the activity with content
             ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
@@ -138,16 +152,15 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
     /**
      * Passes given list of proverbs to the fragment responsible for displaying them.
-     *
+     * <p/>
      * <br>In case {@link #filter} is not null, the method filters out proverbs that are not in
      * that list.
-     *
      */
     public void displayProverbs() {
         List<Proverb> filtered = new ArrayList();
-        if (filter != null){
+        if (filter != null) {
             int size = filter.length;
-            for (int i = 0; i < size; i++){
+            for (int i = 0; i < size; i++) {
                 filtered.add(mItems.get(filter[i]));
             }
         } else {
@@ -217,6 +230,9 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         savedInstanceState.putIntArray(PROVERB_ID_MULTI_TOKEN, mIds);
         savedInstanceState.putStringArray(PROVERB_TEXT_MULTI_TOKEN, mTexts);
         savedInstanceState.putBooleanArray(PROVERB_STATUS_MULTI_TOKEN, mStatuses);
+        if (mFirstVisible != -1) {
+            savedInstanceState.putInt(FIRST_VISIBLE_ITEM_TOKEN, mFirstVisible);
+        }
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -267,6 +283,12 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     }
 
     @Override
+    public void onSavePosition(int position) {
+        this.mFirstVisible = position;
+        Log.i(Config.APP_NAME, "saving position " + position);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_PROVERB_REQUEST) {
             if (resultCode == RESULT_OK) {
@@ -296,6 +318,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
     /**
      * {@link #filter} setter.
+     *
      * @param filter
      */
     public void setFilter(int[] filter) {
@@ -306,7 +329,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      * Disables search input field
      */
     public void onEmptyInput() {
-        if (this.mSearchFrag != null){
+        if (this.mSearchFrag != null) {
             this.mSearchFrag.disableSearch();
         }
     }

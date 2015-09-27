@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
         android:key="enable_notification"
-        android:summary="@string/title_act_favorites"
-        android:title="@string/app_name" />
+        android:summary="@string/enable_notification"
+        android:title="@string/title_enable_notification" />
 
 </PreferenceScreen>

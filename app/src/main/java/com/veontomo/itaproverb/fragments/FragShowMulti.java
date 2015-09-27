@@ -75,6 +75,24 @@ public class FragShowMulti extends Fragment {
     }
 
 
+    @Override
+    public void onPause() {
+        if (hostActivity != null && mListView != null) {
+            hostActivity.onSavePosition(mListView.getFirstVisiblePosition());
+
+        }
+        super.onPause();
+    }
+
+    /**
+     * Scrolls to the given position
+     * @param position
+     */
+    public void scrollTo(int position) {
+        if (this.mListView != null){
+            this.mListView.setSelection(position);
+        }
+    }
 
     public interface ShowMultiActions {
         /**
@@ -83,5 +101,12 @@ public class FragShowMulti extends Fragment {
          * @param position
          */
         void onItemClick(int position);
+
+        /**
+         * it is called to save the index of the first proverb currently visualized
+         *
+         * @param position
+         */
+        void onSavePosition(int position);
     }
 }

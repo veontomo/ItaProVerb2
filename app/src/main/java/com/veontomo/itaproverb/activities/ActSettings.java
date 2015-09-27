@@ -24,7 +24,7 @@ public class ActSettings extends PreferenceActivity {
     /**
      * This fragment shows the preferences for the first header.
      */
-    public static class Prefs1Fragment extends PreferenceFragment {
+    public static class NotificationTimeFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -33,10 +33,10 @@ public class ActSettings extends PreferenceActivity {
             // want this in a shared function that is used to retrieve the
             // SharedPreferences wherever they are needed.
             PreferenceManager.setDefaultValues(getActivity(),
-                    R.xml.notification_settings, false);
+                    R.xml.notification_settings, true);
 
             // Load the preferences from an XML resource
-            // addPreferencesFromResource(R.xml.fragmented_preferences);
+            addPreferencesFromResource(R.xml.notification_time);
         }
     }
 
