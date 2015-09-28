@@ -2,21 +2,21 @@ package com.veontomo.itaproverb;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.preference.DialogPreference;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TimePicker;
 
+import com.veontomo.itaproverb.api.Config;
+
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
- * Created by Mario Rossi on 28/09/2015 at 10:26.
- *
- * @author veontomo@gmail.com
- * @since xx.xx
+ * Dialog to select a time of a day.
  */
 public class TimePreference extends DialogPreference {
     private Calendar calendar;
@@ -35,35 +35,47 @@ public class TimePreference extends DialogPreference {
 
         setPositiveButtonText("confirm");
         setNegativeButtonText("cancel");
-        calendar = new GregorianCalendar();
+        calendar = Calendar.getInstance();
     }
 
     @Override
     protected View onCreateDialogView() {
         picker = new TimePicker(getContext());
-        return (picker);
+        return picker;
     }
 
     @Override
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
-        picker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
-        picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
+//        picker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
+//        picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
     }
 
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
 
+        int hour, minute;
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+            hour = picker.getCurrentHour();
+            minute = picker.getCurrentMinute();
+        } else{
+            hour = picker.getHour();
+            minute = picker.getMinute();
+        }
+        Log.i(Config.APP_NAME, "hour: " + picker.getCurrentHour() + ", minutes: " + picker.getCurrentMinute());
         if (positiveResult) {
-            calendar.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
-            calendar.set(Calendar.MINUTE, picker.getCurrentMinute());
-
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            Log.i(Config.APP_NAME, "positive");
             setSummary(getSummary());
             if (callChangeListener(calendar.getTimeInMillis())) {
-                persistLong(calendar.getTimeInMillis());
+                Log.i(Config.APP_NAME, "calendar millis: " + calendar.getTimeInMillis());
+                persistString("1443448310772l");
                 notifyChanged();
             }
+        } else {
+            Log.i(Config.APP_NAME, "negative");
         }
     }
 
@@ -93,6 +105,7 @@ public class TimePreference extends DialogPreference {
 
     @Override
     public CharSequence getSummary() {
+
         if (calendar == null) {
             return null;
         }
