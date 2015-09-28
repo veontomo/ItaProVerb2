@@ -4,12 +4,14 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -41,6 +43,9 @@ public class ActDispatch extends AppCompatActivity {
         } else {
             Log.i(Config.APP_NAME, "App Link Target URL is null ");
         }
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String date = pref.getString("list_preference", "no");
+        Log.i(Config.APP_NAME, "from preference: " + date);
     }
 
     @Override
