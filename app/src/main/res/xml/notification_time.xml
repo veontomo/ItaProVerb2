@@ -6,12 +6,13 @@
         android:summary="@string/title_enable_notification"
         android:defaultValue="true" />
     <ListPreference
+        android:dependency="checkbox_preference"
         android:key="list_preference"
-        android:title="title"
-        android:summary="summary"
+        android:title="@string/notification_time"
+        android:summary="Choose time of a day when you prefer to receive the proverb"
         android:entries="@array/notification_times"
         android:entryValues="@array/notification_times"
-        android:dialogTitle="dialog title" />
+        android:dialogTitle="Select time" />
 
 
 </PreferenceScreen>
