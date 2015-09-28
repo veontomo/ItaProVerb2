@@ -6,7 +6,7 @@
         android:summary="@string/title_enable_notification"
         android:defaultValue="true" />
     <com.veontomo.itaproverb.TimePreference
-        android:key="list_preference"
+        android:key="notification_time"
         android:dependency="checkbox_preference"
         android:title="@string/notification_time"
         android:summary="Choose time of a day when you prefer to receive the proverb" />

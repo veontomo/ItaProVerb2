@@ -17,6 +17,7 @@ import java.util.Date;
 
 /**
  * Dialog to select a time of a day.
+ * http://www.vogella.com/tutorials/AndroidFileBasedPersistence/article.html
  */
 public class TimePreference extends DialogPreference {
     private Calendar calendar;
@@ -47,8 +48,8 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
-//        picker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
-//        picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
+        picker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
+        picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
     }
 
     @Override
@@ -71,7 +72,7 @@ public class TimePreference extends DialogPreference {
             setSummary(getSummary());
             if (callChangeListener(calendar.getTimeInMillis())) {
                 Log.i(Config.APP_NAME, "calendar millis: " + calendar.getTimeInMillis());
-                persistString("1443448310772l");
+                persistLong(calendar.getTimeInMillis());
                 notifyChanged();
             }
         } else {
@@ -86,7 +87,6 @@ public class TimePreference extends DialogPreference {
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-
         if (restoreValue) {
             if (defaultValue == null) {
                 calendar.setTimeInMillis(System.currentTimeMillis());
@@ -109,6 +109,7 @@ public class TimePreference extends DialogPreference {
         if (calendar == null) {
             return null;
         }
-        return DateFormat.getTimeFormat(getContext()).format(new Date(calendar.getTimeInMillis()));
+        String s = DateFormat.getTimeFormat(getContext()).format(new Date(calendar.getTimeInMillis()));
+        return s;
     }
 }

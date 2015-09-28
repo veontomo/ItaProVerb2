@@ -44,8 +44,8 @@ public class ActDispatch extends AppCompatActivity {
             Log.i(Config.APP_NAME, "App Link Target URL is null ");
         }
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String date = pref.getString("list_preference", "no");
-        Log.i(Config.APP_NAME, "from preference: " + date);
+        long notification_time = pref.getLong("notification_time", -1l);
+        Log.i(Config.APP_NAME, "from preference: " + notification_time);
     }
 
     @Override
