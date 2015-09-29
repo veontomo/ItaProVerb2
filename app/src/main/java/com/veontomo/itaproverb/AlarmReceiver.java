@@ -15,11 +15,12 @@ import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Mario Rossi on 22/09/2015 at 14:30.
- *
- * @author veontomo@gmail.com
- * @since xx.xx
  */
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -39,12 +40,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (proverb == null) {
             return;
         }
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.mipmap.owl)
-                        .setContentTitle(proverb.date)
-                        .setContentText(proverb.text)
-                        .setAutoCancel(true);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.mipmap.owl)
+                .setContentText(proverb.text)
+                .setAutoCancel(true);
+        mBuilder.setContentTitle(context.getString(R.string.title_act_proverb_day));
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(context, ActProverbDay.class);
 
@@ -63,4 +63,5 @@ public class AlarmReceiver extends BroadcastReceiver {
         // mId allows you to update the notification later on.
         mNotificationManager.notify(ID, mBuilder.build());
     }
+
 }

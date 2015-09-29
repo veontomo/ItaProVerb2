@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TimePicker;
 
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Notificator;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -85,13 +86,13 @@ public class TimePreference extends DialogPreference {
             if (callChangeListener(t)) {
                 persistLong(t);
                 notifyChanged();
+                Notificator.start(getContext());
             }
         }
     }
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
         return a.getString(index);
     }
 
@@ -106,7 +107,6 @@ public class TimePreference extends DialogPreference {
 
     @Override
     public CharSequence getSummary() {
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
         if (calendar == null) {
             return null;
         }

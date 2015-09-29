@@ -63,6 +63,7 @@ public abstract class Config {
      */
     public static final String DATE_FORMAT_STORAGE = "yyyy MM dd";
 
+
     /**
      * Size of sequence of consecutive records in proverb-of-day table within which
      * all proverbs must be different.
@@ -93,7 +94,7 @@ public abstract class Config {
     /**
      * Period in milliseconds during with a proverb-of-day notification should be fired off.
      */
-    public final static int FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 10 * 60 * 1000;
+    public final static int FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 3 * 60 * 1000;
 
 
     /**
