@@ -37,8 +37,8 @@ public class TimePreference extends DialogPreference {
 
     }
 
-    public TimePreference(Context ctxt, AttributeSet attrs) {
-        this(ctxt, attrs, android.R.attr.dialogPreferenceStyle);
+    public TimePreference(Context context, AttributeSet attrs) {
+        this(context, attrs, android.R.attr.dialogPreferenceStyle);
     }
 
     public TimePreference(Context context, AttributeSet attrs, int defStyle) {
@@ -79,8 +79,8 @@ public class TimePreference extends DialogPreference {
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             calendar.set(Calendar.MINUTE, minute);
             setSummary(getSummary());
-            if (callChangeListener(calendar.getTimeInMillis())) {
-                long t = calendar.getTimeInMillis();
+            long t = calendar.getTimeInMillis();
+            if (callChangeListener(t)) {
                 persistLong(t);
                 notifyChanged();
             }
