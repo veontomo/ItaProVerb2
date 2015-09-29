@@ -52,13 +52,7 @@ public class ProverbProvider {
      */
     public Proverb todayProverb() {
         Proverb p = mStorage.getTodayProverb(0);
-        if (p == null){
-            Log.i(Config.APP_NAME, "no proverb of today");
-        } else {
-            Log.i(Config.APP_NAME, "proverb of today: " + p.id + ", " + p.text);
-        }
         String today = formatTodayDate(Config.DATE_FORMAT_STORAGE);
-        Log.i(Config.APP_NAME, "formatted date = " + today);
         if (p == null || !today.equals(p.date)) {
             p = assignProverbOfToday(today);
         }

@@ -62,7 +62,5 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.
         mNotificationManager.notify(ID, mBuilder.build());
-
-        Log.i(Config.APP_NAME, "on receive");
     }
 }

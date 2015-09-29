@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
-        android:key="checkbox_preference"
+        android:key="proverb_notification_enabled"
         android:title="@string/enable_notification"
         android:summary="@string/title_enable_notification"
         android:defaultValue="true" />
     <com.veontomo.itaproverb.TimePreference
         android:key="notification_time"
-        android:dependency="checkbox_preference"
+        android:dependency="proverb_notification_enabled"
         android:title="@string/notification_time"
         android:summary="Choose time of a day when you prefer to receive the proverb" />
 

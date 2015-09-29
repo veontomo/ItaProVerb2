@@ -98,20 +98,14 @@ public class ActProverbDay extends ActSingleBase {
         public SwipeGestureListener(final ActSingleBase caller, final ProverbProvider provider){
             this.caller = caller;
             this.provider = provider;
-            if (provider == null){
-                Log.i(Config.APP_NAME, "provider is null!!!");
-            }
         }
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
             float dx = event2.getX() - event1.getX();
             if (dx > 0) {
-                Log.i(Config.APP_NAME, "get older");
                 provider.getOlder(caller);
-
             } else {
-                Log.i(Config.APP_NAME, "get newer");
                 provider.getNewer(caller);
             }
             return true;
