@@ -12,7 +12,6 @@ import android.widget.TimePicker;
 import com.veontomo.itaproverb.api.Config;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Dialog to select a time of a day.
@@ -35,27 +34,23 @@ public class TimePreference extends DialogPreference {
 
     public TimePreference(Context context) {
         this(context, null);
-        Log.i(Config.APP_NAME, "TimePreference: single arg constructor " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
     }
 
     public TimePreference(Context ctxt, AttributeSet attrs) {
         this(ctxt, attrs, android.R.attr.dialogPreferenceStyle);
-        Log.i(Config.APP_NAME, "TimePreference: two arg constructor " + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     public TimePreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Log.i(Config.APP_NAME, "TimePreference: three arg constructor " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        setPositiveButtonText("confirm");
-        setNegativeButtonText("cancel");
+        setPositiveButtonText(context.getString(R.string.confirm));
+        setNegativeButtonText(context.getString(R.string.cancel));
         calendar = Calendar.getInstance();
 
     }
 
     @Override
     protected View onCreateDialogView() {
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
         picker = new TimePicker(getContext());
         picker.setIs24HourView(true);
         return picker;
@@ -64,11 +59,9 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
-        Log.i(Config.APP_NAME, "TimePreference onBindDialogView");
         time = getPersistedLong(-1);
-        Log.i(Config.APP_NAME, "preference time: " + time);
         if (time != -1) {
-            calendar.setTime(new Date(time));
+            calendar.setTimeInMillis(time);
             picker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
             picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
         }
@@ -77,7 +70,6 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
         int hour, minute;
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             hour = picker.getCurrentHour();
@@ -86,21 +78,15 @@ public class TimePreference extends DialogPreference {
             hour = picker.getHour();
             minute = picker.getMinute();
         }
-        Log.i(Config.APP_NAME, "hour: " + picker.getCurrentHour() + ", minutes: " + picker.getCurrentMinute());
         if (positiveResult) {
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             calendar.set(Calendar.MINUTE, minute);
-            Log.i(Config.APP_NAME, "positive");
             setSummary(getSummary());
             if (callChangeListener(calendar.getTimeInMillis())) {
                 long t = calendar.getTimeInMillis();
-                long t0 = getPersistedLong(-2);
-                boolean b = persistLong(t);
-                Log.i(Config.APP_NAME, "persisting long " + t + " vs " + t0 + ", result: " + b);
+                persistLong(t);
                 notifyChanged();
             }
-        } else {
-            Log.i(Config.APP_NAME, "negative");
         }
     }
 
@@ -129,6 +115,6 @@ public class TimePreference extends DialogPreference {
         if (calendar == null) {
             return null;
         }
-        return calendar.getTime().toString();
+        return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
     }
 }
