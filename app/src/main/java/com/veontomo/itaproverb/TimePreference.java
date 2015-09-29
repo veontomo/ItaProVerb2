@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.preference.DialogPreference;
+import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TimePicker;
 import com.veontomo.itaproverb.api.Config;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Dialog to select a time of a day.
@@ -108,6 +110,6 @@ public class TimePreference extends DialogPreference {
         if (calendar == null) {
             return null;
         }
-        return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+        return DateFormat.getTimeFormat(getContext()).format(new Date(time));
     }
 }
