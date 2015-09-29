@@ -63,7 +63,7 @@
         <item name="android:textSize">@dimen/textLarge</item>
         <item name="android:textColor">@color/secondary1_light</item>
         <item name="android:background">@drawable/insert_field_bgr</item>
-        <item name="android:layout_margin">@dimen/spaceMedium</item>
+        <item name="android:layout_margin">@dimen/spaceSmall</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
