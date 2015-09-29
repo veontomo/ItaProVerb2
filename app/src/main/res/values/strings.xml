@@ -40,5 +40,7 @@
     <string name="notification_time">Notification time</string>
     <string name="enable_notification">Enable notification</string>
     <string name="title_enable_notification">Check this box in order to enable receiving proverbs once every day</string>
+    <string name="enable_notification_token">proverb_notification_enabled</string>
+    <string name="notification_time_token">notification_time</string>
 
 </resources>

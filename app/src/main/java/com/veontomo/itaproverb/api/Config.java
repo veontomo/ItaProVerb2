@@ -11,6 +11,16 @@ import com.veontomo.itaproverb.tasks.ProverbLoaderTask;
  */
 public abstract class Config {
     /**
+     * Time in milliseconds that should pass after the app start for the proverb-a-day notification
+     * to start in case its has not been scheduled so far.
+     */
+    public static final long NOTIFICATION_TIME_OFFSET = 10 * 60 * 1000;
+
+    /**
+     * Whether the notification should start if the app is launched for the first time
+     */
+    public static final boolean NOTIFICATION_AUTO_START = true;
+    /**
      * Whether this is a first run of the app (in current session)
      */
     private static boolean FIRST_EXEC = true;
@@ -83,7 +93,7 @@ public abstract class Config {
     /**
      * Period in milliseconds during with a proverb-of-day notification should be fired off.
      */
-    public final static int PROVERB_DAY_FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 60 * 1000;
+    public final static int FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 60 * 1000;
 
 
     /**
