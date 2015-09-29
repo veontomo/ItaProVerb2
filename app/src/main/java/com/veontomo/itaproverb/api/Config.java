@@ -8,6 +8,7 @@ import com.veontomo.itaproverb.tasks.ProverbLoaderTask;
 
 /**
  * Configuration parameters of the app.
+ * TODO http://eclipsesource.com/blogs/2013/01/21/10-tips-for-using-the-eclipse-memory-analyzer/
  */
 public abstract class Config {
     /**
