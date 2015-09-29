@@ -111,7 +111,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
             Config.strictModeInit();
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_favorites);
+        setContentView(R.layout.act_multi_base);
     }
 
     @Override

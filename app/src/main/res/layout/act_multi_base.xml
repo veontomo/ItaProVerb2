@@ -36,6 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/act_favorites_frag_search"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         tools:layout="@layout/frag_add_proverb"/>
 
 

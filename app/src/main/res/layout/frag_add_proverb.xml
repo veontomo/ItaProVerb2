@@ -1,13 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.veontomo.itaproverb.fragments.FragAddProverb">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.veontomo.itaproverb.fragments.FragAddProverb">
 
     <ImageView
         android:id="@+id/frag_add_proverb_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/circle_plus"/>
+        android:layout_marginEnd="@dimen/spaceSmall"
+        android:layout_marginRight="@dimen/spaceSmall"
+        android:src="@mipmap/circle_plus" />
 
 </RelativeLayout>
