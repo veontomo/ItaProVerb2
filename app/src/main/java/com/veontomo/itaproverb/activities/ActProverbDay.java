@@ -40,7 +40,7 @@ public class ActProverbDay extends ActSingleBase {
             Config.strictModeInit();
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_proverb_day);
+        setContentView(R.layout.act_single_base);
     }
 
     @Override
