@@ -101,7 +101,7 @@ public class FragShowMulti extends Fragment {
      * Removes all items from the list
      */
     public void clean() {
-        this.mProverbs = new ArrayList<>();
+        load(new ArrayList<Proverb>());
         this.updateView();
 
     }

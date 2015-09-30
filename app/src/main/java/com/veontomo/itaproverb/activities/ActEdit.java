@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.veontomo.itaproverb.R;
 
 public class ActEdit extends AppCompatActivity {
+
     /**
      * opacity of the icon corresponding to a favorite proverb
      */
@@ -31,6 +32,11 @@ public class ActEdit extends AppCompatActivity {
      * proverb status (whether the proverb is favorite)
      */
     private boolean mStatus = false;
+
+    /**
+     * name of the token under which the proverb id is stored in the bundle
+     */
+    public static final String ID_TOKEN = "id";
 
     /**
      * name of the token under which the proverb text is stored in the bundle

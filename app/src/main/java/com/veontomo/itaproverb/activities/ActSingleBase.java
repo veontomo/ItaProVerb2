@@ -22,16 +22,16 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     /**
      * name of the token under which the proverb text is saved in a bundle
      */
-    private static final String PROVERB_TEXT_TOKEN = "text";
+    public static final String TEXT_TOKEN = "text";
     /**
      * name of the token under which the proverb id is saved in a bundle
      */
-    private static final String PROVERB_ID_TOKEN = "id";
+    public static final String ID_TOKEN = "id";
     /**
      * name of the token under which the proverb status (i.e. being favorite or not)
      * is saved in a bundle
      */
-    private static final String PROVERB_STATUS_TOKEN = "status";
+    public static final String STATUS_TOKEN = "status";
     /**
      * a number that identifies the request to delete the proverb
      */
@@ -95,9 +95,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     }
 
     public void initializeItem(Bundle savedInstanceState) {
-        this.mProverb = new Proverb(savedInstanceState.getInt(PROVERB_ID_TOKEN),
-                savedInstanceState.getString(PROVERB_TEXT_TOKEN),
-                savedInstanceState.getBoolean(PROVERB_STATUS_TOKEN));
+        this.mProverb = new Proverb(savedInstanceState.getInt(ID_TOKEN),
+                savedInstanceState.getString(TEXT_TOKEN),
+                savedInstanceState.getBoolean(STATUS_TOKEN));
 
     }
 
@@ -126,9 +126,10 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     /**
      * Loads proverb in corresponding fragment and update the view
+     *
      * @param p
      */
-    public void loadItem(Proverb p){
+    public void loadItem(Proverb p) {
         this.mFragItem.load(p);
         this.mFragItem.updateView();
         this.mFragManager.setFavorite(p.isFavorite);
@@ -140,15 +141,16 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * <p>It is supposed to be overridden by a subclass in order to have non-trivial behaviour.
      * It is called in {@link #onResume()} method.</p>
      */
-    protected void registerListeners() {}
+    protected void registerListeners() {
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 //        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
-        outState.putString(PROVERB_TEXT_TOKEN, this.mProverb.text);
-        outState.putInt(PROVERB_ID_TOKEN, this.mProverb.id);
-        outState.putBoolean(PROVERB_STATUS_TOKEN, this.mProverb.isFavorite);
+        outState.putString(TEXT_TOKEN, this.mProverb.text);
+        outState.putInt(ID_TOKEN, this.mProverb.id);
+        outState.putBoolean(STATUS_TOKEN, this.mProverb.isFavorite);
     }
 
     @Override
@@ -160,7 +162,6 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         unregisterListeners();
         super.onPause();
     }
-
 
 
     /**
@@ -216,6 +217,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onEdit() {
         Intent intent = new Intent(getApplicationContext(), ActEdit.class);
+        intent.putExtra(ActEdit.ID_TOKEN, mProverb.id);
         intent.putExtra(ActEdit.TEXT_TOKEN, mProverb.text);
         intent.putExtra(ActEdit.STATUS_TOKEN, mProverb.isFavorite);
         startActivityForResult(intent, EDIT_REQUEST);
@@ -251,6 +253,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
                 Log.i(Config.APP_NAME, "deleting the proverb");
                 ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
                 provider.deleteProverb(mProverb.id);
+                Intent intent = new Intent();
+                intent.putExtra(ID_TOKEN, mProverb.id);
+                setResult(RESULT_OK, intent);
                 finish();
             }
             return;
@@ -259,7 +264,14 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
             if (resultCode == RESULT_OK) {
                 Log.i(Config.APP_NAME, "updating the proverb");
                 ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-                provider.updateProverb(mProverb.id, data.getStringExtra(ActEdit.TEXT_TOKEN));
+                int id = mProverb.id;
+                String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
+                boolean status = data.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
+                provider.updateProverb(id, text);
+                Intent intent = new Intent();
+                intent.putExtra(ID_TOKEN, id);
+                intent.putExtra(TEXT_TOKEN, text);
+                intent.putExtra(STATUS_TOKEN, status);
                 finish();
             }
             return;

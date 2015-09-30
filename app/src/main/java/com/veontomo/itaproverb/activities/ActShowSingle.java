@@ -13,18 +13,7 @@ import com.veontomo.itaproverb.api.ProverbProvider;
  * Displays single proverb along with manager panel
  */
 public class ActShowSingle extends ActSingleBase {
-    /**
-     * name of the token under which the proverb id is stored in the bundle
-     */
-    public static final String ID_TOKEN = "id";
-    /**
-     * name of the token under which the proverb text is stored in the bundle
-     */
-    public static final String TEXT_TOKEN = "text";
-    /**
-     * name of the token under which the proverb status is stored in the bundle
-     */
-    public static final String STATUS_TOKEN = "status";
+
     /**
      * Id of the proverb for which this activity has been called
      */
@@ -64,12 +53,7 @@ public class ActShowSingle extends ActSingleBase {
 
     @Override
     public void onBackPressed() {
-        Log.i(Config.APP_NAME, "setting result and returning back");
-        Intent intent = new Intent();
-        intent.putExtra(ID_TOKEN, mId);
-        intent.putExtra(TEXT_TOKEN, mText);
-        intent.putExtra(STATUS_TOKEN, mStatus);
-        setResult(RESULT_OK, intent);
+        setResult(RESULT_OK);
         super.onBackPressed();
     }
 

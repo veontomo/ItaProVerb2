@@ -1,6 +1,7 @@
 package com.veontomo.itaproverb.api;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class ProverbAdapter extends BaseAdapter {
      */
     public void load(List<Proverb> proverbs) {
         this.mItems = proverbs;
+        Log.i(Config.APP_NAME, "loading items: " + proverbs.size());
     }
 
     private static class Holder {

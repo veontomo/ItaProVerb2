@@ -310,9 +310,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         }
         if (requestCode == UPDATE_PROVERB_REQUEST) {
             if (resultCode == RESULT_OK) {
-                this.mShowMulti.clean();
-                ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
-                task.execute();
+                int id = data.getIntExtra(ActShowSingle.ID_TOKEN, -1);
 
             }
         }
