@@ -53,6 +53,11 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     private static final int CREATE_PROVERB_REQUEST = 1;
     /**
+     * a number that identifies the request to update existing proverb (its status,
+     * content or proverb's cancellation)
+     */
+    private static final int UPDATE_PROVERB_REQUEST = 2;
+    /**
      * name of the token under which the first visible proverb of the list view
      * is saved in a bundle
      */
@@ -122,7 +127,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         this.searcher = new ProverbSearcher(this);
     }
 
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mIds = savedInstanceState.getIntArray(PROVERB_ID_MULTI_TOKEN);
         mTexts = savedInstanceState.getStringArray(PROVERB_TEXT_MULTI_TOKEN);
@@ -275,11 +280,12 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getApplicationContext(), ActShowSingle.class);
+        Log.i(Config.APP_NAME, "on item click");
         int id = filter != null ? filter[position] : position;
         intent.putExtra(ActShowSingle.ID_TOKEN, this.mIds[id]);
         intent.putExtra(ActShowSingle.TEXT_TOKEN, this.mTexts[id]);
         intent.putExtra(ActShowSingle.STATUS_TOKEN, this.mStatuses[id]);
-        startActivity(intent);
+        startActivityForResult(intent, UPDATE_PROVERB_REQUEST);
     }
 
     @Override
@@ -298,6 +304,12 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
                     ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
                     provider.createProverb(text, data.getBooleanExtra(ActEdit.STATUS_TOKEN, false));
                 }
+            }
+        }
+        if (requestCode == UPDATE_PROVERB_REQUEST) {
+            Log.i(Config.APP_NAME, "updating request received, result code " + resultCode + ", (" + RESULT_OK + ", " + RESULT_CANCELED);
+            if (resultCode == RESULT_OK) {
+                Log.i(Config.APP_NAME, "updating the proverb");
             }
         }
     }

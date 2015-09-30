@@ -145,7 +145,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         outState.putString(PROVERB_TEXT_TOKEN, this.mProverb.text);
         outState.putInt(PROVERB_ID_TOKEN, this.mProverb.id);
         outState.putBoolean(PROVERB_STATUS_TOKEN, this.mProverb.isFavorite);
@@ -154,10 +154,20 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onPause() {
         if (this.shouldChangeStatus) {
-            provider.setProverbStatus(this.mProverb.id, !this.mProverb.isFavorite);
+            boolean newStatus = !this.mProverb.isFavorite;
+            provider.setProverbStatus(this.mProverb.id, newStatus);
         }
         unregisterListeners();
         super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.i(Config.APP_NAME, "setting result and returning back");
+        Intent intent = new Intent();
+        intent.putExtra(PROVERB_ID_TOKEN, mProverb.id);
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
     }
 
     /**
