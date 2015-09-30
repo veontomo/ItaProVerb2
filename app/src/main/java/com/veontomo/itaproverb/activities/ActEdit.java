@@ -127,9 +127,13 @@ public class ActEdit extends AppCompatActivity {
             public void onClick(View v) {
                 ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
                 String text = mInput.getEditableText().toString();
-                provider.updateProverb(mId, text, mStatus);
                 Intent intent = new Intent();
-                intent.putExtra(ID_TOKEN, mId);
+                if (mId == -1) {
+                    provider.createProverb(text, mStatus);
+                } else {
+                    intent.putExtra(ID_TOKEN, mId);
+                    provider.updateProverb(mId, text, mStatus);
+                }
                 intent.putExtra(TEXT_TOKEN, text);
                 intent.putExtra(STATUS_TOKEN, mStatus);
                 setResult(RESULT_OK, intent);

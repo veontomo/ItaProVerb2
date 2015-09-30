@@ -187,4 +187,5 @@ public class ProverbProvider {
             dayTask.execute(proverbNumber);
         }
     }
+
 }

@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
-import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.ProverbSearcher;
 import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragAddProverb;
@@ -299,12 +298,9 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CREATE_PROVERB_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Log.i(Config.APP_NAME, "creating the proverb");
-                String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
-                if (text != null) {
-                    ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-                    provider.createProverb(text, data.getBooleanExtra(ActEdit.STATUS_TOKEN, false));
-                }
+                ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
+                task.execute();
+                return;
             }
         }
         if (requestCode == UPDATE_PROVERB_REQUEST) {
@@ -312,9 +308,42 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
                 int id = data.getIntExtra(ActShowSingle.ID_TOKEN, -1);
                 String text = data.getStringExtra(ActShowSingle.TEXT_TOKEN);
                 boolean status = data.getBooleanExtra(ActShowSingle.STATUS_TOKEN, false);
-
+                updateExistingItem(id, text, status);
             }
         }
+    }
+
+    /**
+     * Updates proverb with given id.
+     * @param id
+     * @param text proverb's new content
+     * @param status proverb's new status
+     */
+    private void updateExistingItem(int id, String text, boolean status) {
+        int index = getIndexById(id);
+        Log.i(Config.APP_NAME, "index found: " + index);
+        if (index != -1){
+            this.mTexts[index] = text;
+            this.mStatuses[index] = status;
+            displayProverbs();
+        }
+
+    }
+
+    /**
+     * Returns the number of an element of array {@link #mIds} whose value is equal to id.
+     * If no such element is found, -1 is returned.
+     * @param id
+     * @return
+     */
+    private int getIndexById(int id){
+        int size = mIds.length;
+        for (int i  = 0; i < size; i++){
+            if (mIds[i] ==  id){
+                return i;
+            }
+        }
+        return -1;
     }
 
 
