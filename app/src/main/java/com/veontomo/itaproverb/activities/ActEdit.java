@@ -211,4 +211,10 @@ public class ActEdit extends AppCompatActivity {
         this.mStatusView.setAlpha(status ? FAVORITE : NON_FAVORITE);
         this.mCheckBox.setChecked(status);
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED, new Intent());
+        super.onBackPressed();
+    }
 }

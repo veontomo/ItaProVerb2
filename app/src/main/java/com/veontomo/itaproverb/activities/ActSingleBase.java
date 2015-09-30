@@ -41,23 +41,19 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * a number that identifies the request to edit the proverb
      */
     private static final int EDIT_REQUEST = 2;
-
+    private static int counter = 1;
     /**
      * fragment that takes care of visualization of the proverb
      */
     protected FragShowSingle mFragItem;
-
     /**
      * fragment that visualizes the manager panel
      */
     protected FragManagerPanel mFragManager;
-
     /**
      * Proverb that this activity should visualize
      */
     private Proverb mProverb;
-
-
     /**
      * Whether the proverb status should be changed.
      * <p/>
@@ -66,13 +62,10 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * when the activity is about to be over.
      */
     private boolean shouldChangeStatus = false;
-
     /**
      * performs operations with proverbs
      */
     private ProverbProvider provider;
-
-    private static int counter = 1;
     private String marker = "ActSingleBase " + (counter++) + ": ";
 
     /**
