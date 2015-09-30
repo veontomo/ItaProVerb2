@@ -161,14 +161,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         super.onPause();
     }
 
-    @Override
-    public void onBackPressed() {
-        Log.i(Config.APP_NAME, "setting result and returning back");
-        Intent intent = new Intent();
-        intent.putExtra(PROVERB_ID_TOKEN, mProverb.id);
-        setResult(RESULT_OK, intent);
-        super.onBackPressed();
-    }
+
 
     /**
      * Unset previously registered listeners.

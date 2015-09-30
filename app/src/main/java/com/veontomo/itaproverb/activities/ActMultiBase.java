@@ -218,7 +218,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
     @Override
     public void onStop() {
-        this.mShowMulti = null;
+//        this.mShowMulti = null;
         super.onStop();
     }
 
@@ -281,10 +281,12 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     public void onItemClick(int position) {
         Intent intent = new Intent(getApplicationContext(), ActShowSingle.class);
         Log.i(Config.APP_NAME, "on item click");
-        int id = filter != null ? filter[position] : position;
-        intent.putExtra(ActShowSingle.ID_TOKEN, this.mIds[id]);
-        intent.putExtra(ActShowSingle.TEXT_TOKEN, this.mTexts[id]);
-        intent.putExtra(ActShowSingle.STATUS_TOKEN, this.mStatuses[id]);
+        // index of the proverb in the list of the proverbs to visualize
+        // (proverb ids might be in arbitrary order in mIds).
+        int index = filter != null ? filter[position] : position;
+        intent.putExtra(ActShowSingle.ID_TOKEN, this.mIds[index]);
+        intent.putExtra(ActShowSingle.TEXT_TOKEN, this.mTexts[index]);
+        intent.putExtra(ActShowSingle.STATUS_TOKEN, this.mStatuses[index]);
         startActivityForResult(intent, UPDATE_PROVERB_REQUEST);
     }
 
@@ -307,12 +309,15 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
             }
         }
         if (requestCode == UPDATE_PROVERB_REQUEST) {
-            Log.i(Config.APP_NAME, "updating request received, result code " + resultCode + ", (" + RESULT_OK + ", " + RESULT_CANCELED);
             if (resultCode == RESULT_OK) {
-                Log.i(Config.APP_NAME, "updating the proverb");
+                this.mShowMulti.clean();
+                ProverbRetrievalTask task = new ProverbRetrievalTask(new Storage(getApplicationContext()), this.mShowMulti, this);
+                task.execute();
+
             }
         }
     }
+
 
     /**
      * {@link #mItems} setter.

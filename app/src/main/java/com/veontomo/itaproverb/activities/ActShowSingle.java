@@ -2,8 +2,10 @@ package com.veontomo.itaproverb.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 
@@ -58,6 +60,17 @@ public class ActShowSingle extends ActSingleBase {
     @Override
     public Proverb getItem(ProverbProvider provider) {
         return new Proverb(mId, mText, mStatus);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.i(Config.APP_NAME, "setting result and returning back");
+        Intent intent = new Intent();
+        intent.putExtra(ID_TOKEN, mId);
+        intent.putExtra(TEXT_TOKEN, mText);
+        intent.putExtra(STATUS_TOKEN, mStatus);
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
     }
 
 }

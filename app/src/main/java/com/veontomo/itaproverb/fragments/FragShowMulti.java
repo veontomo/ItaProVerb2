@@ -12,6 +12,7 @@ import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,12 +87,23 @@ public class FragShowMulti extends Fragment {
 
     /**
      * Scrolls to the given position
+     *
      * @param position
      */
     public void scrollTo(int position) {
-        if (this.mListView != null){
+        if (this.mListView != null) {
             this.mListView.setSelection(position);
         }
+    }
+
+
+    /**
+     * Removes all items from the list
+     */
+    public void clean() {
+        this.mProverbs = new ArrayList<>();
+        this.updateView();
+
     }
 
     public interface ShowMultiActions {
