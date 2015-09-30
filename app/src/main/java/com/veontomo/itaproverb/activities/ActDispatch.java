@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Notificator;
+import com.veontomo.itaproverb.fragments.NotificationTimeFragment;
 
 import bolts.AppLinks;
 
@@ -110,6 +112,7 @@ public class ActDispatch extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(getApplicationContext(), ActSettings.class);
+            intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, NotificationTimeFragment.class.getName());
             startActivity(intent);
             return true;
         }
