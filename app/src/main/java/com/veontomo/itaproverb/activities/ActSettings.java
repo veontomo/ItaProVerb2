@@ -27,19 +27,27 @@ public class ActSettings extends PreferenceActivity {
     SharedPreferences preferences;
 
     SharedPreferences.OnSharedPreferenceChangeListener listener;
+    private String marker = "ActSettings: ";
 
     /**
      * Populate the activity with the top-level headers.
      */
     @Override
     public void onBuildHeaders(List<Header> target) {
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         loadHeadersFromResource(R.xml.preference_headers, target);
+    }
+
+    @Override
+    protected void onCreate(Bundle b){
+        super.onCreate(b);
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(Config.APP_NAME, "on resume");
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         final Context context = getApplicationContext();
         enable_notification_token = context.getString(R.string.enable_notification_token);
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -68,6 +76,7 @@ public class ActSettings extends PreferenceActivity {
 
     @Override
     protected void onPause() {
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (change_notification_status) {
             changeNotificationStatus();
         }
@@ -81,6 +90,7 @@ public class ActSettings extends PreferenceActivity {
      * Change the notification status
      */
     private void changeNotificationStatus() {
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         boolean shouldStart = preferences.getBoolean(enable_notification_token, Config.NOTIFICATION_AUTO_START);
         if (shouldStart) {
             Notificator.start(getApplicationContext());

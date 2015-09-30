@@ -46,11 +46,9 @@ public class TimePreference extends DialogPreference {
 
     public TimePreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Log.i(Config.APP_NAME, "TimePreference");
         setPositiveButtonText(context.getString(R.string.confirm));
         setNegativeButtonText(context.getString(R.string.cancel));
         calendar = Calendar.getInstance();
-
     }
 
     @Override
@@ -82,11 +80,10 @@ public class TimePreference extends DialogPreference {
         if (positiveResult) {
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             calendar.set(Calendar.MINUTE, minute);
+            time = calendar.getTimeInMillis();
             setSummary(getSummary());
-            long t = calendar.getTimeInMillis();
-            Log.i(Config.APP_NAME, "should persist " + t);
-            if (callChangeListener(t)) {
-                persistLong(t);
+            if (callChangeListener(time)) {
+                persistLong(time);
                 notifyChanged();
                 Notificator.start(getContext());
             }
@@ -112,6 +109,7 @@ public class TimePreference extends DialogPreference {
         if (calendar == null) {
             return null;
         }
-        return DateFormat.getTimeFormat(getContext()).format(new Date(time));
+        CharSequence result = DateFormat.getTimeFormat(getContext()).format(new Date(time));
+        return result;
     }
 }
