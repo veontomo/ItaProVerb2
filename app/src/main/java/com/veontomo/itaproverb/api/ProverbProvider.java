@@ -117,6 +117,7 @@ public class ProverbProvider {
      * @param id
      */
     public void deleteProverb(int id) {
+        Log.i(Config.APP_NAME, "deleting ptoverb " + id);
         ProverbDeleteTask task = new ProverbDeleteTask(mStorage);
         task.execute(id);
     }
@@ -127,11 +128,11 @@ public class ProverbProvider {
      * @param id   proverb id
      * @param text updated text of proverb
      */
-    public void updateProverb(final int id, final String text) {
+    public void updateProverb(final int id, final String text, final boolean status) {
         /// TODO: check whether it is executed asynchronously.
         Log.i(Config.APP_NAME, "new content of proverb " + id + " is " + text);
         /// TODO: make use of return value of the updateProverb method
-        mStorage.updateProverb(id, text);
+        mStorage.updateProverb(id, text, status);
     }
 
     /**

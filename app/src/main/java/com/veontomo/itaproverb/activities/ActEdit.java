@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.ProverbProvider;
+import com.veontomo.itaproverb.api.Storage;
 
 public class ActEdit extends AppCompatActivity {
 
@@ -27,6 +29,11 @@ public class ActEdit extends AppCompatActivity {
      * text of the proverb
      */
     private String mText;
+
+    /**
+     * id of the proverb
+     */
+    private int mId = -1;
 
     /**
      * proverb status (whether the proverb is favorite)
@@ -80,6 +87,7 @@ public class ActEdit extends AppCompatActivity {
             b = getIntent().getExtras();
         }
         if (b != null) {
+            mId = b.getInt(ID_TOKEN);
             mText = b.getString(TEXT_TOKEN);
             mStatus = b.getBoolean(STATUS_TOKEN);
         }
@@ -117,8 +125,12 @@ public class ActEdit extends AppCompatActivity {
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+                String text = mInput.getEditableText().toString();
+                provider.updateProverb(mId, text, mStatus);
                 Intent intent = new Intent();
-                intent.putExtra(TEXT_TOKEN, mInput.getEditableText().toString());
+                intent.putExtra(ID_TOKEN, mId);
+                intent.putExtra(TEXT_TOKEN, text);
                 intent.putExtra(STATUS_TOKEN, mStatus);
                 setResult(RESULT_OK, intent);
                 finish();

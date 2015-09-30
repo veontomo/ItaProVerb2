@@ -260,11 +260,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         if (requestCode == EDIT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Log.i(Config.APP_NAME, "updating the proverb");
-                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
                 int id = mProverb.id;
                 String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
                 boolean status = data.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
-                provider.updateProverb(id, text);
                 Intent intent = new Intent();
                 intent.putExtra(ID_TOKEN, id);
                 intent.putExtra(TEXT_TOKEN, text);

@@ -272,7 +272,8 @@ public class Storage extends SQLiteOpenHelper {
      * @param text new text of the proverb
      * @return true, if the update succeeds, false otherwise
      */
-    public boolean updateProverb(int id, String text) {
+    public boolean updateProverb(int id, String text, boolean status) {
+        // TODO: use the third argument (status) to set the proverb status
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ProverbEntry.COLUMN_TEXT, text);
