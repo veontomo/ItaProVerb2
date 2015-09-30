@@ -250,9 +250,6 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == DELETE_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Log.i(Config.APP_NAME, "deleting the proverb");
-                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
-                provider.deleteProverb(mProverb.id);
                 Intent intent = new Intent();
                 intent.putExtra(ID_TOKEN, mProverb.id);
                 setResult(RESULT_OK, intent);

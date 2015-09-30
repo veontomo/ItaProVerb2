@@ -311,6 +311,8 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         if (requestCode == UPDATE_PROVERB_REQUEST) {
             if (resultCode == RESULT_OK) {
                 int id = data.getIntExtra(ActShowSingle.ID_TOKEN, -1);
+                String text = data.getStringExtra(ActShowSingle.TEXT_TOKEN);
+                boolean status = data.getBooleanExtra(ActShowSingle.STATUS_TOKEN, false);
 
             }
         }

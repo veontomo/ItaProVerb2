@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.ProverbProvider;
+import com.veontomo.itaproverb.api.Storage;
 
 public class ActDelete extends AppCompatActivity {
 
@@ -84,8 +86,8 @@ public class ActDelete extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mProverbTextView = (TextView) findViewById(R.id.act_delete_proverb_text);
-        mConfirm = (View) findViewById(R.id.act_edit_confirm);
-        mCancel = (View) findViewById(R.id.act_edit_cancel);
+        mConfirm = findViewById(R.id.act_edit_confirm);
+        mCancel = findViewById(R.id.act_edit_cancel);
 
 
     }
@@ -107,6 +109,8 @@ public class ActDelete extends AppCompatActivity {
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProverbProvider provider = new ProverbProvider(new Storage(getApplicationContext()));
+                provider.deleteProverb(mId);
                 setResult(RESULT_OK);
                 finish();
             }
