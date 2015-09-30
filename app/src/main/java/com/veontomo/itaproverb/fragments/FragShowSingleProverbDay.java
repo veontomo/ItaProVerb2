@@ -28,24 +28,31 @@ public class FragShowSingleProverbDay extends FragShowSingle {
     private static final String dateFormat = "dd MMM";
 
 
+    private static int counter = 1;
+    private String marker = "FragShowSingleProverbDay " + (counter++) + ": ";
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(Config.APP_NAME, "FragShowSingleProverbDay: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         return inflater.inflate(R.layout.frag_show_single_proverb_day, container, false);
     }
 
 
     @Override
     public void updateView() {
-        super.updateView();
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         String date = mProverb.date;
         if (date != null){
             loadDate(date);
         }
+        super.updateView();
     }
 
     private void loadDate(String date){
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         String dateNew = reformatDate(date, Config.DATE_FORMAT_STORAGE, dateFormat);
         if (dateNew != null) {
             TextView mTextView = (TextView) getActivity().findViewById(R.id.frag_show_single_date);

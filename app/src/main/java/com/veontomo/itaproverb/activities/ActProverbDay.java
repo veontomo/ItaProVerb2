@@ -19,6 +19,9 @@ import com.veontomo.itaproverb.api.ProverbProvider;
  */
 public class ActProverbDay extends ActSingleBase {
 
+    private static int counter = 1;
+    private String marker = "ActProverbDay " + (counter++) + ": ";
+
     /**
      * title with which the proverb of the day is shared on a social network
      */
@@ -32,6 +35,7 @@ public class ActProverbDay extends ActSingleBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (!Config.PRODUCTION_MODE) {
             Config.strictModeInit();
         }
@@ -40,7 +44,8 @@ public class ActProverbDay extends ActSingleBase {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onStart();
         this.mDetector = new GestureDetectorCompat(this, new SwipeGestureListener(this, getProverbProvider()));
     }

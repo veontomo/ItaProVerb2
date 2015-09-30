@@ -293,7 +293,6 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     @Override
     public void onSavePosition(int position) {
         this.mFirstVisible = position;
-        Log.i(Config.APP_NAME, "saving position " + position);
     }
 
     @Override

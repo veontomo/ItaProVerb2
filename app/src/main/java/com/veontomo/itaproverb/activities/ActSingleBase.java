@@ -72,6 +72,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     private ProverbProvider provider;
 
+    private static int counter = 1;
+    private String marker = "ActSingleBase " + (counter++) + ": ";
+
     /**
      * title with which the post is shared on a social network
      */
@@ -85,7 +88,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             initializeItem(savedInstanceState);
@@ -94,10 +97,10 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     }
 
-    public void initializeItem(Bundle savedInstanceState) {
-        this.mProverb = new Proverb(savedInstanceState.getInt(ID_TOKEN),
-                savedInstanceState.getString(TEXT_TOKEN),
-                savedInstanceState.getBoolean(STATUS_TOKEN));
+    public void initializeItem(Bundle b) {
+        this.mProverb = new Proverb(b.getInt(ID_TOKEN),
+                b.getString(TEXT_TOKEN),
+                b.getBoolean(STATUS_TOKEN));
 
     }
 
@@ -105,7 +108,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mFragItem = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_proverb);
         this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_manager_panel);
         this.provider = new ProverbProvider(new Storage(getApplicationContext()));
@@ -120,6 +123,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onResume() {
         super.onResume();
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         loadItem(this.mProverb);
         registerListeners();
     }
@@ -147,7 +151,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        Log.i(Config.APP_NAME, "single base activity: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         outState.putString(TEXT_TOKEN, this.mProverb.text);
         outState.putInt(ID_TOKEN, this.mProverb.id);
         outState.putBoolean(STATUS_TOKEN, this.mProverb.isFavorite);
@@ -155,6 +159,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     public void onPause() {
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (this.shouldChangeStatus) {
             boolean newStatus = !this.mProverb.isFavorite;
             provider.setProverbStatus(this.mProverb.id, newStatus);
@@ -173,8 +178,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     protected void onStop() {
-        this.mFragItem = null;
-        this.provider = null;
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        this.mFragItem = null;
+//        this.provider = null;
         super.onStop();
     }
 
@@ -248,6 +254,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (requestCode == DELETE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Intent intent = new Intent();
@@ -258,16 +265,19 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
             return;
         }
         if (requestCode == EDIT_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Log.i(Config.APP_NAME, "updating the proverb");
-                int id = mProverb.id;
-                String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
-                boolean status = data.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
+            int id = mProverb.id;
+            String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
+            boolean status = data.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
+            if (getCallingActivity() != null) {
                 Intent intent = new Intent();
                 intent.putExtra(ID_TOKEN, id);
                 intent.putExtra(TEXT_TOKEN, text);
                 intent.putExtra(STATUS_TOKEN, status);
+                setResult(resultCode, intent);
                 finish();
+            } else {
+                Log.i(Config.APP_NAME, "updating: " + id + ", " + text + ", " + status);
+                this.mProverb = new Proverb(id, text, status);
             }
             return;
 
