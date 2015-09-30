@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
-    <header android:fragment="com.veontomo.itaproverb.activities.ActSettings$NotificationTimeFragment"
+    <header android:fragment="com.veontomo.itaproverb.fragments.NotificationTimeFragment"
         android:icon="@mipmap/add_alert"
         android:title="@string/title_act_notification"
         android:summary="@string/notification_time" />
