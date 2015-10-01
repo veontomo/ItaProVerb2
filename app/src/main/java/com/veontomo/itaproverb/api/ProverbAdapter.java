@@ -153,34 +153,32 @@ public class ProverbAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.i(Config.APP_NAME, "position = " + position + " convertView is " + (convertView == null ? "NULL" : "NOT null"));
         View row = convertView;
         int itemType = getItemViewType(position);
-
-        if (itemType == TYPE_AD) {
-            Log.i(Config.APP_NAME, "TYPE = AD");
-            if (row == null) {
-                AdHolder adHolder = new AdHolder();
-                row = new TextView(mContext);
-                adHolder.text = (TextView) row;
-                Log.i(Config.APP_NAME, "set tag of type AdHolder at position " + position);
-                row.setTag(adHolder);
-            }
-            AdHolder holder = (AdHolder) row.getTag();
-            holder.text.setText(String.valueOf(position));
-
-        } else {
-            Log.i(Config.APP_NAME, "TYPE = Proverb ? " + (itemType == TYPE_PROVERB));
-            if (row == null) {
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.proverb_row, parent, false);
-                ProverbHolder proverbHolder = new ProverbHolder();
-                proverbHolder.text = (TextView) row.findViewById(R.id.layout_proverb_row_text);
-                Log.i(Config.APP_NAME, "set tag of type ProverbHolder at position " + position);
-                row.setTag(proverbHolder);
-            }
-            ProverbHolder holder = (ProverbHolder) row.getTag();
-            holder.text.setText(this.getItem(this.mapping[position]).text);
+        switch (itemType) {
+            case TYPE_AD:
+                if (row == null) {
+                    AdHolder adHolder = new AdHolder();
+                    row = new TextView(mContext);
+                    adHolder.text = (TextView) row;
+                    row.setTag(adHolder);
+                }
+                AdHolder holder = (AdHolder) row.getTag();
+                holder.text.setText(String.valueOf(position));
+                break;
+            case TYPE_PROVERB:
+                if (row == null) {
+                    LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    row = inflater.inflate(R.layout.proverb_row, parent, false);
+                    ProverbHolder proverbHolder = new ProverbHolder();
+                    proverbHolder.text = (TextView) row.findViewById(R.id.layout_proverb_row_text);
+                    row.setTag(proverbHolder);
+                }
+                ProverbHolder holder2 = (ProverbHolder) row.getTag();
+                holder2.text.setText(this.getItem(this.mapping[position]).text);
+                break;
+            default:
+                Log.i(Config.APP_NAME, "unknown item type");
 
         }
         return row;
