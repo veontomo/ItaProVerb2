@@ -23,13 +23,9 @@ public class ActOracle extends ActSingleBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (!Config.PRODUCTION_MODE) {
-//            Config.strictModeInit();
-        }
-        super.onCreate(savedInstanceState);
         Log.i(Config.APP_NAME, "ActOracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.act_single_base);
-
     }
 
     @Override

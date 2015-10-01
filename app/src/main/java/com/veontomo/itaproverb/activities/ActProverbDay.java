@@ -36,9 +36,6 @@ public class ActProverbDay extends ActSingleBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        if (!Config.PRODUCTION_MODE) {
-            Config.strictModeInit();
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_proverb_day);
     }

@@ -91,8 +91,11 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        super.onCreate(savedInstanceState);
+//        if (!Config.PRODUCTION_MODE) {
+//            Config.strictModeInit();
+//        }
 
+        super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             initializeItem(savedInstanceState);
         }
