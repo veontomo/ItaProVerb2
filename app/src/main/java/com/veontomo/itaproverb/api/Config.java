@@ -60,6 +60,11 @@ public abstract class Config {
     public static final String LOGO_URL = "https://lh3.googleusercontent.com/yDsAof472u9GZYaw0nQkS4p5_odYkuneSKVjvbkBEXO9UGOJBE8HdsjkiKFuGuwClg=w300";
 
     /**
+     * id of the ad unit
+     */
+    public static final String AD_UNIT_ID = PRODUCTION_MODE ? "ca-app-pub-4140008095219381/1472602152" : "ca-app-pub-3940256099942544/6300978111";
+
+    /**
      * Format in which it is represented time in today's proverb table.
      */
     public static final String DATE_FORMAT_STORAGE = "yyyy MM dd";

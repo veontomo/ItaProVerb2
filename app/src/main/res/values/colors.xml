@@ -11,4 +11,5 @@
     <color name="secondary2_light">#0bdc00</color>
     <color name="white_almost_opaque">#EEFFFFFF</color>
     <color name="warning">#c8ff0000</color>
+    <color name="accent_material_light">#002699</color>
 </resources>

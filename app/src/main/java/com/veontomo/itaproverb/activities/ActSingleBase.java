@@ -6,7 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
@@ -66,7 +70,12 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * performs operations with proverbs
      */
     private ProverbProvider provider;
+    // TODO: to delete
     private String marker = "ActSingleBase " + (counter++) + ": ";
+    /**
+     * a view that displays the ad
+     */
+    private AdView mAdView;
 
     /**
      * title with which the post is shared on a social network
@@ -83,11 +92,10 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onCreate(savedInstanceState);
+
         if (savedInstanceState != null) {
             initializeItem(savedInstanceState);
         }
-
-
     }
 
     public void initializeItem(Bundle b) {
@@ -109,6 +117,19 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         if (this.mProverb == null) {
             this.mProverb = getItem(provider);
         }
+
+        mAdView = new AdView(this);
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(Config.AD_UNIT_ID);
+        if (mAdView.getAdSize() != null || mAdView.getAdUnitId() != null) {
+            AdRequest.Builder builder = new AdRequest.Builder();
+            builder.addTestDevice("7AF0B9ACA88543F6856087558ACFE7DE");
+            builder.addTestDevice("8481E761F3F746FD40AA4D04F0D60CA7");
+            AdRequest request = builder.build();
+            Log.i(Config.APP_NAME, "is test device? " + request.isTestDevice(this));
+            mAdView.loadAd(request);
+            ((LinearLayout) findViewById(R.id.ad_holder)).addView(mAdView);
+        }
     }
 
     public abstract Proverb getItem(ProverbProvider provider);
@@ -117,6 +138,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     public void onResume() {
         super.onResume();
         Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mAdView.resume();
         loadItem(this.mProverb);
         registerListeners();
     }
@@ -153,6 +175,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onPause() {
         Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mAdView.pause();
         if (this.shouldChangeStatus) {
             boolean newStatus = !this.mProverb.isFavorite;
             provider.setProverbStatus(this.mProverb.id, newStatus);
@@ -175,6 +198,13 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 //        this.mFragItem = null;
 //        this.provider = null;
         super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        this.mAdView.destroy();
+        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onDestroy();
     }
 
 

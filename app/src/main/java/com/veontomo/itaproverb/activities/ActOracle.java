@@ -12,6 +12,7 @@ import com.veontomo.itaproverb.api.ProverbProvider;
  * Displays an oracle proverb along with manager panel.
  */
 public class ActOracle extends ActSingleBase {
+
     /**
      * title with which the oracle proverb is shared on a social network
      */
@@ -23,11 +24,12 @@ public class ActOracle extends ActSingleBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (!Config.PRODUCTION_MODE) {
-            Config.strictModeInit();
+//            Config.strictModeInit();
         }
         super.onCreate(savedInstanceState);
         Log.i(Config.APP_NAME, "ActOracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_single_base);
+
     }
 
     @Override
