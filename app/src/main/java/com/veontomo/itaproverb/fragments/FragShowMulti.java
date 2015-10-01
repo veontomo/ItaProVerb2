@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbAdapter;
 
@@ -54,7 +55,7 @@ public class FragShowMulti extends Fragment {
         super.onStart();
         this.hostActivity = (ShowMultiActions) getActivity();
 
-        this.mAdapter = new ProverbAdapter(getContext(), new ArrayList<Proverb>(), 0.1f);
+        this.mAdapter = new ProverbAdapter(getContext(), new ArrayList<Proverb>(), Config.AD_FREQUENCY);
         this.mListView = (ListView) getActivity().findViewById(R.id.frag_show_multi_list);
         this.mListView.setAdapter(this.mAdapter);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

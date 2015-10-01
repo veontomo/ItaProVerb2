@@ -22,6 +22,13 @@ public abstract class Config {
      */
     public static final boolean NOTIFICATION_AUTO_START = true;
     /**
+     * Weight with which ads are mixed with proverbs.
+     * <p>If a set contains N proverb, then there will be inserted
+     * N * {@link #AD_FREQUENCY} ads, so that the probability to see an ad
+     * in the resulting list is AD_FREQUENCY / (1 + AD_FREQUENCY).</p>
+     */
+    public static final float AD_FREQUENCY = 0.01f;
+    /**
      * Whether this is a first run of the app (in current session)
      */
     private static boolean FIRST_EXEC = true;
