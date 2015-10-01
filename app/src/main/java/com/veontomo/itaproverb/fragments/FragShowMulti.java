@@ -54,7 +54,7 @@ public class FragShowMulti extends Fragment {
         super.onStart();
         this.hostActivity = (ShowMultiActions) getActivity();
 
-        this.mAdapter = new ProverbAdapter(getContext(), null);
+        this.mAdapter = new ProverbAdapter(getContext(), new ArrayList<Proverb>(), 0.1f);
         this.mListView = (ListView) getActivity().findViewById(R.id.frag_show_multi_list);
         this.mListView.setAdapter(this.mAdapter);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
