@@ -37,6 +37,18 @@ public class ProverbAdapter extends BaseAdapter {
         return this.mItems.size();
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int index) {
+        return index % 3 == 0 ? 0 : 1;
+    }
+
+
+
     public ProverbAdapter(Context context, List<Proverb> proverbs) {
         this.mContext = context;
         this.mItems = proverbs;
@@ -52,24 +64,41 @@ public class ProverbAdapter extends BaseAdapter {
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.i(Config.APP_NAME, "position = " + position + " convertView is " + (convertView == null ? "NULL" : "NOT null"));
         View row = convertView;
+        if (position %3 == 0) {
+            if (row == null) {
+                AdHolder adHolder = new AdHolder();
+                row = new TextView(mContext);
+                adHolder.text = (TextView) row;
+                Log.i(Config.APP_NAME, "set tag of type AdHolder at position " + position);
+                row.setTag(adHolder);
+            }
+            AdHolder holder = (AdHolder) row.getTag();
+            holder.text.setText(String.valueOf(position));
 
-        if (row == null){
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.proverb_row, parent, false);
-            Holder holder = new Holder();
-            holder.text = (TextView) row.findViewById(R.id.layout_proverb_row_text);
-            row.setTag(holder);
+        } else {
+            if (row == null) {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row = inflater.inflate(R.layout.proverb_row, parent, false);
+                ProverbHolder proverbHolder = new ProverbHolder();
+                proverbHolder.text = (TextView) row.findViewById(R.id.layout_proverb_row_text);
+                Log.i(Config.APP_NAME, "set tag of type ProverbHolder at position " + position);
+                row.setTag(proverbHolder);
+            }
+            ProverbHolder holder = (ProverbHolder) row.getTag();
+            holder.text.setText(this.getItem(position).text);
+
         }
-        Holder holder = (Holder) row.getTag();
-        holder.text.setText(this.getItem(position).text);
         return row;
     }
 
     /**
      * Loads proverbs.
+     *
      * @param proverbs
      */
     public void load(List<Proverb> proverbs) {
@@ -77,7 +106,11 @@ public class ProverbAdapter extends BaseAdapter {
         Log.i(Config.APP_NAME, "loading items: " + proverbs.size());
     }
 
-    private static class Holder {
+    private static class ProverbHolder {
+        public TextView text;
+    }
+
+    private static class AdHolder {
         public TextView text;
     }
 }
