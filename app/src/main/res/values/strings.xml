@@ -6,9 +6,6 @@
     <string name="title_act_show_multi">Proverbs</string>
     <string name="title_act_manager" translatable="false">Manager</string>
     <string name="add_to_favorites">Add to favorites</string>
-    <string name="descr_edit">edit proverb</string>
-    <string name="descr_share">share</string>
-    <string name="descr_delete">delete</string>
     <string name="title_act_search">Search</string>
     <string name="search_hint_example">start typing here</string>
     <string name="title_act_proverb_day">Proverb of the day</string>
@@ -19,7 +16,6 @@
     <string name="proverb_loading_success">Success</string>
     <string name="proverb_loading_failure">Failure</string>
     <string name="title_act_all">All proverbs</string>
-    <string name="title_act_dispatch">Main screen</string>
     <string name="title_act_delete">Delete proverb</string>
     <string name="title_act_edit">Edit proverb</string>
     <string name="title_new_proverb">Insert proverb</string>
