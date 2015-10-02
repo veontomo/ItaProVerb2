@@ -4,7 +4,7 @@
 
     <string name="title_act_show_single">Proverb</string>
     <string name="title_act_show_multi">Proverbs</string>
-    <string name="title_act_manager">Manager</string>
+    <string name="title_act_manager" translatable="false">Manager</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="descr_edit">edit proverb</string>
     <string name="descr_share">share</string>
@@ -27,7 +27,7 @@
 
     <string name="share_post_title">Proverb I\'ve got right now</string>
     <string name="share_post_title_oracle">Fortune teller has just said to me:</string>
-    <string name="share_post_title_proverb_day">Proverb of the day:</string>
+    <string name="share_post_title_proverb_day">My proverb of the day:</string>
     <string name="title_act_notification">Notifications</string>
 
     <string name="cancel">Cancel</string>
@@ -39,8 +39,8 @@
     <string name="notification_time">Notification time</string>
     <string name="enable_notification">Enable notification</string>
     <string name="title_enable_notification">Check this box in order to enable receiving proverbs once a day</string>
-    <string name="enable_notification_token">proverb_notification_enabled</string>
-    <string name="notification_time_token">notification_time</string>
+    <string name="enable_notification_token" translatable="false">proverb_notification_enabled</string>
+    <string name="notification_time_token" translatable="false">notification_time</string>
 
     <string name="facebook_app_id" translatable="false">604747132997976</string>
 
