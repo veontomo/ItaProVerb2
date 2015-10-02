@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Итальянские пословицы</string>
+    <string name="act_delete_warning">Удалить пословицу </string>
+    <string name="action_settings">Настройки</string>
+    <string name="add_proverb_hint">текст для поиска</string>
+    <string name="add_to_favorites">Добавить в избранные</string>
+    <string name="add_to_favorites_explanation">Ни одна пословица не добавлена в избранное. Для этого нажмите на иконку внизу, когда пословица будет рядом с ней.</string>
+    <string name="cancel">Отмена</string>
+    <string name="confirm">ОК</string>
+    <string name="enable_notification">Активировать отправку уведомлений</string>
+    <string name="notification_time">Время получения сообщений</string>
+    <string name="proverb_loading_failure">Не удалось загрузить пословицы</string>
+    <string name="proverb_loading_success">Пословицы загружены</string>
+    <string name="search_hint_example">слова для поиска</string>
+    <string name="share_post_title">Моя пословица</string>
+    <string name="share_post_title_oracle">Оракул сказал мне:</string>
+    <string name="share_post_title_proverb_day">Моя пословица дня:</string>
+    <string name="title_act_add_proverb">Добавить пословицу</string>
+    <string name="title_act_all">Все пословицы</string>
+    <string name="title_act_delete">Удалить пословицу</string>
+    <string name="title_act_edit">Редактировать пословицу</string>
+    <string name="title_act_facebook_share">Поделиться </string>
+    <string name="title_act_favorites">Избранные пословицы</string>
+    <string name="title_act_notification">Уведомления</string>
+    <string name="title_act_proverb_day">Пословица дня</string>
+    <string name="title_act_proverb_oracle">Пророчество</string>
+    <string name="title_act_search">Найти</string>
+    <string name="title_act_show_multi">Пословицы</string>
+    <string name="title_act_show_single">Пословица</string>
+    <string name="title_enable_notification">Поставьте галочку, чтобы ежедневно получать пословицы</string>
+    <string name="title_new_proverb">Введите пословицу</string>
+</resources>

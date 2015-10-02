@@ -26,6 +26,8 @@
     <string name="cancel">Відміна</string>
     <string name="confirm">ОК</string>
     <string name="enable_notification">Активуйте відправку повідомлень</string>
-    <string name="notification_time">Бажаю нове прислів\'я кожного дня о</string>
+    <string name="notification_time">Час надходження повідомлень</string>
     <string name="add_to_favorites_explanation">Скринька не містить жодного прислів\'я. Щоб додати, натисніть на зірку, коли побачите її поряд з прислів\'ям.</string>
+    <string name="proverb_loading_failure">Не вдалося завантажити прислів\'я</string>
+    <string name="proverb_loading_success">Прислів\'я завантажені </string>
 </resources>
