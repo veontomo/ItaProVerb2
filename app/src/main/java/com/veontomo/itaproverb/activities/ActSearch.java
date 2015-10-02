@@ -2,12 +2,12 @@ package com.veontomo.itaproverb.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.fragments.FragSearch;
 
 public class ActSearch extends AppCompatActivity implements FragSearch.FragSearchActions{
@@ -44,6 +44,6 @@ public class ActSearch extends AppCompatActivity implements FragSearch.FragSearc
     @Override
     public void onSearch(String searchTerm) {
         /// !!! stub
-        Log.i(Config.APP_NAME, "onSearch method is not implemented yet. Received string: " + searchTerm);
+        Logger.i("onSearch method is not implemented yet. Received string: " + searchTerm);
     }
 }

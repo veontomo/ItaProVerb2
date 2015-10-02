@@ -1,7 +1,5 @@
 package com.veontomo.itaproverb.api;
 
-import android.util.Log;
-
 import com.veontomo.itaproverb.activities.ActMultiBase;
 import com.veontomo.itaproverb.tasks.ProverbSearchTask;
 
@@ -9,7 +7,6 @@ import java.util.List;
 
 /**
  * Accepts a keyword for further asynchronous search search.
- *
  */
 public class ProverbSearcher {
 
@@ -36,7 +33,7 @@ public class ProverbSearcher {
             worker = new ProverbSearchTask(items, caller);
             worker.execute(keyword);
         } else {
-            Log.i(Config.APP_NAME, "I am busy");
+            Logger.i("I am busy");
         }
     }
 }

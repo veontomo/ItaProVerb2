@@ -3,25 +3,25 @@ package com.veontomo.itaproverb.tasks;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.Storage;
 
 /**
  * A task to delete a proverb.
- *
  */
-public class ProverbDeleteTask  extends AsyncTask<Integer, Void, Boolean> {
+public class ProverbDeleteTask extends AsyncTask<Integer, Void, Boolean> {
     private final Storage storage;
 
-    public ProverbDeleteTask(final Storage storage){
+    public ProverbDeleteTask(final Storage storage) {
         this.storage = storage;
     }
+
     /**
      * Deletes proverbs from the database. For the moment, only the first
      * argument is taken into consideration.
-     * @param params  ids of proverbs to delete
+     *
+     * @param params ids of proverbs to delete
      * @return boolean
      */
     @Override
@@ -31,7 +31,7 @@ public class ProverbDeleteTask  extends AsyncTask<Integer, Void, Boolean> {
     }
 
     @Override
-    public void onPostExecute(Boolean b){
-        Log.i(Config.APP_NAME, "proverb is deleted");
+    public void onPostExecute(Boolean b) {
+        Logger.i("proverb is deleted");
     }
 }

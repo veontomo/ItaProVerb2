@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbSearcher;
 import com.veontomo.itaproverb.api.Storage;
@@ -261,7 +261,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     @Override
     public void onAddNew() {
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intent = new Intent(getApplicationContext(), ActEdit.class);
         startActivityForResult(intent, CREATE_PROVERB_REQUEST);
     }
@@ -279,7 +279,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(getApplicationContext(), ActShowSingle.class);
-        Log.i(Config.APP_NAME, "on item click");
+        Logger.i( "on item click");
         // index of the proverb in the list of the proverbs to visualize
         // (proverb ids might be in arbitrary order in mIds).
         int index = filter != null ? filter[position] : position;
@@ -315,14 +315,15 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
     /**
      * Updates proverb with given id.
+     *
      * @param id
-     * @param text proverb's new content
+     * @param text   proverb's new content
      * @param status proverb's new status
      */
     private void updateExistingItem(int id, String text, boolean status) {
         int index = getIndexById(id);
-        Log.i(Config.APP_NAME, "index found: " + index);
-        if (index != -1){
+        Logger.i( "index found: " + index);
+        if (index != -1) {
             this.mTexts[index] = text;
             this.mStatuses[index] = status;
             displayProverbs();
@@ -333,13 +334,14 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     /**
      * Returns the number of an element of array {@link #mIds} whose value is equal to id.
      * If no such element is found, -1 is returned.
+     *
      * @param id
      * @return
      */
-    private int getIndexById(int id){
+    private int getIndexById(int id) {
         int size = mIds.length;
-        for (int i  = 0; i < size; i++){
-            if (mIds[i] ==  id){
+        for (int i = 0; i < size; i++) {
+            if (mIds[i] == id) {
                 return i;
             }
         }

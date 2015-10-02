@@ -1,7 +1,5 @@
 package com.veontomo.itaproverb.api;
 
-import android.util.Log;
-
 import com.veontomo.itaproverb.activities.ActSingleBase;
 import com.veontomo.itaproverb.tasks.ProverbDayTask;
 import com.veontomo.itaproverb.tasks.ProverbDeleteTask;
@@ -117,7 +115,7 @@ public class ProverbProvider {
      * @param id
      */
     public void deleteProverb(int id) {
-        Log.i(Config.APP_NAME, "deleting ptoverb " + id);
+        Logger.i("deleting proverb " + id);
         ProverbDeleteTask task = new ProverbDeleteTask(mStorage);
         task.execute(id);
     }
@@ -130,7 +128,7 @@ public class ProverbProvider {
      */
     public void updateProverb(final int id, final String text, final boolean status) {
         /// TODO: check whether it is executed asynchronously.
-        Log.i(Config.APP_NAME, "new content of proverb " + id + " is " + text);
+        Logger.i("new content of proverb " + id + " is " + text);
         /// TODO: make use of return value of the updateProverb method
         mStorage.updateProverb(id, text, status);
     }
@@ -153,7 +151,7 @@ public class ProverbProvider {
      * @param status whether the proverb is among favorites
      */
     public void createProverb(String text, boolean status) {
-        Log.i(Config.APP_NAME, "new proverb: " + text + ", is it favorite? " + status);
+        Logger.i("new proverb: " + text + ", is it favorite? " + status);
         ProverbEditTask task = new ProverbEditTask(mStorage, text, status);
         task.execute();
     }
@@ -178,7 +176,7 @@ public class ProverbProvider {
      */
     public void getNewer(ActSingleBase caller) {
         if (proverbNumber <= 0) {
-            Log.i(Config.APP_NAME, "already the latest proverb");
+            Logger.i("already the latest proverb");
             return;
         }
         if (dayTask == null || !dayTask.isBusy) {

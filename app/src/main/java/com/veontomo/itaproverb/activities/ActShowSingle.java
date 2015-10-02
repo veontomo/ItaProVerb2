@@ -2,10 +2,8 @@ package com.veontomo.itaproverb.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 

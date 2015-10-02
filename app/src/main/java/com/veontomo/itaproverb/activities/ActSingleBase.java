@@ -3,7 +3,6 @@ package com.veontomo.itaproverb.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -13,6 +12,7 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
@@ -45,7 +45,6 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      * a number that identifies the request to edit the proverb
      */
     private static final int EDIT_REQUEST = 2;
-    private static int counter = 1;
     /**
      * fragment that takes care of visualization of the proverb
      */
@@ -71,7 +70,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     private ProverbProvider provider;
     // TODO: to delete
-    private String marker = "ActSingleBase " + (counter++) + ": ";
+    private String marker = "ActSingleBase: ";
     /**
      * a view that displays the ad
      */
@@ -90,7 +89,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
 //        if (!Config.PRODUCTION_MODE) {
 //            Config.strictModeInit();
 //        }
@@ -112,7 +111,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mFragItem = (FragShowSingle) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_proverb);
         this.mFragManager = (FragManagerPanel) getSupportFragmentManager().findFragmentById(R.id.act_single_base_frag_manager_panel);
         this.provider = new ProverbProvider(new Storage(getApplicationContext()));
@@ -130,7 +129,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
             builder.addTestDevice("8481E761F3F746FD40AA4D04F0D60CA7");
             builder.addTestDevice("5970A479C5E4B2AD245BF06705941E76");
             AdRequest request = builder.build();
-            Log.i(Config.APP_NAME, "is test device? " + request.isTestDevice(this));
+            Logger.i("is test device? " + request.isTestDevice(this));
             mAdView.loadAd(request);
             ((LinearLayout) findViewById(R.id.ad_holder)).addView(mAdView);
         }
@@ -141,7 +140,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onResume() {
         super.onResume();
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mAdView.resume();
         loadItem(this.mProverb);
         registerListeners();
@@ -150,7 +149,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     /**
      * Loads proverb in corresponding fragment and update the view
      *
-     * @param p
+     * @param p proverb
      */
     public void loadItem(Proverb p) {
         this.mFragItem.load(p);
@@ -170,7 +169,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         outState.putString(TEXT_TOKEN, this.mProverb.text);
         outState.putInt(ID_TOKEN, this.mProverb.id);
         outState.putBoolean(STATUS_TOKEN, this.mProverb.isFavorite);
@@ -178,7 +177,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     public void onPause() {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mAdView.pause();
         if (this.shouldChangeStatus) {
             boolean newStatus = !this.mProverb.isFavorite;
@@ -198,7 +197,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     protected void onStop() {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
 //        this.mFragItem = null;
 //        this.provider = null;
         super.onStop();
@@ -207,7 +206,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     public void onDestroy() {
         this.mAdView.destroy();
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDestroy();
     }
 
@@ -281,7 +280,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (requestCode == DELETE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Intent intent = new Intent();
@@ -303,11 +302,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
                 setResult(resultCode, intent);
                 finish();
             } else {
-                Log.i(Config.APP_NAME, "updating: " + id + ", " + text + ", " + status);
+                Logger.i("updating: " + id + ", " + text + ", " + status);
                 this.mProverb = new Proverb(id, text, status);
             }
-            return;
-
         }
     }
 

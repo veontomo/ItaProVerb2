@@ -1,9 +1,9 @@
 package com.veontomo.itaproverb.tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.Storage;
 
 /**
@@ -33,6 +33,6 @@ public class ProverbEditTask extends AsyncTask<Void, Void, Integer> {
 
     @Override
     public void onPostExecute(Integer id){
-        Log.i(Config.APP_NAME, "id =" + id);
+        Logger.i("id =" + id);
     }
 }

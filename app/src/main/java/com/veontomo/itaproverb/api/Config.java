@@ -1,10 +1,6 @@
 package com.veontomo.itaproverb.api;
 
-import android.content.Context;
 import android.os.StrictMode;
-import android.util.Log;
-
-import com.veontomo.itaproverb.tasks.ProverbLoaderTask;
 
 /**
  * Configuration parameters of the app.
@@ -85,7 +81,7 @@ public abstract class Config {
      * Strict mode initialisation.
      */
     public final static void strictModeInit() {
-        Log.i(APP_NAME, "Strict mode is initialized");
+        Logger.i("Strict mode is initialized");
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads()
                 .detectDiskWrites()
@@ -105,8 +101,6 @@ public abstract class Config {
      * Period in milliseconds during with a proverb-of-day notification should be fired off.
      */
     public final static int FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 10 * 60 * 1000;
-
-
 
 
 }

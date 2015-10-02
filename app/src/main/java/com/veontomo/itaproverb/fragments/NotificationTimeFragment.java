@@ -1,12 +1,4 @@
 package com.veontomo.itaproverb.fragments;
-
-/**
- * Created by Mario Rossi on 30/09/2015 at 16:17.
- *
- * https://github.com/commonsguy/cw-omnibus/tree/master/Prefs/SingleHeader2/src/com/commonsware/android/pref1header
- *
- */
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -16,6 +8,7 @@ import com.veontomo.itaproverb.R;
 
 /**
  * This fragment shows the preferences for the first header.
+ * https://github.com/commonsguy/cw-omnibus/tree/master/Prefs/SingleHeader2/src/com/commonsware/android/pref1header
  */
 public class NotificationTimeFragment extends PreferenceFragment {
 

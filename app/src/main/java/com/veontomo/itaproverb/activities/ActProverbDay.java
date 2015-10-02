@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 
@@ -35,14 +34,14 @@ public class ActProverbDay extends ActSingleBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_proverb_day);
     }
 
     @Override
     public void onStart() {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onStart();
         this.mDetector = new GestureDetectorCompat(this, new SwipeGestureListener(this, getProverbProvider()));
     }
@@ -97,10 +96,11 @@ public class ActProverbDay extends ActSingleBase {
          */
         private final ActSingleBase caller;
 
-        public SwipeGestureListener(final ActSingleBase caller, final ProverbProvider provider){
+        public SwipeGestureListener(final ActSingleBase caller, final ProverbProvider provider) {
             this.caller = caller;
             this.provider = provider;
         }
+
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {

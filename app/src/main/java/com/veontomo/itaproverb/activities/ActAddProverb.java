@@ -2,12 +2,11 @@ package com.veontomo.itaproverb.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.fragments.FragAddProverb;
 
 public class ActAddProverb extends AppCompatActivity implements FragAddProverb.FragAddActions {
@@ -47,6 +46,6 @@ public class ActAddProverb extends AppCompatActivity implements FragAddProverb.F
     @Override
     public void onAddNew() {
         /// TODO
-        Log.i(Config.APP_NAME, Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
+        Logger.i(Thread.currentThread().getStackTrace()[2].getMethodName() + " not implemented") ;
     }
 }

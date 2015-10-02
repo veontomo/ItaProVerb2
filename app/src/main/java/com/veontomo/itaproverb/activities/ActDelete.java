@@ -2,15 +2,14 @@ package com.veontomo.itaproverb.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
 
@@ -64,11 +63,11 @@ public class ActDelete extends AppCompatActivity {
             Config.strictModeInit();
         }
         super.onCreate(savedInstanceState);
-        Log.i(Config.APP_NAME, "activity delete: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i("activity delete: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         setContentView(R.layout.act_delete);
         Bundle b = getIntent().getExtras();
         if (b != null) {
-            Log.i(Config.APP_NAME, "bundle is not null");
+            Logger.i("bundle is not null");
             mId = b.getInt(ID_TOKEN, -1);
             mText = b.getString(TEXT_TOKEN);
             mStatus = b.getBoolean(STATUS_TOKEN);

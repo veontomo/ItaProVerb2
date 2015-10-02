@@ -1,20 +1,10 @@
 package com.veontomo.itaproverb.activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,8 +14,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.App;
-import com.veontomo.itaproverb.api.Config;
-import com.veontomo.itaproverb.api.Notificator;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.fragments.NotificationTimeFragment;
 
 import bolts.AppLinks;
@@ -43,9 +32,9 @@ public class ActDispatch extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
         if (targetUrl != null) {
-            Log.i(Config.APP_NAME, "App Link Target URL: " + targetUrl.toString());
+            Logger.i("App Link Target URL: " + targetUrl.toString());
         } else {
-            Log.i(Config.APP_NAME, "App Link Target URL is null ");
+            Logger.i("App Link Target URL is null ");
         }
     }
 

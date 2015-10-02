@@ -1,7 +1,6 @@
 package com.veontomo.itaproverb.api;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +93,7 @@ public class ProverbAdapter extends BaseAdapter {
             if (size > 0) {
                 int extra = (int) (size * fraction);
                 this.mapping = createMapping(size, extra);
-                //Log.i(Config.APP_NAME, show());
+                // show());
             }
         }
     }
@@ -170,9 +169,6 @@ public class ProverbAdapter extends BaseAdapter {
                 }
                 AdHolder holder = (AdHolder) row.getTag();
                 AdRequest.Builder builder = new AdRequest.Builder();
-                builder.addTestDevice("7AF0B9ACA88543F6856087558ACFE7DE");
-                builder.addTestDevice("8481E761F3F746FD40AA4D04F0D60CA7");
-                builder.addTestDevice("5970A479C5E4B2AD245BF06705941E76");
                 AdRequest request = builder.build();
                 holder.text.loadAd(request);
                 break;
@@ -188,7 +184,7 @@ public class ProverbAdapter extends BaseAdapter {
                 holder2.text.setText(this.getItem(this.mapping[position]).text);
                 break;
             default:
-                Log.i(Config.APP_NAME, "unknown item type");
+                Logger.i("unknown item type");
 
         }
         return row;
@@ -202,7 +198,7 @@ public class ProverbAdapter extends BaseAdapter {
     public void load(List<Proverb> proverbs) {
         this.mItems = proverbs;
         initMapping();
-        Log.i(Config.APP_NAME, "loading items: " + proverbs.size());
+        Logger.i("loading items: " + proverbs.size());
     }
 
     private static class ProverbHolder {

@@ -5,10 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.Notificator;
 
 import java.util.List;
@@ -33,20 +33,20 @@ public class ActSettings extends PreferenceActivity {
      */
     @Override
     public void onBuildHeaders(List<Header> target) {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         loadHeadersFromResource(R.xml.preference_headers, target);
     }
 
     @Override
     protected void onCreate(Bundle b) {
         super.onCreate(b);
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         final Context context = getApplicationContext();
         enable_notification_token = context.getString(R.string.enable_notification_token);
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -75,7 +75,7 @@ public class ActSettings extends PreferenceActivity {
 
     @Override
     protected void onPause() {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (change_notification_status) {
             changeNotificationStatus(preferences);
         }
@@ -89,11 +89,11 @@ public class ActSettings extends PreferenceActivity {
      * Change the notification status
      */
     private void changeNotificationStatus(SharedPreferences preferences) {
-        Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         final boolean shouldStart = preferences.getBoolean(enable_notification_token, Config.NOTIFICATION_AUTO_START);
         final Context context = getApplicationContext();
         if (shouldStart) {
-            Log.i(Config.APP_NAME, "should start service");
+            Logger.i("should start service");
             String notificationTimeToken = context.getString(R.string.notification_time_token);
             long startTime = preferences.getLong(notificationTimeToken, System.currentTimeMillis() + Config.NOTIFICATION_TIME_OFFSET);
             Notificator.start(context, startTime);
@@ -101,7 +101,7 @@ public class ActSettings extends PreferenceActivity {
             editor.putBoolean(enable_notification_token, true);
             editor.apply();
         } else {
-            Log.i(Config.APP_NAME, "should stop service");
+            Logger.i("should stop service");
             Notificator.stop(context);
         }
 

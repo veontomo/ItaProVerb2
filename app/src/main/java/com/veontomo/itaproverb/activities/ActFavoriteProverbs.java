@@ -2,7 +2,6 @@ package com.veontomo.itaproverb.activities;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Proverb;

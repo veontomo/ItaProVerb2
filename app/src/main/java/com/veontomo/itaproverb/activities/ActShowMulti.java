@@ -6,11 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class ActShowMulti extends AppCompatActivity {
 

@@ -7,17 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 
 import com.veontomo.itaproverb.activities.ActProverbDay;
-import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by Mario Rossi on 22/09/2015 at 14:30.

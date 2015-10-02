@@ -1,10 +1,10 @@
 package com.veontomo.itaproverb.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
+import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
 
@@ -23,7 +23,7 @@ public class ActOracle extends ActSingleBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(Config.APP_NAME, "ActOracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Logger.i("ActOracle: " + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_single_base);
     }
