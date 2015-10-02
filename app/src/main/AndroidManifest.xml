@@ -37,18 +37,6 @@
             android:label="@string/title_act_show_single">
         </activity>
         <activity
-            android:name=".activities.ActShowMulti"
-            android:label="@string/title_act_show_multi">
-        </activity>
-        <activity
-            android:name=".activities.ActManagerPanel"
-            android:label="@string/title_act_manager">
-        </activity>
-        <activity
-            android:name=".activities.ActSearch"
-            android:label="@string/title_act_search">
-        </activity>
-        <activity
             android:name=".activities.ActSettings"
             android:label="@string/title_act_settings">
         </activity>
@@ -67,10 +55,6 @@
         <activity
             android:name=".activities.ActAllProverbs"
             android:label="@string/title_act_all">
-        </activity>
-        <activity
-            android:name=".activities.ActAddProverb"
-            android:label="@string/title_act_add_proverb">
         </activity>
         <activity
             android:name=".activities.ActDispatch"
