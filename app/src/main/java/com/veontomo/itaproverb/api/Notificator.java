@@ -21,12 +21,10 @@ public class Notificator {
      *
      * If the service is running, kill it and restart with new parameters (from shared preferences).
      * @param context
+     * @param startTime time at which the first notification should start
      */
-    public static void start(final Context context) {
+    public static void start(final Context context, long startTime) {
         Log.i(Config.APP_NAME, "starting service");
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        final long startTime = sharedPreferences.getLong(context.getString(R.string.notification_time_token), System.currentTimeMillis() + Config.NOTIFICATION_TIME_OFFSET);
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -47,6 +45,7 @@ public class Notificator {
      * @param context
      */
     public static void stop(Context context) {
+        Log.i(Config.APP_NAME, "stopping service");
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
 

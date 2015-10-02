@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -39,7 +38,7 @@ public class ActSettings extends PreferenceActivity {
     }
 
     @Override
-    protected void onCreate(Bundle b){
+    protected void onCreate(Bundle b) {
         super.onCreate(b);
         Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
@@ -78,7 +77,7 @@ public class ActSettings extends PreferenceActivity {
     protected void onPause() {
         Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (change_notification_status) {
-            changeNotificationStatus();
+            changeNotificationStatus(preferences);
         }
         preferences.unregisterOnSharedPreferenceChangeListener(listener);
         listener = null;
@@ -89,19 +88,24 @@ public class ActSettings extends PreferenceActivity {
     /**
      * Change the notification status
      */
-    private void changeNotificationStatus() {
+    private void changeNotificationStatus(SharedPreferences preferences) {
         Log.i(Config.APP_NAME, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        boolean shouldStart = preferences.getBoolean(enable_notification_token, Config.NOTIFICATION_AUTO_START);
+        final boolean shouldStart = preferences.getBoolean(enable_notification_token, Config.NOTIFICATION_AUTO_START);
+        final Context context = getApplicationContext();
         if (shouldStart) {
-            Notificator.start(getApplicationContext());
+            Log.i(Config.APP_NAME, "should start service");
+            String notificationTimeToken = context.getString(R.string.notification_time_token);
+            long startTime = preferences.getLong(notificationTimeToken, System.currentTimeMillis() + Config.NOTIFICATION_TIME_OFFSET);
+            Notificator.start(context, startTime);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(enable_notification_token, true);
+            editor.apply();
         } else {
-            Notificator.stop(getApplicationContext());
+            Log.i(Config.APP_NAME, "should stop service");
+            Notificator.stop(context);
         }
 
     }
-
-
-
 
 
 }

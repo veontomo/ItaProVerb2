@@ -28,10 +28,7 @@ public abstract class Config {
      * in the resulting list is AD_FREQUENCY / (1 + AD_FREQUENCY).</p>
      */
     public static final float AD_FREQUENCY = 0.01f;
-    /**
-     * Whether this is a first run of the app (in current session)
-     */
-    private static boolean FIRST_EXEC = true;
+
     /**
      * Whether the app is in production or not.
      */
@@ -107,25 +104,9 @@ public abstract class Config {
     /**
      * Period in milliseconds during with a proverb-of-day notification should be fired off.
      */
-    public final static int FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 3 * 60 * 1000;
+    public final static int FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 10 * 60 * 1000;
 
 
-    /**
-     * Initializes the application.
-     * <p>Reads the proverbs from a file that is supposed to be in the assets folder.</p>
-     *
-     * @param context
-     */
-    public static void loadProverbs(final Context context){
-        if (Config.FIRST_EXEC) {
-            ProverbLoaderTask task = new ProverbLoaderTask(context, PROVERB_SRC, ENCODING);
-            task.execute();
-            Config.FIRST_EXEC = false;
-            Log.i(APP_NAME, "first execution");
-        } else {
-            Log.i(APP_NAME, "not a first execution");
 
-        }
-    }
 
 }

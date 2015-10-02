@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.App;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Notificator;
 import com.veontomo.itaproverb.fragments.NotificationTimeFragment;
@@ -35,8 +36,9 @@ public class ActDispatch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_dispatch);
-        Config.loadProverbs(getApplicationContext());
-        Notificator.start(getApplicationContext());
+
+        App.init(getApplicationContext());
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
