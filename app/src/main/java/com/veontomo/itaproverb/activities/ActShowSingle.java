@@ -49,10 +49,6 @@ public class ActShowSingle extends ActSingleBase {
         return new Proverb(mId, mText, mStatus);
     }
 
-    @Override
-    public void onBackPressed() {
-        setResult(RESULT_OK);
-        super.onBackPressed();
-    }
+
 
 }

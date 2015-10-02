@@ -201,6 +201,31 @@ public class ProverbAdapter extends BaseAdapter {
         Logger.i("loading items: " + proverbs.size());
     }
 
+    /**
+     * Returns the original number of the item that the adapter now contains at position n.
+     * (remember, that the adapter mixes original items with ads). If the adapter now at
+     * given position contains not a proverb, but an ad, then the default value is returned.
+     * @param n
+     * @param n0 default value
+     * @return
+     */
+    public int getItemIndex(int n, int n0) {
+        // returning default value
+        if (this.mapping == null){
+            return n0;
+        }
+        int i = this.mapping.length;
+        if (i == 0 || i <= n){
+            return n0;
+        }
+        // checking what the mapping contains at position n
+        i = this.mapping[n];
+        if (i == -1){
+            return n0;
+        }
+        return i;
+    }
+
     private static class ProverbHolder {
         public TextView text;
     }

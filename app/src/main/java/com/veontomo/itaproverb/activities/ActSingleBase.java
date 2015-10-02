@@ -314,4 +314,10 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK, new Intent());
+        super.onBackPressed();
+    }
+
 }

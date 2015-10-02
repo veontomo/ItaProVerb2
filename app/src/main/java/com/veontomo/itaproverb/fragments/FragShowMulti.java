@@ -61,7 +61,10 @@ public class FragShowMulti extends Fragment {
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                hostActivity.onItemClick(position);
+                int index = mAdapter.getItemIndex(position, -1);
+                if (index != -1) {
+                    hostActivity.onItemClick(index);
+                }
             }
         });
 
@@ -95,16 +98,6 @@ public class FragShowMulti extends Fragment {
         if (this.mListView != null) {
             this.mListView.setSelection(position);
         }
-    }
-
-
-    /**
-     * Removes all items from the list
-     */
-    public void clean() {
-        load(new ArrayList<Proverb>());
-        this.updateView();
-
     }
 
     public interface ShowMultiActions {
