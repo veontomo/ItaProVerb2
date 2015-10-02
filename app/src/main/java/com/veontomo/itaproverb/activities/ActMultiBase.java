@@ -2,6 +2,7 @@ package com.veontomo.itaproverb.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragAddProverb;
 import com.veontomo.itaproverb.fragments.FragSearch;
 import com.veontomo.itaproverb.fragments.FragShowMulti;
+import com.veontomo.itaproverb.fragments.NotificationTimeFragment;
 import com.veontomo.itaproverb.tasks.ProverbRetrievalTask;
 
 import java.util.ArrayList;
@@ -226,6 +228,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_favorites, menu);
+
         return true;
     }
 
@@ -250,6 +253,9 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(getApplicationContext(), ActSettings.class);
+            intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, NotificationTimeFragment.class.getName());
+            startActivity(intent);
             return true;
         }
 

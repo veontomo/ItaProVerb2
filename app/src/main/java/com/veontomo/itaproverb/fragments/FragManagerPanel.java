@@ -45,12 +45,12 @@ public class FragManagerPanel extends Fragment {
     /**
      * opacity of the icon corresponding to a favorite proverb
      */
-    private final float FAVORITE = 1f;
+    private final static float FAVORITE = 1f;
 
     /**
      * opacity of the icon corresponding to a non-favorite proverb
      */
-    private final float NON_FAVORITE = 0.2f;
+    private final static float NON_FAVORITE = 0.2f;
 
     public FragManagerPanel() {
     }

@@ -2,6 +2,7 @@ package com.veontomo.itaproverb.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import com.veontomo.itaproverb.api.ProverbProvider;
 import com.veontomo.itaproverb.api.Storage;
 import com.veontomo.itaproverb.fragments.FragManagerPanel;
 import com.veontomo.itaproverb.fragments.FragShowSingle;
+import com.veontomo.itaproverb.fragments.NotificationTimeFragment;
 
 /**
  * Displays a single proverb along with the manager panel.
@@ -227,8 +229,12 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(getApplicationContext(), ActSettings.class);
+            intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, NotificationTimeFragment.class.getName());
+            startActivity(intent);
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
