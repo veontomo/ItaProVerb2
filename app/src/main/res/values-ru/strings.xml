@@ -20,11 +20,11 @@
     <string name="title_act_all">Все пословицы</string>
     <string name="title_act_delete">Удалить пословицу</string>
     <string name="title_act_edit">Редактировать пословицу</string>
-    <string name="title_act_facebook_share">Поделиться </string>
-    <string name="title_act_favorites">Избранные пословицы</string>
+    <string name="title_act_facebook_share">Поделиться</string>
+    <string name="title_act_favorites">Избранные</string>
     <string name="title_act_notification">Уведомления</string>
     <string name="title_act_proverb_day">Пословица дня</string>
-    <string name="title_act_proverb_oracle">Пророчество</string>
+    <string name="title_act_proverb_oracle">Оракул</string>
     <string name="title_act_search">Найти</string>
     <string name="title_act_show_multi">Пословицы</string>
     <string name="title_act_show_single">Пословица</string>
