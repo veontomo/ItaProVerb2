@@ -57,6 +57,7 @@
                 android:id="@+id/act_edit_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_margin="@dimen/spaceLarger"
                 android:drawableTop="@mipmap/cancel"
                 android:text="@string/cancel" />
@@ -65,6 +66,7 @@
                 android:id="@+id/act_edit_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_margin="@dimen/spaceLarger"
                 android:drawableTop="@mipmap/ok"
                 android:text="@string/confirm" />

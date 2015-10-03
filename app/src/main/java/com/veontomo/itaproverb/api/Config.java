@@ -23,7 +23,7 @@ public abstract class Config {
      * N * {@link #AD_FREQUENCY} ads, so that the probability to see an ad
      * in the resulting list is AD_FREQUENCY / (1 + AD_FREQUENCY).</p>
      */
-    public static final float AD_FREQUENCY = 0.01f;
+    public static final float AD_FREQUENCY = 0.05f;
 
     /**
      * Whether the app is in production or not.
