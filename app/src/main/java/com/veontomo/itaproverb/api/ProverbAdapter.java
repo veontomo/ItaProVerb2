@@ -22,21 +22,25 @@ import java.util.Random;
 public class ProverbAdapter extends BaseAdapter {
 
     /**
+     * Constant to distinguish a proverb (from an ad)
+     */
+    private final static int TYPE_PROVERB = 0;
+    /**
+     * Constant to distinguish an ad (from a proverb)
+     */
+    private final static int TYPE_AD = 1;
+    /**
      * Current context
      */
     private final Context mContext;
-
     /**
      * Fraction with which the proverbs are mixed with ads.
      */
     private final float fraction;
-
     /**
      * List of proverbs
      */
     private List<Proverb> mItems;
-
-
     /**
      * Mapping from proverb-ad mix into proverb numbers.
      * Non-negative values correspond to proverb ids, -1 - to ads.
@@ -48,14 +52,13 @@ public class ProverbAdapter extends BaseAdapter {
      */
     private int[] mapping;
 
-    /**
-     * Constant to distinguish a proverb (from an ad)
-     */
-    private final static int TYPE_PROVERB = 0;
-    /**
-     * Constant to distinguish an ad (from a proverb)
-     */
-    private final static int TYPE_AD = 1;
+    public ProverbAdapter(Context context, List<Proverb> proverbs, float fraction) {
+        this.mContext = context;
+        this.mItems = proverbs;
+        this.fraction = fraction;
+        initMapping();
+
+    }
 
     @Override
     public int getCount() {
@@ -76,15 +79,6 @@ public class ProverbAdapter extends BaseAdapter {
             return this.mapping[position] == -1 ? TYPE_AD : TYPE_PROVERB;
         }
         return TYPE_PROVERB;
-    }
-
-
-    public ProverbAdapter(Context context, List<Proverb> proverbs, float fraction) {
-        this.mContext = context;
-        this.mItems = proverbs;
-        this.fraction = fraction;
-        initMapping();
-
     }
 
     private void initMapping() {
@@ -144,7 +138,11 @@ public class ProverbAdapter extends BaseAdapter {
 
     @Override
     public Proverb getItem(int position) {
-        return this.mItems.get(position);
+        int size = this.mItems == null ? 0 : this.mItems.size();
+        if (size > 0 && position < size) {
+            return this.mItems.get(position);
+        }
+        return null;
     }
 
     @Override
@@ -181,13 +179,31 @@ public class ProverbAdapter extends BaseAdapter {
                     row.setTag(proverbHolder);
                 }
                 ProverbHolder holder2 = (ProverbHolder) row.getTag();
-                holder2.text.setText(this.getItem(this.mapping[position]).text);
+                holder2.text.setText(getItemText(position));
                 break;
             default:
                 Logger.i("unknown item type");
 
         }
         return row;
+    }
+
+    /**
+     * Returns text of a proverb from given position, or null if there is no
+     * proverb at that position.
+     *
+     * @param position
+     * @return
+     */
+    private String getItemText(int position) {
+        int index = getItemIndex(position, -1);
+        if (index != -1) {
+            Proverb p = this.getItem(index);
+            if (p != null) {
+                return p.text;
+            }
+        }
+        return null;
     }
 
     /**
@@ -205,22 +221,23 @@ public class ProverbAdapter extends BaseAdapter {
      * Returns the original number of the item that the adapter now contains at position n.
      * (remember, that the adapter mixes original items with ads). If the adapter now at
      * given position contains not a proverb, but an ad, then the default value is returned.
+     *
      * @param n
      * @param n0 default value
      * @return
      */
     public int getItemIndex(int n, int n0) {
         // returning default value
-        if (this.mapping == null){
+        if (this.mapping == null) {
             return n0;
         }
         int i = this.mapping.length;
-        if (i == 0 || i <= n){
+        if (i == 0 || i <= n) {
             return n0;
         }
         // checking what the mapping contains at position n
         i = this.mapping[n];
-        if (i == -1){
+        if (i == -1) {
             return n0;
         }
         return i;
