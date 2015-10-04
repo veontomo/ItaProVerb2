@@ -298,8 +298,14 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         }
         if (requestCode == EDIT_REQUEST) {
             int id = mProverb.id;
-            String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
-            boolean status = data.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
+            Intent data2;
+            if (data == null){
+                data2 = new Intent();
+            } else {
+                data2 = data;
+            }
+            String text = data2.getStringExtra(ActEdit.TEXT_TOKEN);
+            boolean status = data2.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
             if (getCallingActivity() != null) {
                 Intent intent = new Intent();
                 intent.putExtra(ID_TOKEN, id);
