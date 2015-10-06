@@ -31,6 +31,7 @@ public class Notificator {
             am.cancel(pendingIntent);
             Logger.i("broadcast is cancelled");
         }
+        Logger.i("current time is " + System.currentTimeMillis());
         Logger.i("creating new broadcast that starts at " + startTime);
         pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         am.setRepeating(AlarmManager.RTC, startTime, Config.FREQUENCY, pendingIntent);

@@ -1,5 +1,6 @@
 package com.veontomo.itaproverb.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -112,7 +113,17 @@ public class ActProverbDay extends ActSingleBase {
             }
             return true;
         }
+    }
 
+    @Override
+    public void onBackPressed(){
+        if (getCallingActivity() != null){
+            super.onBackPressed();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), ActDispatch.class);
+            startActivity(intent);
+        }
+        finish();
     }
 
 }

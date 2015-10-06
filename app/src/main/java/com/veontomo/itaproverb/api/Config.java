@@ -100,7 +100,7 @@ public abstract class Config {
     /**
      * Period in milliseconds during with a proverb-of-day notification should be fired off.
      */
-    public final static int FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 10 * 60 * 1000;
+    public final static int FREQUENCY = PRODUCTION_MODE ? 24 * 60 * 60 * 1000 : 60 * 60 * 1000;
 
 
 }
