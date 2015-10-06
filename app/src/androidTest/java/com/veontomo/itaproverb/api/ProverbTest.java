@@ -3,7 +3,9 @@ package com.veontomo.itaproverb.api;
 import junit.framework.TestCase;
 
 /**
- * Created by Mario Rossi on 06/10/2015 at 11:53.
+ * Test of {@link Proverb} class.
+ * For test coverage, run the following command from the app root folder:
+ * gradlew.bat createDebugCoverageReport
  *
  */
 public class ProverbTest extends TestCase {
