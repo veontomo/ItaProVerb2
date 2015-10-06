@@ -207,7 +207,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
 
     @Override
     public void onDestroy() {
-        this.mAdView.destroy();
+        if (this.mAdView != null) {
+            this.mAdView.destroy();
+        }
         Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDestroy();
     }
@@ -299,7 +301,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         if (requestCode == EDIT_REQUEST) {
             int id = mProverb.id;
             Intent data2;
-            if (data == null){
+            if (data == null) {
                 data2 = new Intent();
             } else {
                 data2 = data;

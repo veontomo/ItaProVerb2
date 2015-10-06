@@ -120,4 +120,40 @@ public class ActDispatchTest extends ActivityInstrumentationTestCase2<ActDispatc
         nextActivity.finish();
     }
 
+
+    /**
+     * Tests that clicking the all-proverb placeholder redirects to ActOracle activity.
+     */
+    public void testAllProverb_Click() {
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(ActAllProverbs.class.getName(), null, false);
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mAllProverb.performClick();
+            }
+        });
+        ActAllProverbs nextActivity = (ActAllProverbs) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 1000);
+
+        assertNotNull("Click on all-proverb placeholder must start an activity", nextActivity);
+        nextActivity.finish();
+    }
+
+    /**
+     * Tests that clicking the proverb a day placeholder redirects to ActOracle activity.
+     */
+    public void testProverbDay_Click() {
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(ActProverbDay.class.getName(), null, false);
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mProverbDay.performClick();
+            }
+        });
+        ActProverbDay nextActivity = (ActProverbDay) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 1000);
+
+        assertNotNull("Click on proverb-a-day placeholder must start an activity", nextActivity);
+        nextActivity.finish();
+    }
+
+
 }
