@@ -36,10 +36,7 @@ public final class Proverb {
      * @param text proverb content
      */
     public Proverb(String text, boolean isFavorite){
-        this.id = NO_ID;
-        this.text = text;
-        this.date = null;
-        this.isFavorite = isFavorite;
+        this(NO_ID, text, isFavorite, null);
     }
 
     /**
@@ -48,10 +45,7 @@ public final class Proverb {
      * @param text proverb content
      */
     public Proverb(int id, String text, boolean isFavorite){
-        this.id = id;
-        this.text = text;
-        this.isFavorite = isFavorite;
-        this.date = null;
+        this(id, text, isFavorite, null);
     }
 
     /**

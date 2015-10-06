@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.App;
+import com.veontomo.itaproverb.api.Initializer;
 import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.fragments.NotificationTimeFragment;
 
@@ -26,18 +26,17 @@ public class ActDispatch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_dispatch);
 
-        App.init(getApplicationContext());
+        Initializer.init(getApplicationContext());
 
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
         if (targetUrl != null) {
-            Logger.i("App Link Target URL: " + targetUrl.toString());
+            Logger.i("Initializer Link Target URL: " + targetUrl.toString());
         } else {
-            Logger.i("App Link Target URL is null ");
+            Logger.i("Initializer Link Target URL is null ");
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -82,7 +81,7 @@ public class ActDispatch extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        // Logs 'app deactivate' App Event.
+        // Logs 'app deactivate' Initializer Event.
         AppEventsLogger.deactivateApp(this);
     }
 

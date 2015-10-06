@@ -85,7 +85,7 @@
             android:label="@string/title_act_facebook_share">
         </activity>
 
-        <receiver android:name='.AlarmReceiver'>
+        <receiver android:name='.api.AlarmReceiver'>
         </receiver>
     </application>
 

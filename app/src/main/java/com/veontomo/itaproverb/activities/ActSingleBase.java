@@ -307,6 +307,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
             String text = data2.getStringExtra(ActEdit.TEXT_TOKEN);
             boolean status = data2.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
             if (getCallingActivity() != null) {
+                Logger.i("calling activity is null");
                 Intent intent = new Intent();
                 intent.putExtra(ID_TOKEN, id);
                 intent.putExtra(TEXT_TOKEN, text);

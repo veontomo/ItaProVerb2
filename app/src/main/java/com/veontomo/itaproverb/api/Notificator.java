@@ -5,36 +5,33 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.veontomo.itaproverb.AlarmReceiver;
-
 /**
  * Initiate notification broadcast.
  */
 public class Notificator {
 
     /**
-     * Starts the notification service.
-     * <p/>
-     * If the service is running, kill it and restart with new parameters (from shared preferences).
+     * Starts the notification service if it is not already running.
      *
      * @param context
      * @param startTime time at which the first notification should start
      */
     public static void start(final Context context, long startTime) {
-        Logger.i("starting service");
+        Logger.i("I am asked to start the service");
 
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
-
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null) {
-            am.cancel(pendingIntent);
-            Logger.i("broadcast is cancelled");
-        }
+
         Logger.i("current time is " + System.currentTimeMillis());
-        Logger.i("creating new broadcast that starts at " + startTime);
-        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        am.setRepeating(AlarmManager.RTC, startTime, Config.FREQUENCY, pendingIntent);
+        if (pendingIntent == null) {
+            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            Logger.i("creating new broadcast that starts at " + startTime);
+            pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+            am.setRepeating(AlarmManager.RTC, startTime, Config.FREQUENCY, pendingIntent);
+            am.cancel(pendingIntent);
+        } else {
+            Logger.i("broadcast is present");
+        }
     }
 
     /**

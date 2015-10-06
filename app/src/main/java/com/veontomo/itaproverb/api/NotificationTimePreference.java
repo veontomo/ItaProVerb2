@@ -1,4 +1,4 @@
-package com.veontomo.itaproverb;
+package com.veontomo.itaproverb.api;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
 
+import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Notificator;
 
 import java.util.Calendar;
@@ -18,7 +19,7 @@ import java.util.Date;
  * Dialog to select a time of a day.
  * http://www.vogella.com/tutorials/AndroidFileBasedPersistence/article.html
  */
-public class TimePreference extends DialogPreference {
+public class NotificationTimePreference extends DialogPreference {
     private final Calendar calendar;
     /**
      * Unix time at which the notifications should be sent.
@@ -33,16 +34,16 @@ public class TimePreference extends DialogPreference {
 
     private TimePicker picker = null;
 
-    public TimePreference(Context context) {
+    public NotificationTimePreference(Context context) {
         this(context, null);
 
     }
 
-    public TimePreference(Context context, AttributeSet attrs) {
+    public NotificationTimePreference(Context context, AttributeSet attrs) {
         this(context, attrs, android.R.attr.dialogPreferenceStyle);
     }
 
-    public TimePreference(Context context, AttributeSet attrs, int defStyle) {
+    public NotificationTimePreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setPositiveButtonText(context.getString(R.string.confirm));
         setNegativeButtonText(context.getString(R.string.cancel));

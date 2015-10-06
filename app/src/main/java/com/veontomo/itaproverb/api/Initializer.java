@@ -10,7 +10,7 @@ import com.veontomo.itaproverb.tasks.ProverbLoaderTask;
 /**
  * Performs initialization of the app (loads proverbs, starts services etc).
  */
-public class App {
+public class Initializer {
     /**
      * a token that stores boolean value whether it is the very first application execution
      */

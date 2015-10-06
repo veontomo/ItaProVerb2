@@ -1,4 +1,4 @@
-package com.veontomo.itaproverb;
+package com.veontomo.itaproverb.api;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
+import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.activities.ActProverbDay;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbProvider;
