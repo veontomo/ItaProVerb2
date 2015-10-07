@@ -25,10 +25,6 @@ public class ActDispatchTest extends ActivityInstrumentationTestCase2<ActDispatc
     protected void setUp() throws Exception {
         super.setUp();
 
-        // Starts the activity under test using the default Intent with:
-        // action = {@link Intent#ACTION_MAIN}
-        // flags = {@link Intent#FLAG_ACTIVITY_NEW_TASK}
-        // All other fields are null or empty.
         mActivity = getActivity();
         mAllProverb = (TextView) mActivity.findViewById(R.id.dispatcher_all_proverb);
         mFavoriteProverb = (TextView) mActivity.findViewById(R.id.dispatcher_favorites);

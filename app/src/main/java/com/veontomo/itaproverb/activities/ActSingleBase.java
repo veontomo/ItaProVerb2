@@ -92,9 +92,9 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-//        if (!Config.PRODUCTION_MODE) {
-//            Config.strictModeInit();
-//        }
+        if (!Config.PRODUCTION_MODE) {
+            Config.strictModeInit();
+        }
 
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
@@ -200,17 +200,15 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
     @Override
     protected void onStop() {
         Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-//        this.mFragItem = null;
-//        this.provider = null;
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
+        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (this.mAdView != null) {
             this.mAdView.destroy();
         }
-        Logger.i(marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDestroy();
     }
 
@@ -256,6 +254,7 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
      */
     @Override
     public void onEdit() {
+        Logger.i("Click on edit");
         Intent intent = new Intent(getApplicationContext(), ActEdit.class);
         intent.putExtra(ActEdit.ID_TOKEN, mProverb.id);
         intent.putExtra(ActEdit.TEXT_TOKEN, mProverb.text);
