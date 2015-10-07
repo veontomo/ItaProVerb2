@@ -41,14 +41,20 @@ public class Initializer {
         // regarding the service status, then try to start the service.
         // 2. if the preferences state that the service is disabled, then try to stop it.
         String enableNotificationToken = context.getString(R.string.enable_notification_token);
-        boolean enableNotification = pref.getBoolean(enableNotificationToken, true);
-        if (enableNotification){
-            String notificationTimeToken = context.getString(R.string.notification_time_token);
-            long startTime = pref.getLong(notificationTimeToken, System.currentTimeMillis() + Config.NOTIFICATION_TIME_OFFSET);
-            Notificator.start(context, startTime);
-            editor.putBoolean(enableNotificationToken, true);
-            editor.putLong(notificationTimeToken, startTime);
-        } else {
+        boolean shouldBeRunning = pref.getBoolean(enableNotificationToken, true);
+        boolean isRunning = Notificator.isRunning(context);
+        Logger.i("service should be running? " + shouldBeRunning);
+        Logger.i("is running? " + isRunning);
+        if (shouldBeRunning) {
+            if (!isRunning) {
+                String notificationTimeToken = context.getString(R.string.notification_time_token);
+                long currentTime = System.currentTimeMillis();
+                long startTime = pref.getLong(notificationTimeToken, currentTime + Config.NOTIFICATION_TIME_OFFSET);
+                Notificator.start(context, startTime, Config.FREQUENCY);
+                editor.putBoolean(enableNotificationToken, true);
+                editor.putLong(notificationTimeToken, startTime);
+            }
+        } else if (isRunning) {
             Notificator.stop(context);
         }
         editor.apply();

@@ -23,6 +23,7 @@ public class ActSettings extends PreferenceActivity {
     private boolean change_notification_status = false;
 
     private String enable_notification_token;
+
     SharedPreferences preferences;
 
     SharedPreferences.OnSharedPreferenceChangeListener listener;
@@ -95,8 +96,9 @@ public class ActSettings extends PreferenceActivity {
         if (shouldStart) {
             Logger.i("should start service");
             String notificationTimeToken = context.getString(R.string.notification_time_token);
-            long startTime = preferences.getLong(notificationTimeToken, System.currentTimeMillis() + Config.NOTIFICATION_TIME_OFFSET);
-            Notificator.start(context, startTime);
+            long currentTime = System.currentTimeMillis();
+            long startTime = preferences.getLong(notificationTimeToken, currentTime + Config.NOTIFICATION_TIME_OFFSET);
+            Notificator.start(context, startTime, Config.FREQUENCY);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(enable_notification_token, true);
             editor.apply();

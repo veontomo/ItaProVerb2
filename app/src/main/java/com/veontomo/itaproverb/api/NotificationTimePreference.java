@@ -84,7 +84,7 @@ public class NotificationTimePreference extends DialogPreference {
             if (callChangeListener(time)) {
                 persistLong(time);
                 notifyChanged();
-                Notificator.start(getContext(), time);
+                Notificator.start(getContext(), time, Config.FREQUENCY);
             }
         }
     }
