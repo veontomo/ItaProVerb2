@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.veontomo.itaproverb.R;
+import com.veontomo.itaproverb.api.Logger;
 
 /**
  * A fragment that collects a user intentions to do the following:
@@ -81,11 +82,6 @@ public class FragManagerPanel extends Fragment {
     @Override
     public void onStop() {
         detachListeners();
-        this.hostActivity = null;
-        this.mStatus = null;
-        this.mDelete = null;
-        this.mEdit = null;
-        this.mShare = null;
         super.onStop();
     }
 
@@ -144,6 +140,7 @@ public class FragManagerPanel extends Fragment {
      * @param status
      */
     public void setFavorite(boolean status){
+        Logger.i("setting status: " + String.valueOf(status));
         this.mStatus.setAlpha(status ? FAVORITE : NON_FAVORITE);
     }
 

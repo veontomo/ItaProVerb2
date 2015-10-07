@@ -299,26 +299,12 @@ public abstract class ActSingleBase extends AppCompatActivity implements FragMan
         }
         if (requestCode == EDIT_REQUEST) {
             int id = mProverb.id;
-            Intent data2;
-            if (data == null) {
-                data2 = new Intent();
-            } else {
-                data2 = data;
-            }
-            String text = data2.getStringExtra(ActEdit.TEXT_TOKEN);
-            boolean status = data2.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
-            if (getCallingActivity() != null) {
-                Logger.i("calling activity is null");
-                Intent intent = new Intent();
-                intent.putExtra(ID_TOKEN, id);
-                intent.putExtra(TEXT_TOKEN, text);
-                intent.putExtra(STATUS_TOKEN, status);
-                setResult(resultCode, intent);
-                finish();
-            } else {
-                Logger.i("updating: " + id + ", " + text + ", " + status);
+            if (resultCode == RESULT_OK){
+                String text = data.getStringExtra(ActEdit.TEXT_TOKEN);
+                boolean status = data.getBooleanExtra(ActEdit.STATUS_TOKEN, false);
                 this.mProverb = new Proverb(id, text, status);
             }
+            loadItem(this.mProverb);
         }
     }
 

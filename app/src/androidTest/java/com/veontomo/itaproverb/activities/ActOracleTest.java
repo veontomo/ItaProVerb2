@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.Logger;
 
 /**
  * Test suit for random proverb

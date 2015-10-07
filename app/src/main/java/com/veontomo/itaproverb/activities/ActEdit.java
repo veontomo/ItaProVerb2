@@ -216,7 +216,7 @@ public class ActEdit extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_CANCELED, new Intent());
+        setResult(RESULT_CANCELED);
         super.onBackPressed();
     }
 }
