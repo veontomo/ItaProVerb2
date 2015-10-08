@@ -86,22 +86,11 @@ public class ProverbAdapter extends BaseAdapter {
             int size = this.mItems.size();
             if (size > 0) {
                 int extra = (int) (size * fraction);
-                this.mapping = createMapping(size, extra);
-                // show());
+                this.mapping = createDeterMapping(size, extra);
             }
         }
     }
 
-    private String show() {
-        if (this.mapping == null) {
-            return "mapping is NULL";
-        }
-        String str = "mapping: ";
-        for (int i = 0; i < this.mapping.length; i++) {
-            str += String.valueOf(this.mapping[i]) + ", ";
-        }
-        return str;
-    }
 
     /**
      * Creates an array from consecutive n integer numbers from 0 to n-1 in which number -1 gets
@@ -111,7 +100,7 @@ public class ProverbAdapter extends BaseAdapter {
      * @param m
      * @return array of size n+m
      */
-    private int[] createMapping(int n, int m) {
+    private int[] createRandomMapping(int n, int m) {
         // list of positions of the insertions of -1's
         List<Integer> seeds = new ArrayList<>();
         Random randomGenerator = new Random();
@@ -132,6 +121,49 @@ public class ProverbAdapter extends BaseAdapter {
                 list[pos] = -1;
             }
             pos++;
+        }
+        return list;
+    }
+
+    /**
+     * Creates an array from consecutive n integer numbers from 0 to n-1 in which number -1 gets
+     * inserted m-many times homogeneously.
+     * <p/>
+     * Example: if n = 10, m = 3 then the resulting array must have length m + n = 13.
+     * Then starting from the position (13 mod 3) + [13/3] = 1 + 4 = 5 (i.e. element with index 4),
+     * every fourth element of the resulting array becomes -1:
+     * <pre>
+     * 0 1 2 3 -1 4 5 6 -1 7  8  9 -1<br/>
+     * 0 1 2 3  4 5 6 7  8 9 10 11 12</pre>
+     *
+     * @param n must be positive
+     * @param m
+     * @return array of size n+m
+     */
+    public int[] createDeterMapping(int n, int m) {
+        int blockSize;
+        int injectionPos;
+        if (m != 0) {
+            blockSize = 1 + (n / m);
+            injectionPos = (n % m) + blockSize - 1;
+        } else {
+            // set fictitious value that lay out of range that array index may reach
+            blockSize = n;
+            injectionPos = n + 1;
+        }
+
+        int[] list = new int[n + m];
+        int counter = 0;
+        for (int i = 0; i < n + m; i++) {
+            Logger.i("i = " + i);
+            if (i == injectionPos) {
+                list[i] = -1;
+                injectionPos += blockSize;
+            } else {
+                Logger.i("" + i + " -> " + counter);
+                list[i] = counter;
+                counter++;
+            }
         }
         return list;
     }
