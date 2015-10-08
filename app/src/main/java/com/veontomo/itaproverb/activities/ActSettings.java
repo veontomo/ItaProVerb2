@@ -10,6 +10,7 @@ import com.veontomo.itaproverb.R;
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Logger;
 import com.veontomo.itaproverb.api.Notificator;
+import com.veontomo.itaproverb.fragments.NotificationTimeFragment;
 
 import java.util.List;
 
@@ -71,6 +72,11 @@ public class ActSettings extends PreferenceActivity {
             }
         };
         preferences.registerOnSharedPreferenceChangeListener(listener);
+    }
+
+    @Override
+    protected boolean isValidFragment (String fragmentName) {
+        return NotificationTimeFragment.class.getName().equals(fragmentName);
     }
 
 
