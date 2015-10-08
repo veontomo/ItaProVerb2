@@ -11,27 +11,42 @@ import android.content.Intent;
 public class Notificator {
 
     /**
-     * Starts the notification service if it is not already running.
+     * Whether the alarm manager has already set the broadcast.
+     * Returns true if the broadcast is set, false otherwise.
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isRunning(final Context context) {
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+        return pendingIntent != null;
+    }
+
+    /**
+     * Starts the notification service at given time.
+     *
+     * If the time of the first notification happens to be in the past, then the startTime
+     * is shifted into a future by adding minimal multiple of frequency.
+     *
      *
      * @param context
      * @param startTime time at which the first notification should start
+     * @param frequency how often the notification should trigger
      */
-    public static void start(final Context context, long startTime) {
-        Logger.i("I am asked to start the service");
-
+    public static void start(final Context context, long startTime, long frequency) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
-
-        Logger.i("current time is " + System.currentTimeMillis());
-        if (pendingIntent == null) {
-            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            Logger.i("creating new broadcast that starts at " + startTime);
-            pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-            am.setRepeating(AlarmManager.RTC, startTime, Config.FREQUENCY, pendingIntent);
-            am.cancel(pendingIntent);
-        } else {
-            Logger.i("broadcast is present");
+        long currentTime = System.currentTimeMillis();
+        if (startTime < currentTime) {
+            int offset = ((int) ((currentTime - startTime)/frequency)) + 1 ;
+            Logger.i("offset = " + offset);
+            startTime += offset * frequency;
         }
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        Logger.i("starting the service at " + startTime);
+        Logger.i("current time " + currentTime);
+        am.setRepeating(AlarmManager.RTC, startTime, frequency, pendingIntent);
     }
 
     /**
@@ -43,13 +58,8 @@ public class Notificator {
         Logger.i("stopping service");
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
-
-        PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null) {
-            am.cancel(pendingIntent);
-            Logger.i("broadcast is cancelled");
-        }
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+        am.cancel(pendingIntent);
 
     }
 }
