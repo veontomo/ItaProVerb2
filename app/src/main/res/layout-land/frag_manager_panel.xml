@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/add_to_favorites"
+        android:paddingTop="@dimen/buttonPadding"
         android:src="@mipmap/star"/>
 
     <ImageView
@@ -21,6 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/title_act_edit"
+        android:paddingBottom="@dimen/buttonPadding"
+        android:paddingTop="@dimen/buttonPadding"
         android:src="@mipmap/pencil"/>
 
     <ImageView
@@ -28,13 +31,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/title_act_facebook_share"
-        android:src="@mipmap/share" />
+        android:paddingTop="@dimen/buttonPadding"
+        android:src="@mipmap/share"/>
 
     <ImageView
         android:id="@+id/frag_manager_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/title_act_delete"
+        android:paddingTop="@dimen/buttonPadding"
         android:src="@mipmap/cancel"/>
 
 </LinearLayout>

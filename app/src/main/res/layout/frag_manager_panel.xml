@@ -11,17 +11,21 @@
         android:id="@+id/frag_manager_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/textMedium"
-        android:layout_marginStart="@dimen/textMedium"
         android:contentDescription="@string/add_to_favorites"
+        android:paddingRight="@dimen/buttonPadding"
+        android:paddingEnd="@dimen/buttonPadding"
+        android:paddingLeft="@dimen/buttonPadding"
+        android:paddingStart="@dimen/buttonPadding"
         android:src="@mipmap/star"/>
 
     <ImageView
         android:id="@+id/frag_manager_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/textMedium"
-        android:layout_marginStart="@dimen/textMedium"
+        android:paddingRight="@dimen/buttonPadding"
+        android:paddingEnd="@dimen/buttonPadding"
+        android:paddingLeft="@dimen/buttonPadding"
+        android:paddingStart="@dimen/buttonPadding"
         android:contentDescription="@string/title_act_edit"
         android:src="@mipmap/pencil"/>
 
@@ -29,8 +33,10 @@
         android:id="@+id/frag_manager_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/textMedium"
-        android:layout_marginStart="@dimen/textMedium"
+        android:paddingRight="@dimen/buttonPadding"
+        android:paddingEnd="@dimen/buttonPadding"
+        android:paddingLeft="@dimen/buttonPadding"
+        android:paddingStart="@dimen/buttonPadding"
         android:contentDescription="@string/title_act_facebook_share"
         android:src="@mipmap/share"/>
 
@@ -38,8 +44,10 @@
         android:id="@+id/frag_manager_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/textMedium"
-        android:layout_marginStart="@dimen/textMedium"
+        android:paddingRight="@dimen/buttonPadding"
+        android:paddingEnd="@dimen/buttonPadding"
+        android:paddingLeft="@dimen/buttonPadding"
+        android:paddingStart="@dimen/buttonPadding"
         android:contentDescription="@string/title_act_delete"
         android:src="@mipmap/cancel"/>
 

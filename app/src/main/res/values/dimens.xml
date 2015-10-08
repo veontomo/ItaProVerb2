@@ -16,5 +16,6 @@
     <dimen name="spaceLarge">20sp</dimen>
     <dimen name="spaceLarger">25sp</dimen>
     <dimen name="spaceHuge">40sp</dimen>
+    <dimen name="buttonPadding">10dp</dimen>
 
 </resources>
