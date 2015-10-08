@@ -24,13 +24,11 @@
     </style>
 
     <style name="ProverbRow" parent="AppTheme">
-        <item name="android:padding">@dimen/spaceSmaller</item>
+        <item name="android:padding">@dimen/spaceMedium</item>
         <item name="android:textSize">@dimen/textMedium</item>
         <item name="android:textColor">@color/secondary1_light</item>
         <item name="android:textStyle">italic</item>
         <item name="android:gravity">start</item>
-
-
     </style>
 
     <style name="ProverbsList">
