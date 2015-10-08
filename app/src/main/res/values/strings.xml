@@ -12,8 +12,7 @@
     <string name="title_act_proverb_oracle">Fortune teller</string>
     <string name="title_act_favorites">Favorite proverbs</string>
     <string name="title_act_add_proverb">Add proverb</string>
-    <string name="proverb_loading_success">Success</string>
-    <string name="proverb_loading_failure">Failure</string>
+    <string name="proverb_loading_success">Proverb loaded successfully</string>
     <string name="title_act_all">All proverbs</string>
     <string name="title_act_delete">Delete proverb</string>
     <string name="title_act_edit">Edit proverb</string>
@@ -37,6 +36,7 @@
     <string name="notification_time_token" translatable="false">notification_time</string>
 
     <string name="facebook_app_id" translatable="false">604747132997976</string>
+    <string name="proverb_loading_failure">Failed to load proverb</string>
 
 
 </resources>
