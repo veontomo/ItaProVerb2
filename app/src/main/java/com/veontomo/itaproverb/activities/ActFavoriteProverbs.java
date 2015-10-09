@@ -30,4 +30,6 @@ public class ActFavoriteProverbs extends ActMultiBase {
         ViewGroup insertPoint = (ViewGroup) findViewById(R.id.act_favorites_root);
         insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
+
+
 }

@@ -17,13 +17,11 @@ public abstract class Config {
      * Whether the notification should start if the app is launched for the first time
      */
     public static final boolean NOTIFICATION_AUTO_START = true;
+
     /**
-     * Weight with which ads are mixed with proverbs.
-     * <p>If a set contains N proverb, then there will be inserted
-     * N * {@link #AD_FREQUENCY} ads, so that the probability to see an ad
-     * in the resulting list is AD_FREQUENCY / (1 + AD_FREQUENCY).</p>
+     * Zero-based position of inside a list of proverb at which an ad should be displayed
      */
-    public static final float AD_FREQUENCY = 0.05f;
+    public static final int AD_POSITION = 25;
 
     /**
      * Whether the app is in production or not.

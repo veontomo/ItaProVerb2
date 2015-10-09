@@ -63,6 +63,11 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      * is saved in a bundle
      */
     private static final java.lang.String FIRST_VISIBLE_ITEM_TOKEN = "first_visible";
+    /**
+     * name of the token under which the position where an ad is displayed
+     * is saved in a bundle
+     */
+    private static final String AD_POSITION_TOKEN = "adPosition";
 
     /**
      * a fragment that takes care of visualization of multiple proverbs
@@ -108,7 +113,11 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
      */
     private int mFirstVisible = -1;
 
+
+
     public abstract List<Proverb> getItems(Storage storage);
+
+    public int mAdPos = -1;
 
 
     @Override
@@ -126,6 +135,8 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         this.mShowMulti = (FragShowMulti) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_show_multi);
         this.mSearchFrag = (FragSearch) getSupportFragmentManager().findFragmentById(R.id.act_favorites_frag_search);
         this.searcher = new ProverbSearcher(this);
+        this.mShowMulti.setAdPos(getAdPosition());
+        Logger.i("setting ad position: " + getAdPosition());
     }
 
     public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
@@ -134,6 +145,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         mTexts = savedInstanceState.getStringArray(PROVERB_TEXT_MULTI_TOKEN);
         mStatuses = savedInstanceState.getBooleanArray(PROVERB_STATUS_MULTI_TOKEN);
         mFirstVisible = savedInstanceState.getInt(FIRST_VISIBLE_ITEM_TOKEN, -1);
+        mAdPos = savedInstanceState.getInt(AD_POSITION_TOKEN, -1);
         if (mIds != null && mTexts != null && mStatuses != null) {
             mItems = createMultiProverbs();
         }
@@ -174,6 +186,15 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         }
         this.mShowMulti.load(filtered);
         this.mShowMulti.updateView();
+    }
+
+    /**
+     * Returns position at which an ad should be displayed.
+     * By default, -1 is returned that corresponds to the fact that no ad is to be displayed.
+     * @return
+     */
+    public int getAdPosition(){
+        return -1;
     }
 
 
@@ -237,6 +258,7 @@ public abstract class ActMultiBase extends AppCompatActivity implements FragAddP
         savedInstanceState.putIntArray(PROVERB_ID_MULTI_TOKEN, mIds);
         savedInstanceState.putStringArray(PROVERB_TEXT_MULTI_TOKEN, mTexts);
         savedInstanceState.putBooleanArray(PROVERB_STATUS_MULTI_TOKEN, mStatuses);
+        savedInstanceState.putInt(AD_POSITION_TOKEN, mAdPos);
         if (mFirstVisible != -1) {
             savedInstanceState.putInt(FIRST_VISIBLE_ITEM_TOKEN, mFirstVisible);
         }

@@ -1,8 +1,5 @@
 package com.veontomo.itaproverb.activities;
 
-import android.content.Intent;
-import android.util.Log;
-
 import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.Storage;
@@ -14,6 +11,13 @@ import java.util.List;
  * @see ActMultiBase
  */
 public class ActAllProverbs extends ActMultiBase  {
+
+    @Override
+    public int getAdPosition(){
+        return Config.AD_POSITION;
+    }
+
+
     @Override
     public List<Proverb> getItems(Storage storage) {
         return storage.getAllProverbs();

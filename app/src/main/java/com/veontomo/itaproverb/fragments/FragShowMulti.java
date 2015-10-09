@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.veontomo.itaproverb.R;
-import com.veontomo.itaproverb.api.Config;
 import com.veontomo.itaproverb.api.Proverb;
 import com.veontomo.itaproverb.api.ProverbAdapter;
 
@@ -41,6 +40,11 @@ public class FragShowMulti extends Fragment {
      */
     private ShowMultiActions hostActivity;
 
+    /**
+     * Position of ad inside the list of proverbs
+     */
+    private int adPos = -1;
+
     public FragShowMulti() {
     }
 
@@ -54,8 +58,8 @@ public class FragShowMulti extends Fragment {
     public void onStart() {
         super.onStart();
         this.hostActivity = (ShowMultiActions) getActivity();
-
-        this.mAdapter = new ProverbAdapter(getContext(), new ArrayList<Proverb>(), Config.AD_FREQUENCY);
+        this.mAdapter = new ProverbAdapter(getContext(), new ArrayList<Proverb>());
+        this.mAdapter.setAdPosition(this.adPos);
         this.mListView = (ListView) getActivity().findViewById(R.id.frag_show_multi_list);
         this.mListView.setAdapter(this.mAdapter);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -98,6 +102,14 @@ public class FragShowMulti extends Fragment {
         if (this.mListView != null) {
             this.mListView.setSelection(position);
         }
+    }
+
+    public void setAdPos(int adPos) {
+        this.adPos = adPos;
+        if (this.mAdapter != null) {
+            this.mAdapter.setAdPosition(adPos);
+        }
+
     }
 
     public interface ShowMultiActions {
