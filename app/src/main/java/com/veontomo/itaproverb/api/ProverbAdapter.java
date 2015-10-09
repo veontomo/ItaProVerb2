@@ -41,6 +41,11 @@ public class ProverbAdapter extends BaseAdapter {
      * List of proverbs
      */
     private List<Proverb> mItems;
+
+    /**
+     * The number of elements in {@link #mItems}.
+     */
+    private int mSize = 0;
     /**
      * Mapping from proverb-ad mix into proverb numbers.
      * Non-negative values correspond to proverb ids, -1 - to ads.
@@ -55,9 +60,11 @@ public class ProverbAdapter extends BaseAdapter {
     public ProverbAdapter(Context context, List<Proverb> proverbs, float fraction) {
         this.mContext = context;
         this.mItems = proverbs;
+        if (this.mItems != null) {
+            this.mSize = this.mItems.size();
+        }
         this.fraction = fraction;
         initMapping();
-
     }
 
     @Override
@@ -155,12 +162,10 @@ public class ProverbAdapter extends BaseAdapter {
         int[] list = new int[n + m];
         int counter = 0;
         for (int i = 0; i < n + m; i++) {
-            Logger.i("i = " + i);
             if (i == injectionPos) {
                 list[i] = -1;
                 injectionPos += blockSize;
             } else {
-                Logger.i("" + i + " -> " + counter);
                 list[i] = counter;
                 counter++;
             }
@@ -200,7 +205,7 @@ public class ProverbAdapter extends BaseAdapter {
                 AdHolder holder = (AdHolder) row.getTag();
                 AdRequest.Builder builder = new AdRequest.Builder();
                 AdRequest request = builder.build();
-                holder.text.loadAd(request);
+                // holder.text.loadAd(request);
                 break;
             case TYPE_PROVERB:
                 if (row == null) {
@@ -239,14 +244,19 @@ public class ProverbAdapter extends BaseAdapter {
     }
 
     /**
-     * Loads proverbs.
+     * Loads proverbs and re-initialize the mapping if necessary.
      *
      * @param proverbs
      */
     public void load(List<Proverb> proverbs) {
         this.mItems = proverbs;
-        initMapping();
-        Logger.i("loading items: " + proverbs.size());
+        int size = proverbs != null ? proverbs.size() : 0;
+        // re-initialize the mapping only if the proverb list size changes
+        // otherwise, re-use the previously calculated mapping
+        if (size != this.mSize) {
+            this.mSize = size;
+            initMapping();
+        }
     }
 
     /**
