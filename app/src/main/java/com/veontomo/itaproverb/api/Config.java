@@ -8,6 +8,11 @@ import android.os.StrictMode;
  */
 public abstract class Config {
     /**
+     * Whether the app is in production or not.
+     */
+    public static final boolean PRODUCTION_MODE = false;
+
+    /**
      * Time in milliseconds that should pass after the app start for the proverb-a-day notification
      * to start in case its has not been scheduled so far.
      */
@@ -23,10 +28,6 @@ public abstract class Config {
      */
     public static final int AD_POSITION = 25;
 
-    /**
-     * Whether the app is in production or not.
-     */
-    public static final boolean PRODUCTION_MODE = false;
 
     /**
      * a tag to mark the app
