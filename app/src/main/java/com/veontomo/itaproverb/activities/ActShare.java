@@ -43,8 +43,8 @@ public class ActShare extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_share);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.act_share);
         Bundle b = savedInstanceState;
         if (b == null) {
             Intent intent = getIntent();

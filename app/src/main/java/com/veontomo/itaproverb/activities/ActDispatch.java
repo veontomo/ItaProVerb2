@@ -24,12 +24,12 @@ public class ActDispatch extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.act_dispatch);
 
         Initializer.init(getApplicationContext());
 
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
         Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
         if (targetUrl != null) {
             Logger.i("Initializer Link Target URL: " + targetUrl.toString());
